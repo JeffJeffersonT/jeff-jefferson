@@ -1,7 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import { getPostUrl } from "@/utils/getPostPaths";
-import { toTransitionName } from "@/utils/toTransitionName";
 import Datetime from "./Datetime.astro";
 
 type Props = {
@@ -14,7 +13,7 @@ const { title, description, ...props } = data;
 ---
 
 <li class="post-entry">
-  <Heading transition:name={toTransitionName(id)}>
+  <Heading>
     <a href={getPostUrl(id, filePath, Astro.currentLocale)}>{title}</a>
   </Heading>
   <span class="new-badge" data-pub={new Date(data.pubDatetime).toISOString()}>

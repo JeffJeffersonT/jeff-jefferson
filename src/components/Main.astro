@@ -16,23 +16,16 @@ const backUrl = config.features.showBackButton
   : getRelativeLocaleUrl(locale, "");
 ---
 
-<main
-  data-backUrl={backUrl}
-  id="main-content"
-  class:list={[className]}
->
+<main data-backUrl={backUrl} id="main-content" class:list={[className]}>
   <h1>{pageTitle}</h1>
   {pageDesc && <p class="page-desc">{pageDesc}</p>}
   <slot />
 </main>
 
 <script>
-  document.addEventListener("astro:page-load", () => {
-    const mainContent: HTMLElement | null =
-      document.querySelector("#main-content");
-    const backUrl = mainContent?.dataset?.backurl;
-    if (backUrl) {
-      sessionStorage.setItem("backUrl", backUrl);
-    }
-  });
+  const backUrl = document.querySelector<HTMLElement>("#main-content")?.dataset
+    ?.backurl;
+  if (backUrl) {
+    sessionStorage.setItem("backUrl", backUrl);
+  }
 </script>

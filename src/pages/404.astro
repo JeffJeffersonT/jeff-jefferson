@@ -9,10 +9,9 @@ const t = useTranslations(locale);
 ---
 
 <Layout title={`${t.notFound.title} | ${config.site.title}`}>
-  <main id="main-content" style="text-align: center;">
+  <main id="main-content" class="center">
     <p class="big-404">404</p>
-    <p aria-hidden="true">&#175;\_(&#12484;)_/&#175;</p>
-    <p>oops! that page wandered off somewhere.</p>
+    <p>oops! that page wandered off somewhere. (error 404: file not found)</p>
     <p>
       <a href={getRelativeLocaleUrl(locale, "")}>take me back home &raquo;</a>
     </p>

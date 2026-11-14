@@ -8,6 +8,14 @@ type Props = HTMLAttributes<"footer">;
 
 const { class: className, ...attrs } = Astro.props;
 const currentYear = new Date().getFullYear();
+const lastUpdated = new Intl.DateTimeFormat("en-GB", {
+  day: "numeric",
+  month: "short",
+  year: "numeric",
+  timeZone: "UTC",
+})
+  .format(new Date())
+  .toLowerCase();
 
 const resolveSrc = (src: string) =>
   /^(https?:)?\/\//.test(src) ? src : getAssetPath(src);
@@ -28,7 +36,7 @@ const buttonItems = renderable(buttons);
 <footer class:list={["site-footer", className]} {...attrs}>
   {
     (
-      <section class="footer-section" aria-label="snippets from other corners of the internet">
+      <section aria-label="snippets from other corners of the internet">
         <h2>snippets from other corners of the internet</h2>
         {!hasBanners && !hasButtons && <p class="soon">(more coming soon)</p>}
         {hasBanners && (
@@ -54,7 +62,7 @@ const buttonItems = renderable(buttons);
           </div>
         )}
         {hasButtons && (
-          <div class="banner-row buttons" style="margin-top: 8px;">
+          <div class="banner-row buttons">
             {buttonItems.map(b => {
               const img = (
                 <img
@@ -78,12 +86,14 @@ const buttonItems = renderable(buttons);
       </section>
     )
   }
-  <p class="best-viewed">
-    &#9733; best viewed in any browser, at any size, on any day &#9733;
+  <hr />
+  <p>
+    best viewed with any browser at 800x600 &middot; no frames, no flash,
+    just html
   </p>
   <p>
-    &copy; {currentYear}{" "}
-    {config.site.author} &middot; made by hand with a little love &middot;
-    thanks for visiting, come back soon!
+    last updated: {lastUpdated} &middot; &copy; {currentYear}{" "}
+    {config.site.author} &middot; made by hand &middot;{" "}
+    <a href="#top">back to top</a>
   </p>
 </footer>

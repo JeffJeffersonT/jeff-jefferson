@@ -1,137 +1,16 @@
 ---
 import { getRelativeLocaleUrl } from "astro:i18n";
-import { stripBase, stripLocale, getAssetPath } from "@/utils/withBase";
-import { useTranslations } from "@/i18n";
 import config from "@/config";
 
-const { site, features } = config;
-
-const locale = Astro.currentLocale ?? config.site.lang;
-const t = useTranslations(locale);
-
-const relativePath = stripBase(Astro.url.pathname);
-const currentPath = stripLocale(
-  relativePath.endsWith("/") && relativePath !== "/"
-    ? relativePath.slice(0, -1)
-    : relativePath,
-  locale
-);
-
-const isActive = (path: string) => {
-  const current = currentPath.split("/").filter(p => p.trim());
-  const target = path.split("/").filter(p => p.trim());
-  if (target.length === 0) return current.length === 0;
-  return current[0] === target[0];
-};
-
-const links = [
-  { href: getRelativeLocaleUrl(locale, ""), label: "home", path: "/" },
-  { href: getRelativeLocaleUrl(locale, "posts"), label: "posts", path: "/posts" },
-  { href: getRelativeLocaleUrl(locale, "tags"), label: "tags", path: "/tags" },
-  ...(features.showArchives
-    ? [
-        {
-          href: getRelativeLocaleUrl(locale, "archives"),
-          label: "archives",
-          path: "/archives",
-        },
-      ]
-    : []),
-  { href: getRelativeLocaleUrl(locale, "about"), label: "about", path: "/about" },
-  ...(features.search !== false
-    ? [
-        {
-          href: getRelativeLocaleUrl(locale, "search"),
-          label: "search",
-          path: "/search",
-        },
-      ]
-    : []),
-  { href: getAssetPath("rss.xml"), label: "rss", path: "/rss.xml" },
-];
+const { site } = config;
+const locale = Astro.currentLocale ?? site.lang;
+const marquee =
+  "<marquee behavior=\"alternate\" scrollamount=\"2\">*** come on in, pull up a chair *** grab a snack *** stay as long as you like *** hope you have a nice day *** thanks for stopping by ***</marquee>";
 ---
 
-<a
-  id="skip-to-content"
-  href="#main-content"
-  class="bg-background text-accent absolute inset-s-16 -top-full z-50 px-3 py-2 transition-all focus:top-4"
->
-  {t.a11y.skipToContent}
-</a>
-
-<header>
-  <div class="masthead">
-    <div class="welcome">
-      <span class="sparkle" aria-hidden="true">&#10022;</span>
-      welcome to jeff's corner of the internet
-      <span class="sparkle" aria-hidden="true">&#10022;</span>
-    </div>
-    <a href={getRelativeLocaleUrl(locale, "")} class="site-title">
-      {site.title}
-    </a>
-    <p class="tagline">{site.description}</p>
-  </div>
-  <div class="marquee" aria-hidden="true">
-    <span>
-      &#9733; come on in, pull up a chair &#9733; grab a snack &#9733; stay as
-      long as you like &#9733; hope you have a nice day &#9733; thanks for
-      stopping by &#9733;
-    </span>
-  </div>
-  <nav class="navbar" aria-label="main">
-    {
-      links.map(link => (
-        <a
-          href={link.href}
-          class:list={{ "active-nav": isActive(link.path) }}
-          aria-current={isActive(link.path) ? "page" : undefined}
-        >
-          {link.label}
-        </a>
-      ))
-    }
-    {
-      features.lightAndDarkMode && (
-        <button
-          id="theme-btn"
-          type="button"
-          title="switch between day and night mode"
-          aria-label="auto"
-          aria-live="polite"
-        >
-          <span class="day-label">night mode</span>
-          <span class="night-label">day mode</span>
-        </button>
-      )
-    }
-  </nav>
+<header class="site-header">
+  <a href={getRelativeLocaleUrl(locale, "")} class="site-title">{site.title}</a>
+  <p class="welcome">welcome to jeff's corner of the internet</p>
+  <p class="tagline">{site.description}</p>
+  <div class="marq" aria-hidden="true" set:html={marquee} />
 </header>
-
-<script>
-  function handleSkipToContent() {
-    const skipLink = document.getElementById("skip-to-content");
-    if (!skipLink) return;
-    skipLink.addEventListener("click", e => {
-      if (
-        e.defaultPrevented ||
-        e.metaKey ||
-        e.ctrlKey ||
-        e.shiftKey ||
-        e.button !== 0
-      )
-        return;
-      e.preventDefault();
-      const target = document.getElementById("main-content");
-      if (target) {
-        target.setAttribute("tabindex", "-1");
-        target.addEventListener("blur", () => target.removeAttribute("tabindex"), {
-          once: true,
-        });
-        target.focus();
-        target.scrollIntoView({ behavior: "smooth" });
-      }
-    });
-  }
-  handleSkipToContent();
-  document.addEventListener("astro:after-swap", handleSkipToContent);
-</script>

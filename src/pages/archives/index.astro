@@ -52,9 +52,10 @@ const publishDate = (post: CollectionEntry<"posts">) =>
       )
         .sort(([yearA], [yearB]) => Number(yearB) - Number(yearA))
         .map(([year, yearGroup]) => (
-          <div>
-            <span class="section-title" style="font-size: 22px;">{year}</span>{" "}
-            <sup class="text-muted-foreground text-sm">{yearGroup.length}</sup>
+          <section>
+            <h2>
+              {year} <span class="count">({yearGroup.length})</span>
+            </h2>
             {Object.entries(
               getPostsByGroupCondition(
                 yearGroup,
@@ -63,18 +64,15 @@ const publishDate = (post: CollectionEntry<"posts">) =>
             )
               .sort(([monthA], [monthB]) => Number(monthB) - Number(monthA))
               .map(([month, monthGroup]) => (
-                <div class="flex flex-col sm:flex-row" id={`m-${year}-${String(month).padStart(2, "0")}`}>
-                  <div class="mt-6 min-w-36 text-lg sm:my-6">
-                    <span class="font-bold">
-                      {monthFormatter.format(
-                        new Date(2000, Number(month) - 1, 1)
-                      )}
-                    </span>{" "}
-                    <sup class="text-muted-foreground text-xs">
-                      {monthGroup.length}
-                    </sup>
-                  </div>
-                  <ul>
+                <div
+                  class="archive-month"
+                  id={`m-${year}-${String(month).padStart(2, "0")}`}
+                >
+                  <h3>
+                    {monthFormatter.format(new Date(2000, Number(month) - 1, 1)).toLowerCase()}{" "}
+                    <span class="count">({monthGroup.length})</span>
+                  </h3>
+                  <ul class="post-list">
                     {monthGroup
                       .sort(
                         (a, b) =>
@@ -91,8 +89,9 @@ const publishDate = (post: CollectionEntry<"posts">) =>
                   </ul>
                 </div>
               ))}
-          </div>
+          </section>
         ))
     }
+    {filteredPosts.length === 0 && <p>nothing here yet. check back soon!</p>}
   </Main>
 </Layout>

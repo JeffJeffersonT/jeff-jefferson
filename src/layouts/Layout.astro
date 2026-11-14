@@ -1,8 +1,8 @@
 ---
-import { ClientRouter } from "astro:transitions";
 import { resolveDefaultOgImagePath } from "@/utils/resolveDefaultOgImagePath";
 import { getAssetPath } from "@/utils/withBase";
 import Header from "@/components/Header.astro";
+import Nav from "@/components/Nav.astro";
 import Footer from "@/components/Footer.astro";
 import Sidebar from "@/components/Sidebar.astro";
 import config from "@/config";
@@ -32,13 +32,11 @@ const rssHref = getAssetPath("rss.xml");
 <html
   dir={site.dir ?? "ltr"}
   lang={Astro.currentLocale ?? site.lang}
-  class="overflow-y-scroll scroll-smooth"
 >
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href={getAssetPath("favicon.svg")} />
-    
     <link rel="canonical" href={canonicalURL} />
     <meta name="generator" content={Astro.generator} />
 
@@ -106,17 +104,17 @@ const rssHref = getAssetPath("rss.xml");
       })();
     </script>
 
-    <ClientRouter />
   </head>
   <body>
+    <a id="skip-to-content" href="#main-content">skip to content</a>
     <div id="wrap">
+      <a id="top"></a>
       <Header />
-      <div class="cols">
-        <div class="content">
-          <slot />
-        </div>
-        <Sidebar />
+      <Nav />
+      <div class="content">
+        <slot />
       </div>
+      <Sidebar />
       <Footer />
     </div>
     <script>
