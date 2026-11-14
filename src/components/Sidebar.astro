@@ -1,0 +1,177 @@
+---
+import { getCollection } from "astro:content";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+import { getSortedPosts } from "@/utils/getSortedPosts";
+import { getPostUrl } from "@/utils/getPostPaths";
+import { slugifyStr } from "@/utils/slugify";
+import { resolveTimezone } from "@/utils/resolveTimezone";
+import { getAssetPath } from "@/utils/withBase";
+import config from "@/config";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+
+const locale = Astro.currentLocale ?? config.site.lang;
+const tz = resolveTimezone(config.site.timezone);
+
+const posts = getSortedPosts(await getCollection("posts"));
+const recent = posts.slice(0, 5);
+
+// tag -> count
+const tagCounts = new Map<string, { name: string; count: number }>();
+for (const post of posts) {
+  for (const tag of post.data.tags) {
+    const slug = slugifyStr(tag);
+    const entry = tagCounts.get(slug);
+    if (entry) entry.count += 1;
+    else tagCounts.set(slug, { name: tag, count: 1 });
+  }
+}
+const tags = [...tagCounts.entries()].sort((a, b) =>
+  a[0].localeCompare(b[0])
+);
+
+// archive by month (newest first)
+const months = new Map<string, { label: string; count: number }>();
+for (const post of posts) {
+  const d = dayjs(post.data.pubDatetime).tz(
+    resolveTimezone(post.data.timezone ?? config.site.timezone)
+  );
+  const key = d.format("YYYY-MM");
+  const existing = months.get(key);
+  if (existing) existing.count += 1;
+  else months.set(key, { label: d.format("MMMM YYYY").toLowerCase(), count: 1 });
+}
+const archive = [...months.entries()].sort((a, b) => b[0].localeCompare(a[0]));
+
+const lastUpdated = dayjs().tz(tz).format("D MMM YYYY").toLowerCase();
+const archivesUrl = getRelativeLocaleUrl(locale, "archives");
+---
+
+<aside class="sidebar" aria-label="sidebar" data-pagefind-ignore>
+  <section class="box">
+    <h2>about me</h2>
+    <div class="box-body">
+      <p>
+        hi, i'm jeff! this is my little corner of the internet where i write
+        about stuff i like.
+      </p>
+      <p>
+        <a href={getRelativeLocaleUrl(locale, "about")}>more about this place &raquo;</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="box">
+    <h2>recent posts</h2>
+    <div class="box-body">
+      {
+        recent.length > 0 ? (
+          <ul>
+            {recent.map(post => (
+              <li>
+                <a href={getPostUrl(post.id, post.filePath, locale)}>
+                  {post.data.title}
+                </a>
+                <span
+                  class="new-badge"
+                  data-pub={new Date(post.data.pubDatetime).toISOString()}
+                >
+                  new!
+                </span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p class="muted">nothing here yet. check back soon!</p>
+        )
+      }
+    </div>
+  </section>
+
+  <section class="box">
+    <h2>tags</h2>
+    <div class="box-body">
+      {
+        tags.length > 0 ? (
+          <div class="tag-cloud">
+            {tags.map(([slug, { name, count }]) => (
+              <span>
+                <a href={getRelativeLocaleUrl(locale, `tags/${slug}/`)}>
+                  #{name}
+                </a>{" "}
+                <span class="count">({count})</span>
+              </span>
+            ))}
+          </div>
+        ) : (
+          <p class="muted">no tags yet.</p>
+        )
+      }
+      <p style="margin-top: 6px;">
+        <a href={getRelativeLocaleUrl(locale, "tags")}>all tags &raquo;</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="box">
+    <h2>archive</h2>
+    <div class="box-body">
+      {
+        archive.length > 0 ? (
+          <ul>
+            {archive.map(([key, { label, count }]) => (
+              <li>
+                <a href={`${archivesUrl}#m-${key}`}>{label}</a>{" "}
+                <span class="count">({count})</span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p class="muted">the archive is empty. for now!</p>
+        )
+      }
+    </div>
+  </section>
+
+  <section class="box">
+    <h2>you are visitor</h2>
+    <div class="box-body">
+      <div class="counter" role="img" aria-label="visitor counter, just for decoration">
+        <span>0</span><span>0</span><span>0</span><span>0</span><span>0</span><span>1</span>
+      </div>
+      <p class="small-note">(just for decoration, but welcome!)</p>
+      <p class="small-note">last updated: {lastUpdated}</p>
+    </div>
+  </section>
+
+  <section class="box">
+    <h2>say hi</h2>
+    <div class="box-body">
+      <p class="hello-note" id="hello-note">thanks for stopping by!</p>
+    </div>
+  </section>
+
+  <section class="box">
+    <h2>buttons</h2>
+    <div class="box-body">
+      <div class="badges">
+        <a class="badge88 b-rss" href={getAssetPath("rss.xml")} title="subscribe with rss">
+          <span>RSS FEED</span><span>subscribe!</span>
+        </a>
+        <span class="badge88 b-any" title="best viewed in any browser">
+          <span>ANY BROWSER</span><span>welcome!</span>
+        </span>
+        <span class="badge88 b-made" title="hand made">
+          <span>HAND MADE</span><span>with love</span>
+        </span>
+        <span class="badge88 b-nice" title="have a nice day">
+          <span>NICE DAY</span><span>:)</span>
+        </span>
+      </div>
+    </div>
+  </section>
+</aside>
