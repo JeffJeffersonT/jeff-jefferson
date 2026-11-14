@@ -9,7 +9,7 @@
   * {
     @apply border-border outline-accent/75;
     scrollbar-width: auto;
-    scrollbar-color: var(--bar-from) var(--muted);
+    scrollbar-color: var(--bar) var(--muted);
   }
   a,
   button,
@@ -38,8 +38,10 @@
   scroll-margin-block: 1rem;
 }
 
+
 /* =====================================================================
-   Jeff's corner: early-2000s homepage styling
+   Jeff's corner: cozy early-2000s homepage styling
+   flat colors, simple borders, no gradients
    (unlayered on purpose so it wins over Tailwind utilities)
    ===================================================================== */
 
@@ -61,25 +63,10 @@ body {
   line-height: 1.55;
   color: var(--foreground);
   background-color: var(--page-bg);
-  /* tiled polka-dot wallpaper, no image files needed */
-  background-image:
-    radial-gradient(circle, var(--page-dot) 0 3px, transparent 3.5px),
-    radial-gradient(circle, var(--page-dot) 0 2px, transparent 2.5px);
-  background-size: 36px 36px;
-  background-position:
-    0 0,
-    18px 18px;
-  background-attachment: fixed;
+  /* one simple tiled dot, nothing fancy */
+  background-image: radial-gradient(circle, var(--page-dot) 0 2px, transparent 2.5px);
+  background-size: 24px 24px;
   min-height: 100svh;
-}
-[data-theme="dark"] body {
-  background-image:
-    radial-gradient(circle, var(--page-dot) 0 1.5px, transparent 2px),
-    radial-gradient(circle, var(--page-dot) 0 1px, transparent 1.5px);
-  background-size: 54px 54px;
-  background-position:
-    0 0,
-    27px 31px;
 }
 
 a {
@@ -88,7 +75,7 @@ a {
   text-underline-offset: 2px;
 }
 a:hover {
-  text-decoration-style: wavy;
+  text-decoration-style: dashed;
 }
 
 h1,
@@ -99,8 +86,8 @@ h4 {
 }
 
 ::selection {
-  background: var(--bar-from);
-  color: #fff;
+  background: var(--soft-yellow);
+  color: #3a2a4d;
 }
 
 #wrap {
@@ -108,32 +95,23 @@ h4 {
   max-width: 960px;
   margin: 20px auto 28px;
   background: var(--background);
-  border: 4px ridge var(--frame);
-  box-shadow:
-    6px 6px 0 rgba(0, 0, 0, 0.22),
-    inset 0 0 0 2px var(--bevel-light);
+  border: 2px solid var(--frame);
 }
 
 /* ----- masthead ----- */
 .masthead {
   text-align: center;
-  padding: 22px 16px 16px;
+  padding: 20px 16px 14px;
   color: var(--mast-text);
-  background:
-    repeating-linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.07) 0 12px,
-      transparent 12px 24px
-    ),
-    linear-gradient(180deg, var(--mast-from), var(--mast-to));
-  border-bottom: 4px double var(--bar-to);
+  background: var(--mast-bg);
+  border-bottom: 2px dashed var(--bar-text);
 }
 .masthead .welcome {
   font-family: var(--font-pixel);
   font-size: 12px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  opacity: 0.9;
+  letter-spacing: 1px;
+  text-transform: lowercase;
+  opacity: 0.92;
 }
 .masthead .site-title {
   display: inline-block;
@@ -141,13 +119,11 @@ h4 {
   font-family: var(--font-serif);
   font-style: italic;
   font-weight: bold;
-  font-size: clamp(34px, 7vw, 58px);
+  font-size: clamp(32px, 7vw, 52px);
   line-height: 1.1;
   color: var(--mast-text);
   text-decoration: none;
-  text-shadow:
-    3px 3px 0 var(--mast-shadow),
-    0 0 18px rgba(255, 255, 255, 0.25);
+  text-shadow: 2px 2px 0 var(--mast-shadow);
 }
 .masthead .site-title:hover {
   text-decoration: none;
@@ -155,43 +131,28 @@ h4 {
 .masthead .tagline {
   margin: 2px 0 0;
   font-family: var(--font-head);
-  font-size: 15px;
+  font-size: 14px;
 }
 .masthead .sparkle {
   display: inline-block;
-  animation: twinkle 2.4s ease-in-out infinite;
-}
-.masthead .sparkle:nth-of-type(2) {
-  animation-delay: 0.8s;
+  color: var(--soft-yellow);
 }
 
-@keyframes twinkle {
-  0%,
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.35;
-    transform: scale(0.8);
-  }
-}
-
-/* ----- marquee strip ----- */
+/* ----- the one gentle retro touch: a slow little marquee ----- */
 .marquee {
   overflow: hidden;
   white-space: nowrap;
-  background: var(--marquee-bg);
-  color: var(--foreground);
-  border-bottom: 2px dashed var(--border);
+  background: var(--soft-yellow);
+  color: #4a3560;
+  border-bottom: 1px solid var(--frame);
   font-family: var(--font-pixel);
-  font-size: 13px;
-  padding: 3px 0;
+  font-size: 12px;
+  padding: 2px 0;
 }
 .marquee span {
   display: inline-block;
   padding-left: 100%;
-  animation: scroll-left 32s linear infinite;
+  animation: scroll-left 60s linear -8s infinite;
 }
 @keyframes scroll-left {
   to {
@@ -205,43 +166,41 @@ h4 {
   flex-wrap: wrap;
   justify-content: center;
   gap: 6px;
-  padding: 10px 12px;
+  padding: 9px 12px;
   background: var(--muted);
-  border-bottom: 2px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
 .navbar a,
 .navbar button {
   font-family: var(--font-head);
   font-size: 13px;
-  font-weight: bold;
   color: var(--foreground);
   background: var(--background);
   text-decoration: none;
-  padding: 3px 12px;
-  border: 2px outset var(--bevel-light);
-  border-right-color: var(--bevel-dark);
-  border-bottom-color: var(--bevel-dark);
+  padding: 2px 11px;
+  border: 1px solid var(--frame);
   border-radius: 0;
   line-height: 1.5;
 }
 .navbar a:hover,
 .navbar button:hover {
-  background: var(--bar-to);
-  color: #fff;
+  background: var(--soft-yellow);
+  color: #3a2a4d;
   text-decoration: none;
 }
 .navbar a.active-nav,
 .navbar a[aria-current="page"] {
-  border-style: inset;
-  background: var(--bar-from);
-  color: #fff;
+  background: var(--bar);
+  border-color: var(--bar);
+  color: var(--bar-text);
   text-decoration: none;
 }
 .navbar button#theme-btn {
   width: auto;
   height: auto;
   position: static;
-  padding: 3px 12px;
+  padding: 2px 11px;
+  border-style: dashed;
 }
 .navbar #theme-btn .night-label {
   display: none;
@@ -270,15 +229,14 @@ h4 {
 .sidebar {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 12px;
   font-size: 12.5px;
 }
 
 @media (max-width: 760px) {
   #wrap {
     margin: 0;
-    border-width: 3px;
-    box-shadow: none;
+    border-width: 2px;
   }
   .cols {
     grid-template-columns: minmax(0, 1fr);
@@ -292,8 +250,7 @@ h4 {
 /* ----- boxes (sidebar + content) ----- */
 .box {
   background: var(--side-bg);
-  border: 2px solid var(--frame);
-  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.18);
+  border: 1px solid var(--frame);
 }
 .box > h2,
 .box > .box-title {
@@ -302,11 +259,10 @@ h4 {
   font-family: var(--font-head);
   font-size: 13px;
   font-weight: bold;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.3px;
   color: var(--bar-text);
-  background: linear-gradient(90deg, var(--bar-from), var(--bar-to));
-  border-bottom: 2px solid var(--frame);
-  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3);
+  background: var(--bar);
+  border-bottom: 1px solid var(--frame);
 }
 .box-body {
   padding: 8px 10px;
@@ -323,9 +279,8 @@ h4 {
   margin: 0 0 4px;
 }
 .box-body li::before {
-  content: "\2605  ";
-  color: var(--bar-from);
-  font-size: 11px;
+  content: "\2022  ";
+  color: var(--bar);
 }
 .box-body .muted {
   color: var(--muted-foreground);
@@ -346,7 +301,7 @@ h4 {
   font-family: var(--font-head);
 }
 
-/* visitor counter */
+/* visitor counter: plain and flat */
 .counter {
   display: flex;
   justify-content: center;
@@ -355,15 +310,15 @@ h4 {
 }
 .counter span {
   display: inline-block;
-  min-width: 18px;
-  padding: 2px 3px;
+  min-width: 16px;
+  padding: 1px 3px;
   text-align: center;
   font-family: var(--font-pixel);
   font-weight: bold;
-  font-size: 18px;
-  color: #7dff9b;
-  background: #101510;
-  border: 2px inset #6b6b6b;
+  font-size: 16px;
+  color: var(--foreground);
+  background: var(--muted);
+  border: 1px solid var(--border);
 }
 .small-note {
   font-size: 11px;
@@ -371,7 +326,7 @@ h4 {
   color: var(--muted-foreground);
 }
 
-/* 88x31 badge buttons (pure CSS, no images) */
+/* 88x31-ish badges (pure CSS, flat colors) */
 .badges {
   display: flex;
   flex-wrap: wrap;
@@ -392,24 +347,24 @@ h4 {
   font-weight: bold;
   text-align: center;
   text-decoration: none !important;
-  color: #fff;
-  border: 2px outset #ffffff99;
+  color: #3a2a4d;
+  border: 1px solid var(--frame);
   overflow: hidden;
 }
 .badge88:hover {
-  filter: brightness(1.1);
+  background-color: var(--soft-yellow) !important;
 }
 .badge88.b-rss {
-  background: linear-gradient(#ff9a3c, #d9531e);
+  background: #d9c8f3;
 }
 .badge88.b-any {
-  background: linear-gradient(#4a8fe0, #24489a);
+  background: #efe6f9;
 }
 .badge88.b-made {
-  background: linear-gradient(#e16a98, #a63a6a);
+  background: var(--soft-pink);
 }
 .badge88.b-nice {
-  background: linear-gradient(#58c47a, #2b8250);
+  background: var(--soft-yellow);
 }
 
 /* greeting rotator */
@@ -420,7 +375,7 @@ h4 {
   min-height: 2.6em;
 }
 
-/* "new!" badge: blinks, shown by JS for fresh posts */
+/* "new!" tag: shown by JS for fresh posts, no blinking */
 .new-badge {
   display: none;
   margin-left: 6px;
@@ -428,27 +383,20 @@ h4 {
   font-family: var(--font-pixel);
   font-size: 10px;
   font-weight: bold;
-  color: #fff;
-  background: #e0245e;
-  border: 1px solid #8a0f35;
+  color: #3a2a4d;
+  background: var(--soft-yellow);
+  border: 1px solid #3a2a4d;
   vertical-align: middle;
-  animation: blink 1s steps(2, start) infinite;
 }
 .new-badge.show {
   display: inline-block;
-}
-@keyframes blink {
-  to {
-    visibility: hidden;
-  }
 }
 
 /* ----- content panels ----- */
 #main-content {
   box-sizing: border-box;
   background: var(--background);
-  border: 2px solid var(--frame);
-  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.18);
+  border: 1px solid var(--frame);
   padding: 16px 18px 18px;
   margin: 0;
 }
@@ -460,7 +408,7 @@ h4 {
   font-style: italic;
   line-height: 1.2;
   color: var(--foreground);
-  border-bottom: 2px dashed var(--border);
+  border-bottom: 1px dashed var(--frame);
   padding-bottom: 6px;
 }
 #main-content > p.page-desc {
@@ -470,10 +418,9 @@ h4 {
 }
 .hr-fancy {
   border: 0;
-  height: 10px;
+  border-top: 1px dashed var(--border);
+  height: 0;
   margin: 14px 0;
-  background: radial-gradient(circle, var(--bar-from) 0 2.5px, transparent 3px)
-    center / 16px 10px repeat-x;
 }
 
 .section-title {
@@ -482,10 +429,6 @@ h4 {
   font-size: 17px;
   color: var(--foreground);
 }
-.section-title::before {
-  content: "\273F ";
-  color: var(--bar-from);
-}
 
 .welcome-box {
   text-align: left;
@@ -493,7 +436,7 @@ h4 {
 .welcome-box .hello {
   font-family: var(--font-serif);
   font-style: italic;
-  font-size: 30px;
+  font-size: 28px;
   margin: 0;
   color: var(--accent);
 }
@@ -503,12 +446,12 @@ h4 {
 .construction {
   display: inline-block;
   margin-top: 4px;
-  padding: 1px 10px;
+  padding: 0 8px;
   font-family: var(--font-pixel);
   font-size: 12px;
-  color: #3a2f2a;
-  background: #ffd23f;
-  border: 2px dashed #3a2f2a;
+  color: #3a2a4d;
+  background: var(--soft-yellow);
+  border: 1px dashed #3a2a4d;
 }
 
 /* post list entries */
@@ -518,14 +461,14 @@ h4 {
   padding: 0;
 }
 .post-entry {
-  margin: 0 0 12px;
+  margin: 0 0 10px;
   padding: 8px 10px;
   background: var(--muted);
   border: 1px solid var(--border);
-  border-left: 5px solid var(--bar-from);
+  border-left: 4px solid var(--bar);
 }
 .post-entry:hover {
-  border-left-color: var(--accent);
+  border-left-color: var(--soft-pink);
 }
 .post-entry h2,
 .post-entry h3 {
@@ -561,19 +504,17 @@ ul.tag-list {
   display: inline-flex;
   align-items: center;
   gap: 2px;
-  padding: 1px 9px;
+  padding: 0 9px;
   font-family: var(--font-head);
   font-size: 13px;
   color: var(--foreground);
   text-decoration: none;
   background: var(--muted);
-  border: 2px outset var(--bevel-light);
-  border-right-color: var(--bevel-dark);
-  border-bottom-color: var(--bevel-dark);
+  border: 1px dashed var(--frame);
 }
 .tag-chip a:hover {
-  background: var(--bar-to);
-  color: #fff;
+  background: var(--soft-yellow);
+  color: #3a2a4d;
 }
 
 /* breadcrumbs */
@@ -609,9 +550,9 @@ ul.tag-list {
 
 /* ----- footer ----- */
 .site-footer {
-  border-top: 4px double var(--bar-to);
+  border-top: 2px dashed var(--frame);
   background: var(--muted);
-  padding: 14px 16px 18px;
+  padding: 14px 16px 16px;
   text-align: center;
   font-size: 12px;
 }
@@ -620,11 +561,17 @@ ul.tag-list {
   max-width: 760px;
 }
 .footer-section h2 {
-  margin: 0 0 8px;
+  margin: 0 0 6px;
   font-family: var(--font-head);
   font-size: 13px;
-  letter-spacing: 1px;
+  font-weight: normal;
+  font-style: italic;
   text-transform: lowercase;
+  color: var(--muted-foreground);
+}
+.footer-section .soon {
+  margin: 0;
+  font-size: 11px;
   color: var(--muted-foreground);
 }
 .banner-row {
@@ -660,16 +607,11 @@ ul.tag-list {
   max-width: 100%;
   height: auto;
   margin: 1.5em auto !important;
-  padding: 8px;
-  background: #fff;
-  border: 1px solid var(--border) !important;
-  outline: 3px double var(--bar-from);
-  outline-offset: 0;
-  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
-  transition: transform 0.2s;
-}
-.app-prose img:hover {
-  transform: rotate(-0.6deg);
+  padding: 6px;
+  background: var(--background);
+  border: 2px solid var(--frame) !important;
+  outline: 1px dashed var(--border);
+  outline-offset: 3px;
 }
 .app-prose figcaption {
   text-align: center;
@@ -690,7 +632,7 @@ ul.tag-list {
   color: var(--foreground);
 }
 .app-prose h2 {
-  border-bottom: 2px dotted var(--border);
+  border-bottom: 1px dotted var(--frame);
   padding-bottom: 2px;
 }
 .app-prose a {
@@ -705,7 +647,7 @@ ul.tag-list {
   font-family: var(--font-serif);
   font-style: italic;
   background: var(--muted);
-  border-inline-start: 4px solid var(--bar-from) !important;
+  border-inline-start: 4px solid var(--bar) !important;
   padding: 4px 14px !important;
   opacity: 1 !important;
 }
@@ -737,7 +679,7 @@ ul.tag-list {
 .big-404 {
   font-family: var(--font-serif);
   font-style: italic;
-  font-size: 80px;
+  font-size: 72px;
   line-height: 1;
   margin: 0;
   color: var(--accent);
@@ -747,9 +689,5 @@ ul.tag-list {
   .marquee span {
     animation: none;
     padding-left: 0;
-  }
-  .masthead .sparkle,
-  .new-badge {
-    animation: none;
   }
 }

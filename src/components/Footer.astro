@@ -12,7 +12,7 @@ const currentYear = new Date().getFullYear();
 const resolveSrc = (src: string) =>
   /^(https?:)?\/\//.test(src) ? src : getAssetPath(src);
 
-// Strip stray base-less hrefs/srcs gracefully; render nothing when empty.
+// When both lists are empty we only show the heading and a tiny note.
 const hasBanners = banners.length > 0;
 const hasButtons = buttons.length > 0;
 
@@ -27,9 +27,10 @@ const buttonItems = renderable(buttons);
 
 <footer class:list={["site-footer", className]} {...attrs}>
   {
-    (hasBanners || hasButtons) && (
-      <section class="footer-section" aria-label="banners and buttons">
-        <h2>~ banners / buttons ~</h2>
+    (
+      <section class="footer-section" aria-label="snippets from other corners of the internet">
+        <h2>snippets from other corners of the internet</h2>
+        {!hasBanners && !hasButtons && <p class="soon">(more coming soon)</p>}
         {hasBanners && (
           <div class="banner-row">
             {bannerItems.map(b => {

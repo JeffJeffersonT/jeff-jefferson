@@ -11,7 +11,7 @@ Live at [https://oddcolorout.com/jeff-jefferson/](https://oddcolorout.com/jeff-j
 - masthead with a welcome line, a scrolling marquee strip and a button-style nav
 - sidebar boxes: about me, recent posts (with blinking `new!` badges for fresh posts), tags with counts, archive by month, a decorative visitor counter, a friendly greeting, and a few 88x31 buttons
 - posts with framed images, tag chips, share links and prev/next links
-- footer with a **banners / buttons** area (see below) and a "best viewed in any browser" line
+- footer with a **snippets from other corners of the internet** area (see below) and a "best viewed in any browser" line
 - the sidebar stacks under the content on phones
 
 ## Site URL and base
@@ -26,7 +26,7 @@ Site title, tagline and author are in [`astro-paper.config.ts`](./astro-paper.co
 
 ## Adding banners and 88x31 buttons
 
-The footer shows banners and buttons from one data file: [`src/data/banners.ts`](./src/data/banners.ts). While both lists are empty, nothing is rendered.
+The footer shows banners and buttons from one data file: [`src/data/banners.ts`](./src/data/banners.ts). While both lists are empty, the footer just shows the heading and "(more coming soon)".
 
 1. Put the GIF in `public/banners/` (wide banners, e.g. 468x60) or `public/buttons/` (88x31 buttons). Keep the file in the repo, don't hotlink.
 2. Add one line to `banners` or `buttons` in `src/data/banners.ts`:

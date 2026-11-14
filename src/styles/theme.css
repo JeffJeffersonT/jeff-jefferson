@@ -10,55 +10,49 @@
   --font-app: var(--font-body);
 }
 
-/* Day mode (default) */
+/* Day mode (default): lavender paper, plum + violet, a dab of soft yellow */
 :root,
 [data-theme="light"] {
-  --page-bg: #bfe6d3;
-  --page-dot: #ffffff;
-  --background: #fffdf4; /* panel paper */
-  --foreground: #3a2f2a;
-  --accent: #c2410c; /* link / accent */
-  --link-visited: #7a3fa0;
+  --page-bg: #e3d9f3; /* pale lilac wallpaper */
+  --page-dot: #d3c4ea; /* tiled dots, barely there */
+  --background: #fbf6ec; /* warm cream paper */
+  --foreground: #3a2a4d; /* deep plum ink */
+  --accent: #6a3fa8; /* violet links */
+  --link-visited: #94487f; /* plum */
   --accent-foreground: #ffffff;
-  --muted: #fbe9c6;
-  --muted-foreground: #6f6259;
-  --border: #e3cfa6;
-  --frame: #2f6f5a; /* thick outer frame */
-  --bevel-light: #ffffff;
-  --bevel-dark: #b9a47a;
-  --bar-from: #f4845f;
-  --bar-to: #f7b267;
+  --muted: #efe6f9; /* pale lilac panels */
+  --muted-foreground: #6b5a80;
+  --border: #bda9de;
+  --frame: #7b57b3; /* main outline */
+  --bar: #8566bd; /* box title bars */
   --bar-text: #ffffff;
-  --mast-from: #2f6f5a;
-  --mast-to: #4aa88a;
-  --mast-text: #fffbe8;
-  --mast-shadow: #1c4a3a;
-  --side-bg: #fff6dc;
-  --marquee-bg: #fff2b8;
+  --mast-bg: #9a7bd0; /* masthead */
+  --mast-text: #ffffff;
+  --mast-shadow: #5a3a90;
+  --side-bg: #f6f0fc;
+  --soft-yellow: #ffe9a3;
+  --soft-pink: #f6b7d2;
 }
 
-/* Night mode */
+/* Night mode: deep purple night */
 [data-theme="dark"] {
-  --page-bg: #1b2142;
-  --page-dot: #fff3b0;
-  --background: #262d57;
-  --foreground: #efeadd;
-  --accent: #ffcf6b;
-  --link-visited: #d4a5ff;
-  --accent-foreground: #1b2142;
-  --muted: #313a6e;
-  --muted-foreground: #b9bfdc;
-  --border: #4a5594;
-  --frame: #0e1230;
-  --bevel-light: #4a5594;
-  --bevel-dark: #0e1230;
-  --bar-from: #5b4b9c;
-  --bar-to: #8a6fd1;
-  --bar-text: #fff8e0;
-  --mast-from: #151a3b;
-  --mast-to: #3a3f8a;
-  --mast-text: #fff3b0;
-  --mast-shadow: #07091c;
-  --side-bg: #2c3463;
-  --marquee-bg: #3a3f8a;
+  --page-bg: #1e1630;
+  --page-dot: #2a1f40;
+  --background: #2a1f40;
+  --foreground: #ece3f8;
+  --accent: #c9a9ff;
+  --link-visited: #f0a6d0;
+  --accent-foreground: #1e1630;
+  --muted: #352850;
+  --muted-foreground: #b8a8d2;
+  --border: #54417c;
+  --frame: #7a5fb5;
+  --bar: #5a4391;
+  --bar-text: #ffffff;
+  --mast-bg: #3c2a63;
+  --mast-text: #f5ecff;
+  --mast-shadow: #1a1128;
+  --side-bg: #31254a;
+  --soft-yellow: #e9d27e;
+  --soft-pink: #d58ab0;
 }
