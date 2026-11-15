@@ -1,0 +1,39 @@
+---
+import type { Banner } from "@/data/banners";
+import { getAssetPath } from "@/utils/withBase";
+
+type Props = {
+  items: Banner[];
+  kind?: "banners" | "buttons";
+};
+
+const { items, kind = "banners" } = Astro.props;
+
+const resolveSrc = (src: string) =>
+  /^(https?:)?\/\//.test(src) ? src : getAssetPath(src);
+---
+
+{
+  items.length > 0 && (
+    <div class:list={["banner-row", kind === "buttons" && "buttons"]}>
+      {items.map(b => {
+        const img = (
+          <img
+            src={resolveSrc(b.src)}
+            alt={b.alt}
+            width={kind === "buttons" ? (b.width ?? 88) : b.width}
+            height={kind === "buttons" ? (b.height ?? 31) : b.height}
+            loading="lazy"
+          />
+        );
+        return b.href ? (
+          <a href={b.href} target="_blank" rel="noopener noreferrer">
+            {img}
+          </a>
+        ) : (
+          img
+        );
+      })}
+    </div>
+  )
+}

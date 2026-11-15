@@ -1,0 +1,29 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
+import { updates } from "@/data/updates";
+import config from "@/config";
+
+const pageTitle = "updates";
+const pageDesc = "everything that's changed on this site, newest first.";
+---
+
+<Layout title={`${pageTitle} | ${config.site.title}`} description={pageDesc}>
+  <Breadcrumb />
+
+  <Main pageTitle="updates.txt" class="app-prose">
+    <p>a running list of what i've changed around here, newest first.</p>
+    <ul class="update-log">
+      {
+        updates.map(u => (
+          <li>
+            <b>{u.date}</b>
+            {" — "}
+            {u.text}
+          </li>
+        ))
+      }
+    </ul>
+  </Main>
+</Layout>

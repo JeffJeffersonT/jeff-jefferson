@@ -16,14 +16,11 @@ const placeholder = "-".repeat(counter.digits);
 <aside class="side-col" aria-label="sidebar" data-pagefind-ignore>
   <div class="box">
     <div class="win" role="region" aria-label="updates">
-      <div class="win-title">
-        <span>updates.txt</span>
-        <span class="win-ctl" aria-hidden="true"><span>_</span><span>&#9633;</span><span>x</span></span>
-      </div>
+      <div class="win-title">updates.txt</div>
       <div class="win-body">
         <ul>
           {
-            updates.map(u => (
+            updates.slice(0, 3).map(u => (
               <li>
                 <b>{u.date}</b>
                 <br />
@@ -32,6 +29,13 @@ const placeholder = "-".repeat(counter.digits);
             ))
           }
         </ul>
+        {
+          updates.length > 3 && (
+            <p class="see-more">
+              <a href={getRelativeLocaleUrl(locale, "updates")}>more updates...</a>
+            </p>
+          )
+        }
       </div>
     </div>
   </div>

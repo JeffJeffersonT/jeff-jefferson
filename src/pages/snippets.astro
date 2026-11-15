@@ -1,0 +1,46 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
+import BannerRow from "@/components/BannerRow.astro";
+import { banners, buttons } from "@/data/banners";
+import config from "@/config";
+
+const pageTitle = "snippets";
+const pageDesc = "little banners and buttons collected from other corners of the internet.";
+---
+
+<Layout title={`${pageTitle} | ${config.site.title}`} description={pageDesc}>
+  <Breadcrumb />
+
+  <Main pageTitle="snippets from other corners of the internet" class="app-prose">
+    <p>
+      these are some of the little banners and buttons i've picked up around
+      the web. click one to visit where it came from.
+    </p>
+
+    {
+      banners.length === 0 && buttons.length === 0 && (
+        <p class="muted">(nothing here yet, coming soon)</p>
+      )
+    }
+
+    {
+      banners.length > 0 && (
+        <section>
+          <h2>banners</h2>
+          <BannerRow items={banners} kind="banners" />
+        </section>
+      )
+    }
+
+    {
+      buttons.length > 0 && (
+        <section>
+          <h2>buttons</h2>
+          <BannerRow items={buttons} kind="buttons" />
+        </section>
+      )
+    }
+  </Main>
+</Layout>

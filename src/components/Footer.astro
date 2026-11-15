@@ -1,12 +1,14 @@
 ---
 import type { HTMLAttributes } from "astro/types";
-import { getAssetPath } from "@/utils/withBase";
-import { banners, buttons, type Banner } from "@/data/banners";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import BannerRow from "@/components/BannerRow.astro";
+import { banners, buttons } from "@/data/banners";
 import config from "@/config";
 
 type Props = HTMLAttributes<"footer">;
 
 const { class: className, ...attrs } = Astro.props;
+const locale = Astro.currentLocale ?? config.site.lang;
 const currentYear = new Date().getFullYear();
 const lastUpdated = new Intl.DateTimeFormat("en-GB", {
   day: "numeric",
@@ -17,75 +19,29 @@ const lastUpdated = new Intl.DateTimeFormat("en-GB", {
   .format(new Date())
   .toLowerCase();
 
-const resolveSrc = (src: string) =>
-  /^(https?:)?\/\//.test(src) ? src : getAssetPath(src);
-
-// When both lists are empty we only show the heading and a tiny note.
-const hasBanners = banners.length > 0;
-const hasButtons = buttons.length > 0;
-
-const renderable = (items: Banner[]) =>
-  items.map(b => ({
-    ...b,
-    src: resolveSrc(b.src),
-  }));
-const bannerItems = renderable(banners);
-const buttonItems = renderable(buttons);
+const PREVIEW_BUTTONS = 8;
+const PREVIEW_BANNERS = 2;
+const previewBanners = banners.slice(0, PREVIEW_BANNERS);
+const previewButtons = buttons.slice(0, PREVIEW_BUTTONS);
+const hasBanners = previewBanners.length > 0;
+const hasButtons = previewButtons.length > 0;
+const hasMore =
+  banners.length > PREVIEW_BANNERS || buttons.length > PREVIEW_BUTTONS;
+const snippetsHref = getRelativeLocaleUrl(locale, "snippets");
 ---
 
 <footer class:list={["site-footer", className]} {...attrs}>
-  {
-    (
-      <section aria-label="snippets from other corners of the internet">
-        <h2>snippets from other corners of the internet</h2>
-        {!hasBanners && !hasButtons && <p class="soon">(more coming soon)</p>}
-        {hasBanners && (
-          <div class="banner-row">
-            {bannerItems.map(b => {
-              const img = (
-                <img
-                  src={b.src}
-                  alt={b.alt}
-                  width={b.width}
-                  height={b.height}
-                  loading="lazy"
-                />
-              );
-              return b.href ? (
-                <a href={b.href} target="_blank" rel="noopener noreferrer">
-                  {img}
-                </a>
-              ) : (
-                img
-              );
-            })}
-          </div>
-        )}
-        {hasButtons && (
-          <div class="banner-row buttons">
-            {buttonItems.map(b => {
-              const img = (
-                <img
-                  src={b.src}
-                  alt={b.alt}
-                  width={b.width ?? 88}
-                  height={b.height ?? 31}
-                  loading="lazy"
-                />
-              );
-              return b.href ? (
-                <a href={b.href} target="_blank" rel="noopener noreferrer">
-                  {img}
-                </a>
-              ) : (
-                img
-              );
-            })}
-          </div>
-        )}
-      </section>
-    )
-  }
+  <section aria-label="snippets from other corners of the internet">
+    <h2>snippets from other corners of the internet</h2>
+    {!hasBanners && !hasButtons && <p class="soon">(more coming soon)</p>}
+    {hasBanners && <BannerRow items={previewBanners} kind="banners" />}
+    {hasButtons && <BannerRow items={previewButtons} kind="buttons" />}
+    {hasMore && (
+      <p class="see-more">
+        <a href={snippetsHref}>see more &raquo;</a>
+      </p>
+    )}
+  </section>
   <hr />
   <p>
     best viewed with any browser at 800x600 &middot; no frames, no flash,
