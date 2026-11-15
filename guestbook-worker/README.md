@@ -1,13 +1,33 @@
 # guestbook worker
 
 The guestbook page (`/guestbook/`) is a plain static page. Entries live in a tiny
-Cloudflare Worker + KV store (free plan is plenty, no card needed).
+Cloudflare Worker + KV store (free plan, no card).
 
-1. sign up / log in at cloudflare.com (free)
-2. `cd guestbook-worker && npx wrangler login`
-3. `npx wrangler kv namespace create GUESTBOOK` and paste the printed id into `wrangler.toml`
-4. optional, for deleting entries: `npx wrangler secret put ADMIN_TOKEN`
-5. `npx wrangler deploy`, it prints a `https://jeff-guestbook.<name>.workers.dev` URL
-6. put that URL into `src/data/guestbook.ts` (`endpoint`), commit, push. signing turns on.
+**Currently deployed:** worker `jeffersons-guestbook`, KV namespace
+`jeffersons-space-guestbook`, live at
+`https://jeffersons-guestbook.jeffjefferson.workers.dev` (that URL is `endpoint` in
+`src/data/guestbook.ts`). It only accepts signing from `https://jeffersons.space`.
 
-Delete an entry: `curl -X DELETE -H "Authorization: Bearer $ADMIN_TOKEN" <worker-url>/entries/<id>`
+## API
+
+- `GET /entries` returns `{ entries: [...] }`, newest first
+- `POST /sign` with `{ name, message, website, nickname, elapsed }`
+- `DELETE /entries/:id` removes an entry, needs `Authorization: Bearer <ADMIN_TOKEN>`
+
+```
+curl -X DELETE -H "Authorization: Bearer $ADMIN_TOKEN" https://jeffersons-guestbook.jeffjefferson.workers.dev/entries/<id>
+```
+
+The admin token is a worker secret (not in the repo). To see entries/ids, open `/entries`.
+
+## Spam protection
+
+honeypot field, minimum time on page, length limits, one link max, control-character
+stripping, a per-IP cooldown (best effort: KV is eventually consistent), and a cap
+of 300 stored entries. The site renders everything as plain text.
+
+## Deploying changes
+
+Either `npx wrangler deploy` from this folder (after `wrangler login` and putting the
+KV id into `wrangler.toml`), or re-upload `worker.js` through the Cloudflare API/dashboard.
+Keep the bindings: KV `GUESTBOOK`, var `ALLOWED_ORIGIN`, secret `ADMIN_TOKEN`.

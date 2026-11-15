@@ -1,12 +1,11 @@
-name = "jeff-guestbook"
+name = "jeffersons-guestbook"
 main = "worker.js"
 compatibility_date = "2026-01-01"
 
 [vars]
 ALLOWED_ORIGIN = "https://jeffersons.space"
 
-# create the namespace once with:  npx wrangler kv namespace create GUESTBOOK
-# then paste the id it prints below
+# KV namespace "jeffersons-space-guestbook"
 [[kv_namespaces]]
 binding = "GUESTBOOK"
-id = "PASTE_KV_NAMESPACE_ID_HERE"
+id = "b954c2a3d4644f2cbf2c70d689a2ba77"

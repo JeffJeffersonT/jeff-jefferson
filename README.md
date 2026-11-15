@@ -149,7 +149,7 @@ The sidebar counter is real. It uses [Abacus](https://jasoncameron.dev/abacus/) 
 
 ## Guestbook (`/guestbook/`)
 
-A styled form + entries list (`src/pages/guestbook.astro`, `src/scripts/guestbook.ts`). Entries are stored by a tiny Cloudflare Worker, see [`guestbook-worker/`](./guestbook-worker/README.md). Until its URL is pasted into `src/data/guestbook.ts` the form is greyed out with a "signing opens soon" note. Spam protection: honeypot, minimum time on page, length limits, one link max, per-IP cooldown, everything rendered as plain text.
+A styled form + entries list (`src/pages/guestbook.astro`, `src/scripts/guestbook.ts`). Entries are stored by a tiny Cloudflare Worker, see [`guestbook-worker/`](./guestbook-worker/README.md). Its URL is set in `src/data/guestbook.ts` (`endpoint`); if that is empty the form greys out with a "signing opens soon" note. Spam protection: honeypot, minimum time on page, length limits, one link max, per-IP cooldown, everything rendered as plain text.
 
 ## Other pages
 
