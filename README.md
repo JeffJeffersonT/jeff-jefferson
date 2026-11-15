@@ -4,7 +4,7 @@ Jeff's corner of the internet: i write about the things i like. hope you have a 
 
 A handmade, early-2000s-style personal homepage built with [Astro](https://astro.build) (started from the [AstroPaper](https://github.com/satnaing/astro-paper) theme). Tiled wallpaper, a bordered fixed-width page, a sidebar of little boxes, day/night mode, RSS, tags, archives and search.
 
-Live at [https://oddcolorout.com/jeff-jefferson/](https://oddcolorout.com/jeff-jefferson/).
+Live at [https://jeffersons.space/](https://jeffersons.space/).
 
 ## What's on the page
 
@@ -19,9 +19,9 @@ Live at [https://oddcolorout.com/jeff-jefferson/](https://oddcolorout.com/jeff-j
 
 GitHub username, repo name, site origin, and base path live in one file: [`site.constants.ts`](./site.constants.ts). `astro.config.ts` and `astro-paper.config.ts` both import from there.
 
-- site: `https://oddcolorout.com`
-- base: `/jeff-jefferson`
-- live URL: `https://oddcolorout.com/jeff-jefferson/`
+- site: `https://jeffersons.space`
+- base: none (site lives at the domain root)
+- live URL: `https://jeffersons.space/`
 
 Site title, tagline and author are in [`astro-paper.config.ts`](./astro-paper.config.ts). The about page is [`src/content/pages/about.md`](./src/content/pages/about.md).
 
@@ -42,7 +42,7 @@ The footer shows banners and buttons from one data file: [`src/data/banners.ts`]
    ];
    ```
 
-   `src` is the path inside `public/` (the `/jeff-jefferson` base is added automatically). `href` is optional; leave it out for a banner that isn't a link. Optional `width` / `height` (px) are available too.
+   `src` is the path inside `public/` (paths are relative to the site root). `href` is optional; leave it out for a banner that isn't a link. Optional `width` / `height` (px) are available too.
 3. Commit and push, and GitHub Pages redeploys.
 
 ## The goodies page (`/collect/`)
@@ -110,7 +110,7 @@ Optional:
 - `draft`: set `true` to keep a post off the site
 - `modDatetime`: last updated date
 
-RSS is at `/jeff-jefferson/rss.xml`.
+RSS is at `/rss.xml`.
 
 ## Publishing with `post.sh`
 

@@ -6,7 +6,7 @@ export const GITHUB_USERNAME = "JeffJeffersonT";
 export const REPO_NAME = "jeff-jefferson";
 
 /** Astro `site` — origin only, no repo path. */
-export const SITE_URL = "https://oddcolorout.com";
+export const SITE_URL = "https://jeffersons.space";
 
 /** Astro `base` — leading slash, no trailing slash. */
-export const SITE_BASE = `/${REPO_NAME}`;
+export const SITE_BASE = "";
