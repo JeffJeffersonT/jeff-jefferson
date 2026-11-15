@@ -37,11 +37,14 @@ const links = [
   ...(features.showArchives
     ? [{ href: getRelativeLocaleUrl(locale, "archives"), label: "archives", path: "/archives" }]
     : []),
-  { href: getRelativeLocaleUrl(locale, "about"), label: "about me", path: "/about" },
+  { href: getRelativeLocaleUrl(locale, "guestbook"), label: "guestbook", path: "/guestbook" },
   { href: getRelativeLocaleUrl(locale, "collect"), label: "goodies", path: "/collect" },
+  { href: getRelativeLocaleUrl(locale, "links"), label: "cool sites", path: "/links" },
+  { href: getRelativeLocaleUrl(locale, "about"), label: "about me", path: "/about" },
   ...(features.search !== false
     ? [{ href: getRelativeLocaleUrl(locale, "search"), label: "search", path: "/search" }]
     : []),
+  { href: getRelativeLocaleUrl(locale, "random"), label: "random post", path: "/random" },
   { href: getAssetPath("rss.xml"), label: "rss feed", path: "/rss.xml" },
 ];
 
@@ -84,10 +87,10 @@ const archivesUrl = getRelativeLocaleUrl(locale, "archives");
     }
   </ul>
 
-  <h2 class="strip">tags</h2>
+  <h2 class="strip hide-phone">tags</h2>
   {
     tags.length > 0 ? (
-      <ul class="tag-links">
+      <ul class="tag-links hide-phone">
         {tags.map(([slug, { name, count }]) => (
           <li>
             <a href={getRelativeLocaleUrl(locale, `tags/${slug}/`)}>{name}</a>{" "}
@@ -96,14 +99,14 @@ const archivesUrl = getRelativeLocaleUrl(locale, "archives");
         ))}
       </ul>
     ) : (
-      <p class="muted">(none yet)</p>
+      <p class="muted hide-phone">(none yet)</p>
     )
   }
 
-  <h2 class="strip">archive</h2>
+  <h2 class="strip hide-phone">archive</h2>
   {
     archive.length > 0 ? (
-      <ul class="archive-links">
+      <ul class="archive-links hide-phone">
         {archive.map(([key, { label, count }]) => (
           <li>
             <a href={`${archivesUrl}#m-${key}`}>{label}</a>{" "}
@@ -112,7 +115,7 @@ const archivesUrl = getRelativeLocaleUrl(locale, "archives");
         ))}
       </ul>
     ) : (
-      <p class="muted">(empty for now)</p>
+      <p class="muted hide-phone">(empty for now)</p>
     )
   }
 

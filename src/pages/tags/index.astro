@@ -3,7 +3,8 @@ import { getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Breadcrumb from "@/components/Breadcrumb.astro";
 import Main from "@/components/Main.astro";
-import Tag from "@/components/Tag.astro";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { slugifyStr } from "@/utils/slugify";
 import { getUniqueTags } from "@/utils/getUniqueTags";
 import { useTranslations } from "@/i18n";
 import config from "@/config";
@@ -13,6 +14,11 @@ const tags = getUniqueTags(posts);
 
 const locale = Astro.currentLocale ?? config.site.lang;
 const t = useTranslations(locale);
+const counts = tags.map(({ tag, tagName }) => ({
+  tag,
+  tagName,
+  count: posts.filter(p => p.data.tags.some(x => slugifyStr(x) === tag)).length,
+}));
 ---
 
 <Layout title={`${t.pages.tagsTitle} | ${config.site.title}`}>
@@ -20,8 +26,19 @@ const t = useTranslations(locale);
   <Breadcrumb />
 
   <Main pageTitle={t.pages.tagsTitle} pageDesc={t.pages.tagsDesc}>
-    <ul class="taglist">
-      {tags.map(({ tag, tagName }) => <Tag {tag} {tagName} />)}
-    </ul>
+    {
+      counts.length > 0 ? (
+        <ul class="tag-cloud">
+          {counts.map(({ tag, tagName, count }) => (
+            <li>
+              <a href={getRelativeLocaleUrl(locale, `tags/${tag}/`)}>#{tagName}</a>{" "}
+              <span class="count">({count})</span>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>no tags yet!</p>
+      )
+    }
   </Main>
 </Layout>

@@ -1,0 +1,95 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
+import { guestbook } from "@/data/guestbook";
+import config from "@/config";
+
+const live = guestbook.endpoint !== "";
+const pageDesc = "sign my guestbook and say hi!";
+---
+
+<Layout title={`guestbook | ${config.site.title}`} description={pageDesc}>
+  <Breadcrumb />
+
+  <Main pageTitle="guestbook" pageDesc={pageDesc} class="app-prose">
+    <div
+      id="guestbook"
+      data-endpoint={guestbook.endpoint}
+      data-max-name={guestbook.maxName}
+      data-max-message={guestbook.maxMessage}
+      data-max-website={guestbook.maxWebsite}
+    >
+      <p class="gb-intro">
+        thanks for stopping by! leave a note below: a hello, a favourite
+        website, whatever you like. no account needed, just be kind :)
+      </p>
+
+      {
+        !live && (
+          <p class="gb-note">
+            <b>*** signing opens soon ***</b> the guestbook is almost ready.
+            check back in a little while!
+          </p>
+        )
+      }
+
+      <div class="gb-form">
+        <div class="win-title">
+          <span>sign_guestbook.exe</span>
+          <span class="win-ctl" aria-hidden="true"><span>_</span><span>&#9633;</span><span>x</span></span>
+        </div>
+        <form id="gb-form" autocomplete="off">
+          <fieldset disabled={!live}>
+            <label for="gb-name">your name</label>
+            <input
+              id="gb-name"
+              name="name"
+              type="text"
+              maxlength={guestbook.maxName}
+              required
+            />
+            <label for="gb-website">
+              your website <span class="opt">(optional)</span>
+            </label>
+            <input
+              id="gb-website"
+              name="website"
+              type="url"
+              maxlength={guestbook.maxWebsite}
+              placeholder="https://"
+            />
+            <label for="gb-message">your message</label>
+            <textarea
+              id="gb-message"
+              name="message"
+              rows="5"
+              maxlength={guestbook.maxMessage}
+              required></textarea>
+            <!-- honeypot: real people never see or fill this -->
+            <div class="hp" aria-hidden="true">
+              <label for="gb-nick">leave this empty</label>
+              <input id="gb-nick" name="nickname" type="text" tabindex="-1" autocomplete="off" />
+            </div>
+            <div class="gb-row">
+              <button type="submit" class="win-btn">sign it!</button>
+              <span class="gb-count" id="gb-count">0/{guestbook.maxMessage}</span>
+            </div>
+          </fieldset>
+          <p id="gb-status" class="gb-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+
+      <h2>what people wrote</h2>
+      <p id="gb-empty" class="gb-empty">loading entries...</p>
+      <ol id="gb-entries" class="gb-entries"></ol>
+      <p class="small">
+        links are marked nofollow, and i can remove anything that isn't nice.
+      </p>
+    </div>
+  </Main>
+</Layout>
+
+<script>
+  import "@/scripts/guestbook";
+</script>

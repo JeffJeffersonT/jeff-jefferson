@@ -1,0 +1,54 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
+import { getSortedPosts } from "@/utils/getSortedPosts";
+import { getPostUrl } from "@/utils/getPostPaths";
+import config from "@/config";
+
+const locale = Astro.currentLocale ?? config.site.lang;
+const posts = getSortedPosts(await getCollection("posts"));
+const urls = posts.map(p => getPostUrl(p.id, p.filePath, locale));
+---
+
+<Layout title={`random post | ${config.site.title}`} description="a random post from my blog.">
+  <Breadcrumb />
+
+  <Main pageTitle="random post" class="app-prose">
+    <p id="random-msg">picking something out of the hat...</p>
+    <noscript>
+      <p>you need javascript for the hat, but here are <a href="/posts/">all the posts</a>.</p>
+    </noscript>
+    <ul class="post-list" id="random-list" data-urls={JSON.stringify(urls)}>
+      {
+        posts.map((p, i) => (
+          <li>
+            <a href={urls[i]}>{p.data.title}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </Main>
+</Layout>
+
+<script>
+  const list = document.querySelector<HTMLElement>("#random-list");
+  const urls: string[] = JSON.parse(list?.dataset.urls ?? "[]");
+  const msg = document.querySelector<HTMLElement>("#random-msg");
+  if (urls.length > 0) {
+    // avoid landing on the same post twice in a row when there is a choice
+    let last = "";
+    try {
+      last = sessionStorage.getItem("lastRandom") ?? "";
+    } catch {}
+    const pool = urls.length > 1 ? urls.filter(u => u !== last) : urls;
+    const pick = pool[Math.floor(Math.random() * pool.length)];
+    try {
+      sessionStorage.setItem("lastRandom", pick);
+    } catch {}
+    window.location.replace(pick);
+  } else if (msg) {
+    msg.textContent = "no posts yet, so the hat is empty. check back soon!";
+  }
+</script>

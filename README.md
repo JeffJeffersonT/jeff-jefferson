@@ -137,3 +137,23 @@ npm run build
 ```
 
 Requires Node 22.23.4 or newer.
+
+
+## Layout
+
+The page is fluid: up to ~1240px wide (94% of the window), three columns on desktop (nav 210px, content, sidebar 240px), two columns on tablets (sidebar boxes move under the content) and one column on phones (nav becomes a wrapped row). Text stays at a comfortable ~75 characters wide.
+
+## Visitor counter
+
+The sidebar counter is real. It uses [Abacus](https://jasoncameron.dev/abacus/) (free, no account): namespace `jeffersons-space`, key `visits`, configured in `src/data/services.ts`. It counts once per browser-tab session (`src/scripts/extras.ts`); if the API is blocked it shows `??????`.
+
+## Guestbook (`/guestbook/`)
+
+A styled form + entries list (`src/pages/guestbook.astro`, `src/scripts/guestbook.ts`). Entries are stored by a tiny Cloudflare Worker, see [`guestbook-worker/`](./guestbook-worker/README.md). Until its URL is pasted into `src/data/guestbook.ts` the form is greyed out with a "signing opens soon" note. Spam protection: honeypot, minimum time on page, length limits, one link max, per-IP cooldown, everything rendered as plain text.
+
+## Other pages
+
+- `/links/`: cool sites (edit `src/data/links.ts`)
+- `/random/`: jumps to a random post
+- `/search/`: plain old search box over the posts (Pagefind under the hood)
+- `node scripts/check-links.mjs` after a build crawls `dist/` for broken internal links

@@ -53,9 +53,15 @@ const t = useTranslations(locale);
   <Breadcrumb />
 
   <Main pageTitle={t.pages.postsTitle} pageDesc={t.pages.postsDesc}>
-    <ul>
-      {page.data.map(data => <Card {...data} />)}
-    </ul>
+    {
+      page.data.length === 0 ? (
+        <p>no posts yet, but i'm working on it. check back soon!</p>
+      ) : (
+        <ul class="post-list">
+          {page.data.map(data => <Card {...data} />)}
+        </ul>
+      )
+    }
   </Main>
 
   <Pagination {page} />

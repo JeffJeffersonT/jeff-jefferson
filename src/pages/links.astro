@@ -1,0 +1,42 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
+import { linkGroups } from "@/data/links";
+import config from "@/config";
+
+const pageDesc =
+  "a few of my favourite corners of the small, handmade internet. go wander!";
+---
+
+<Layout title={`cool sites | ${config.site.title}`} description={pageDesc}>
+  <Breadcrumb />
+
+  <Main pageTitle="cool sites" pageDesc={pageDesc} class="app-prose">
+    {
+      linkGroups.map(group => (
+        <section class="link-group">
+          <h2>
+            {group.title} <span class="small">({group.blurb})</span>
+          </h2>
+          <ul class="link-list">
+            {group.links.map(l => (
+              <li>
+                <a href={l.href} target="_blank" rel="noopener noreferrer">
+                  {l.name}
+                </a>{" "}
+                <span class="blurb">- {l.blurb}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))
+    }
+    <hr />
+    <p class="small">
+      got a site you think i'd like? leave its link in the{" "}
+      <a href="/guestbook/">guestbook</a>. the little buttons and gifs live on
+      the <a href="/collect/">goodies</a> page.
+    </p>
+  </Main>
+</Layout>

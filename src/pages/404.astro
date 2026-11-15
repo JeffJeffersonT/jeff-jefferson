@@ -6,14 +6,29 @@ import config from "@/config";
 
 const locale = Astro.currentLocale ?? config.site.lang;
 const t = useTranslations(locale);
+const home = getRelativeLocaleUrl(locale, "");
+const art = String.raw`   ( \_/ )
+   ( o.o )   ...hello?
+   /  >  \
+  (_/   \_)`;
 ---
 
 <Layout title={`${t.notFound.title} | ${config.site.title}`}>
-  <main id="main-content" class="center">
+  <main id="main-content" class="lost">
     <p class="big-404">404</p>
-    <p>oops! that page wandered off somewhere. (error 404: file not found)</p>
+    <h1>whoops, page not found!</h1>
+    <pre aria-hidden="true">{art}</pre>
     <p>
-      <a href={getRelativeLocaleUrl(locale, "")}>take me back home &raquo;</a>
+      the page you wanted wandered off somewhere. maybe it was a typo, maybe it
+      never existed, maybe it went to get a snack.
     </p>
+    <p>try one of these instead:</p>
+    <ul>
+      <li><a href={home}>go back home</a></li>
+      <li><a href={getRelativeLocaleUrl(locale, "posts")}>read the posts</a></li>
+      <li><a href={getRelativeLocaleUrl(locale, "random")}>surprise me with a random post</a></li>
+      <li><a href={getRelativeLocaleUrl(locale, "guestbook")}>sign the guestbook</a></li>
+      <li><a href={getRelativeLocaleUrl(locale, "search")}>search the site</a></li>
+    </ul>
   </main>
 </Layout>

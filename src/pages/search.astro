@@ -1,6 +1,5 @@
 ---
 import { getRelativeLocaleUrl } from "astro:i18n";
-import "@pagefind/default-ui/css/ui.css";
 import Layout from "@/layouts/Layout.astro";
 import Breadcrumb from "@/components/Breadcrumb.astro";
 import Main from "@/components/Main.astro";
@@ -16,142 +15,118 @@ if (config.features.search !== "pagefind" && notFoundUrl) {
   return Astro.rewrite(notFoundUrl);
 }
 
-const backUrl = config.features.showBackButton
-  ? `${Astro.url.pathname}`
-  : getRelativeLocaleUrl(locale, "");
-
 const pagefindBundlePath = getAssetPath("pagefind/");
-
 const t = useTranslations(locale);
 ---
 
 <Layout title={`${t.pages.searchTitle} | ${config.site.title}`}>
-
   <Breadcrumb />
 
-  <Main pageTitle={t.pages.searchTitle} pageDesc={t.pages.searchDesc}>
-    <div
-      id="pagefind-search"
-      data-backurl={backUrl}
-      data-bundle-path={pagefindBundlePath}
-    >
+  <Main pageTitle={t.pages.searchTitle} pageDesc={t.pages.searchDesc} class="app-prose">
+    <div id="search-root" data-bundle-path={pagefindBundlePath}>
+      <form id="search-form" class="search-form" role="search">
+        <label for="q"><b>search for:</b></label>
+        <input id="q" name="q" type="search" autocomplete="off" placeholder="a word or two" />
+        <button type="submit" class="win-btn">go!</button>
+      </form>
+      <p id="search-status" class="search-status" role="status" aria-live="polite"></p>
+      <ul id="search-results" class="search-results"></ul>
     </div>
   </Main>
 </Layout>
 
 <script>
-  function initSearch() {
-    const pageFindSearch: HTMLElement | null =
-      document.querySelector("#pagefind-search");
+  const root = document.querySelector<HTMLElement>("#search-root");
+  if (root) {
+    const bundle = root.dataset.bundlePath ?? "/pagefind/";
+    const form = root.querySelector<HTMLFormElement>("#search-form")!;
+    const input = root.querySelector<HTMLInputElement>("#q")!;
+    const status = root.querySelector<HTMLElement>("#search-status")!;
+    const out = root.querySelector<HTMLUListElement>("#search-results")!;
 
-    if (!pageFindSearch) return;
+    type PF = {
+      options: (o: Record<string, unknown>) => Promise<void>;
+      search: (q: string) => Promise<{
+        results: {
+          data: () => Promise<{
+            url: string;
+            excerpt: string;
+            meta: { title?: string };
+          }>;
+        }[];
+      }>;
+    };
+    let pf: PF | null = null;
+    const load = async () => {
+      if (pf) return pf;
+      const mod = await import(/* @vite-ignore */ `${bundle}pagefind.js`);
+      await mod.options({ baseUrl: "/" });
+      pf = mod as PF;
+      return pf;
+    };
 
-    const bundlePath = pageFindSearch?.dataset?.bundlePath;
-    if (!bundlePath) return;
+    // pagefind excerpts only contain <mark>; escape everything else.
+    const safeExcerpt = (html: string) =>
+      html
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/&lt;mark&gt;/g, "<mark>")
+        .replace(/&lt;\/mark&gt;/g, "</mark>");
 
-    const params = new URLSearchParams(window.location.search);
-
-    const onIdle = window.requestIdleCallback || (cb => setTimeout(cb, 1));
-
-    onIdle(async () => {
-      // @ts-expect-error — Missing types for @pagefind/default-ui package.
-      const { PagefindUI } = await import("@pagefind/default-ui");
-
-      // Display warning in dev mode
-      if (import.meta.env.DEV) {
-        pageFindSearch.innerHTML = `
-            <div class="bg-muted/75 rounded p-4 space-y-4 mb-4">
-              <p><strong>DEV mode Warning! </strong>You need to build the project at least once to see the search results during development.</p>
-              <code class="block bg-black text-white px-2 py-1 rounded">pnpm run build</code>
-            </div>
-          `;
+    const run = async (q: string) => {
+      out.textContent = "";
+      const term = q.trim();
+      if (!term) {
+        status.textContent = "";
+        return;
       }
-
-      // Init pagefind ui
-      const search = new PagefindUI({
-        element: "#pagefind-search",
-        bundlePath,
-        showImages: false,
-        showSubResults: true,
-        processTerm: function (term: string) {
-          params.set("q", term); // Update the `q` parameter in the URL
-          history.replaceState(history.state, "", "?" + params.toString()); // Push the new URL without reloading
-
-          const backUrl =
-            pageFindSearch?.dataset?.backurl ?? window.location.pathname;
-          sessionStorage.setItem("backUrl", `${backUrl}?${params.toString()}`);
-
-          return term;
-        },
-      });
-
-      // If search param exists (eg: search?q=astro), trigger search
-      const query = params.get("q");
-      if (query) {
-        search.triggerSearch(query);
-      }
-
-      // Reset search param if search input is cleared
-      const searchInput = document.querySelector(".pagefind-ui__search-input");
-      const clearButton = document.querySelector(".pagefind-ui__search-clear");
-      searchInput?.addEventListener("input", resetSearchParam);
-      clearButton?.addEventListener("click", resetSearchParam);
-
-      function resetSearchParam(e: Event) {
-        if ((e.target as HTMLInputElement)?.value.trim() === "") {
-          history.replaceState(history.state, "", window.location.pathname);
+      status.textContent = "searching...";
+      try {
+        const engine = await load();
+        const res = await engine.search(term);
+        const items = await Promise.all(
+          res.results.slice(0, 20).map(r => r.data())
+        );
+        if (items.length === 0) {
+          status.textContent = `nothing found for "${term}". try different words?`;
+          return;
         }
+        status.textContent = `found ${res.results.length} ${
+          res.results.length === 1 ? "page" : "pages"
+        } for "${term}":`;
+        items.forEach(it => {
+          const li = document.createElement("li");
+          const a = document.createElement("a");
+          a.className = "res-title";
+          a.href = it.url;
+          a.textContent = it.meta.title ?? it.url;
+          const p = document.createElement("p");
+          p.className = "res-excerpt";
+          p.innerHTML = safeExcerpt(it.excerpt);
+          li.append(a, p);
+          out.append(li);
+        });
+      } catch {
+        status.textContent =
+          "search isn't available right now (the index only exists on the built site).";
       }
+    };
+
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+      const q = input.value;
+      const url = new URL(window.location.href);
+      if (q.trim()) url.searchParams.set("q", q.trim());
+      else url.searchParams.delete("q");
+      history.replaceState(null, "", url);
+      run(q);
     });
+
+    const initial = new URLSearchParams(window.location.search).get("q");
+    if (initial) {
+      input.value = initial;
+      run(initial);
+    }
   }
-
-  document.addEventListener("astro:after-swap", () => {
-    const pagefindSearch = document.querySelector("#pagefind-search");
-
-    // if pagefind search form already exists, don't initialize search component
-    if (pagefindSearch && pagefindSearch.querySelector("form")) return;
-
-    initSearch();
-  });
-  initSearch();
 </script>
-
-<style is:global>
-  #pagefind-search {
-    --pagefind-ui-font: Verdana, Tahoma, Geneva, sans-serif;
-    --pagefind-ui-text: var(--text);
-    --pagefind-ui-background: var(--cell);
-    --pagefind-ui-border: var(--line);
-    --pagefind-ui-primary: var(--link);
-    --pagefind-ui-tag: var(--cell-side);
-    --pagefind-ui-border-radius: 0;
-    --pagefind-ui-border-width: 1px;
-    --pagefind-ui-image-border-radius: 0;
-    --pagefind-ui-scale: 0.85;
-  }
-  #pagefind-search input {
-    font-weight: normal;
-    border: 2px inset #e8e8e8;
-    background: #fff;
-    color: #000;
-    border-radius: 0;
-  }
-  #pagefind-search form::before {
-    background-color: var(--text);
-  }
-  #pagefind-search .pagefind-ui__button {
-    background: #c0c0c0;
-    color: #000;
-    border: 2px outset #e8e8e8;
-    border-radius: 0;
-  }
-  #pagefind-search .pagefind-ui__result-title a {
-    color: var(--link);
-    text-decoration: underline;
-    font-weight: bold;
-  }
-  #pagefind-search .pagefind-ui__result-excerpt mark {
-    background: #ffff66;
-    color: #000;
-  }
-</style>
