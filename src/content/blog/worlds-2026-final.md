@@ -7,6 +7,11 @@ tags:
   - league of legends
   - worlds
   - esports
+  - lck
+  - lpl
+  - gen.g
+  - blg
+  - player ratings
 ---
 
 i've been watching Worlds since 2014 and i've loved pretty much every bit of it. this year i was worried it was going to be underwhelming, but the final turned out to be a lot more than that. parts of it were some of the best i've seen in a very long time, and parts of it were a little disappointing. so here are my thoughts on Gen.G vs BLG :)

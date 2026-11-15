@@ -1,0 +1,42 @@
+---
+import { getAssetPath } from "@/utils/withBase";
+import { shows, games, albums, type Favourite } from "@/data/favourites";
+
+const groups: { title: string; items: Favourite[] }[] = [
+  { title: "shows", items: shows },
+  { title: "games", items: games },
+  { title: "albums", items: albums },
+];
+---
+
+<section class="favs">
+  <h2>favourites</h2>
+  <p>a few shows, games and albums i keep coming back to. i'll add more over time.</p>
+  {
+    groups.map(g => (
+      <div class="fav-block">
+        <h3>{g.title}</h3>
+        <ul class="fav-grid">
+          {g.items.map(item => (
+            <li>
+              {item.src ? (
+                <img
+                  src={getAssetPath(item.src)}
+                  alt={item.artist ? `${item.title} by ${item.artist}` : item.title}
+                  width="120"
+                  height="120"
+                  loading="lazy"
+                />
+              ) : (
+                <span class="fav-tile">{item.title}</span>
+              )}
+              <span class="title">{item.title}</span>
+              {item.artist && <span class="artist">{item.artist}</span>}
+              {item.note && <span class="note">{item.note}</span>}
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))
+  }
+</section>

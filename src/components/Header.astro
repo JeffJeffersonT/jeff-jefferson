@@ -5,12 +5,11 @@ import config from "@/config";
 const { site } = config;
 const locale = Astro.currentLocale ?? site.lang;
 const marquee =
-  "<marquee behavior=\"alternate\" scrollamount=\"2\">*** come on in, pull up a chair *** grab a snack *** stay as long as you like *** hope you have a nice day *** thanks for stopping by ***</marquee>";
+  "<marquee behavior=\"alternate\" scrollamount=\"2\">*** come on in, pull up a chair *** grab a snack *** stay as long as you like *** thanks for stopping by ***</marquee>";
 ---
 
 <header class="site-header">
   <a href={getRelativeLocaleUrl(locale, "")} class="site-title">{site.title}</a>
   <p class="welcome">welcome to jeff's corner of the internet</p>
-  <p class="tagline">{site.description}</p>
   <div class="marq" aria-hidden="true" set:html={marquee} />
 </header>

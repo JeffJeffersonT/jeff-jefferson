@@ -51,3 +51,9 @@ export const buttons: Banner[] = [
   { src: "/buttons/rainbow_bev.gif", alt: "rainbow bev", href: "https://cyber.dabamos.de/88x31/" },
   { src: "/buttons/transnow2.gif", alt: "trans now 2", href: "https://cyber.dabamos.de/88x31/" },
 ];
+
+/** Blinkies (usually 150x20-ish). */
+export const blinkies: Banner[] = [];
+
+/** Other gifs collected for the snippets page. */
+export const gifs: Banner[] = [];

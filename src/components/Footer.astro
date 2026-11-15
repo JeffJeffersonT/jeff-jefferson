@@ -2,7 +2,7 @@
 import type { HTMLAttributes } from "astro/types";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import BannerRow from "@/components/BannerRow.astro";
-import { banners, buttons } from "@/data/banners";
+import { banners, buttons, blinkies, gifs } from "@/data/banners";
 import config from "@/config";
 
 type Props = HTMLAttributes<"footer">;
@@ -19,23 +19,39 @@ const lastUpdated = new Intl.DateTimeFormat("en-GB", {
   .format(new Date())
   .toLowerCase();
 
-const PREVIEW_BUTTONS = 8;
-const PREVIEW_BANNERS = 2;
-const previewBanners = banners.slice(0, PREVIEW_BANNERS);
-const previewButtons = buttons.slice(0, PREVIEW_BUTTONS);
-const hasBanners = previewBanners.length > 0;
-const hasButtons = previewButtons.length > 0;
+const PREVIEW = { buttons: 8, blinkies: 6, gifs: 4, banners: 2 };
+const previewButtons = buttons.slice(0, PREVIEW.buttons);
+const previewBlinkies = blinkies.slice(0, PREVIEW.blinkies);
+const previewGifs = gifs.slice(0, PREVIEW.gifs);
+const previewBanners = banners.slice(0, PREVIEW.banners);
+const hasAny =
+  previewButtons.length +
+    previewBlinkies.length +
+    previewGifs.length +
+    previewBanners.length >
+  0;
 const hasMore =
-  banners.length > PREVIEW_BANNERS || buttons.length > PREVIEW_BUTTONS;
+  buttons.length > PREVIEW.buttons ||
+  blinkies.length > PREVIEW.blinkies ||
+  gifs.length > PREVIEW.gifs ||
+  banners.length > PREVIEW.banners;
 const snippetsHref = getRelativeLocaleUrl(locale, "snippets");
 ---
 
 <footer class:list={["site-footer", className]} {...attrs}>
   <section aria-label="snippets from other corners of the internet">
     <h2>snippets from other corners of the internet</h2>
-    {!hasBanners && !hasButtons && <p class="soon">(more coming soon)</p>}
-    {hasBanners && <BannerRow items={previewBanners} kind="banners" />}
-    {hasButtons && <BannerRow items={previewButtons} kind="buttons" />}
+    {!hasAny && <p class="soon">(more coming soon)</p>}
+    {previewButtons.length > 0 && (
+      <BannerRow items={previewButtons} kind="buttons" />
+    )}
+    {previewBlinkies.length > 0 && (
+      <BannerRow items={previewBlinkies} kind="banners" />
+    )}
+    {previewGifs.length > 0 && <BannerRow items={previewGifs} kind="banners" />}
+    {previewBanners.length > 0 && (
+      <BannerRow items={previewBanners} kind="banners" />
+    )}
     {hasMore && (
       <p class="see-more">
         <a href={snippetsHref}>see more &raquo;</a>
@@ -43,10 +59,6 @@ const snippetsHref = getRelativeLocaleUrl(locale, "snippets");
     )}
   </section>
   <hr />
-  <p>
-    best viewed with any browser at 800x600 &middot; no frames, no flash,
-    just html
-  </p>
   <p>
     last updated: {lastUpdated} &middot; &copy; {currentYear}{" "}
     {config.site.author} &middot; made by hand &middot;{" "}

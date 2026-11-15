@@ -5,7 +5,7 @@ export default defineAstroPaperConfig({
   site: {
     url: SITE_URL,
     title: "Jeff Jefferson",
-    description: "i write about the things i like. hope you have a nice day :)",
+    description: "i write about the things i like.",
     author: "Jeff Jefferson",
     lang: "en",
     timezone: "UTC",

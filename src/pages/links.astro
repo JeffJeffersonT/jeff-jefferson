@@ -5,8 +5,7 @@ import Main from "@/components/Main.astro";
 import { linkGroups } from "@/data/links";
 import config from "@/config";
 
-const pageDesc =
-  "a few of my favourite corners of the small, handmade internet. go wander!";
+const pageDesc = "some sites i like, plus places to find buttons and gifs.";
 ---
 
 <Layout title={`cool sites | ${config.site.title}`} description={pageDesc}>
@@ -17,7 +16,8 @@ const pageDesc =
       linkGroups.map(group => (
         <section class="link-group">
           <h2>
-            {group.title} <span class="small">({group.blurb})</span>
+            {group.title}
+            {group.blurb && <span class="small">({group.blurb})</span>}
           </h2>
           <ul class="link-list">
             {group.links.map(l => (
@@ -34,9 +34,9 @@ const pageDesc =
     }
     <hr />
     <p class="small">
-      got a site you think i'd like? leave its link in the{" "}
-      <a href="/guestbook/">guestbook</a>. the little buttons and gifs live on
-      the <a href="/collect/">goodies</a> page.
+      got a site you think i'd like? leave a link in the{" "}
+      <a href="/guestbook/">guestbook</a>. buttons and gifs also live on the{" "}
+      <a href="/collect/">goodies</a> page.
     </p>
   </Main>
 </Layout>

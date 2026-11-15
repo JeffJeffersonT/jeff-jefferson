@@ -1,27 +1,24 @@
 ---
-title: "About"
-description: "a little about jeff's corner of the internet."
+title: "about"
+description: "about jeff and some of the things he likes."
 ---
 
-hi, i'm jeff, and this is my little corner of the internet.
+hi, i'm jeff.
 
-i write about the things i like, and this is where all of it lives: day-to-day stuff, stories, thoughts, and whatever else is on my mind. it's pretty laid back. no pressure here.
+i write about the things i like. league, cooking, music, games, that sort of thing. i post whenever i feel like it.
 
-## what's on this site
+## things i love
 
-- [posts](/posts/): everything i've written, newest first. you can also browse by [tag](/tags/) or by [month](/archives/)
-- [guestbook](/guestbook/): leave a note and say hi, i'd love that
-- [goodies](/collect/): little buttons, blinkies and gifs i've collected. feel free to grab some
-- [cool sites](/links/): some of my favourite corners of the small web
-- [search](/search/) and a [random post](/random/) button, if you want to wander
-- [rss feed](/rss.xml): follow along in your feed reader
+i play League of Legends and i love League esports. i love cooking, Minecraft, and roguelikes like Gunfire Reborn and Slay the Spire. i also love game development, photography, videography, graphic design, art, voice work, and design as a whole.
 
-## about the look
+## card games
 
-this site is handmade in the style of the old web: plain html, a tiled wallpaper, a marquee, tiny buttons. there's a night mode button on the left if your eyes need a break.
+i adore card games. my favourites are the Plants vs. Zombies card game (Plants vs. Zombies Heroes), Club Penguin Card-Jitsu (that's my absolute favourite), the Pokémon TCG, and Riftbound. i'm a player first, collector second, always.
+
+## music
+
+some of my favourite artists are Twenty One Pilots, Bring Me The Horizon, Yung Gravy, bbno$, the Steven Universe soundtrack, Ashnikko, and Penelope Scott. if i had to pick a top three, in no particular order: Yung Gravy, Penelope Scott, and Twenty One Pilots.
 
 ## link to me
 
-if you have your own site, you're welcome to link to mine. there's a little button you can copy on the [goodies page](/collect/).
-
-thanks for stopping by, hope you have a nice day :)
+if you have your own site, you can put my button on it. the code is on the [goodies page](/collect/). and if you want to say hi, the [guestbook](/guestbook/) is open :)

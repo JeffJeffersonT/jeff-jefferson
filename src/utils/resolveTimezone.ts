@@ -28,7 +28,7 @@ export function resolveTimezone(zone: string | undefined): string {
     warned.add(zone);
     // eslint-disable-next-line no-console
     console.warn(
-      `[astro-paper] Unknown timezone "${zone}". Falling back to UTC. ` +
+      `unknown timezone "${zone}". Falling back to UTC. ` +
         `Use an IANA name such as "Asia/Bangkok" or "America/New_York".`
     );
   }

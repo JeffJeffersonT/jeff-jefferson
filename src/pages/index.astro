@@ -21,18 +21,13 @@ const homePath = getRelativeLocaleUrl(locale, "");
 <Layout>
   <main id="main-content" data-home-path={homePath} class="hello">
     <h2>welcome!</h2>
-    <p>i write about the things i like. hope you have a nice day :)</p>
     <p>
-      this is my little corner of the internet. look around, read a post or
-      two, and make yourself at home. you can also{" "}
+      i write about the things i like. there's a
+      <a href={getRelativeLocaleUrl(locale, "guestbook")}>guestbook</a> if you
+      want to say hi, and you can{" "}
       <a href={getAssetPath("rss.xml")} title="RSS Feed">follow along with rss</a>.
     </p>
-    <p><span class="construction">*** under construction: always a work in progress ***</span></p>
-
-    <div class="sparkle-note">
-      <b>new!</b> there's a <a href={getRelativeLocaleUrl(locale, "guestbook")}>guestbook</a> now.
-      come say hi!
-    </div>
+    <p><span class="construction">*** under construction ***</span></p>
     <hr />
 
     <div class="home-cols">
@@ -77,7 +72,7 @@ const homePath = getRelativeLocaleUrl(locale, "");
           <li><a href={getRelativeLocaleUrl(locale, "posts")}>posts</a><br /><span class="small">everything i've written</span></li>
           <li><a href={getRelativeLocaleUrl(locale, "guestbook")}>guestbook</a><br /><span class="small">leave me a note</span></li>
           <li><a href={getRelativeLocaleUrl(locale, "collect")}>goodies</a><br /><span class="small">buttons and gifs to take</span></li>
-          <li><a href={getRelativeLocaleUrl(locale, "links")}>cool sites</a><br /><span class="small">fun corners of the web</span></li>
+          <li><a href={getRelativeLocaleUrl(locale, "links")}>cool sites</a><br /><span class="small">sites i like</span></li>
           <li><a href={getRelativeLocaleUrl(locale, "tags")}>tags</a><br /><span class="small">browse by topic</span></li>
           <li><a href={getRelativeLocaleUrl(locale, "search")}>search</a><br /><span class="small">find something</span></li>
         </ul>

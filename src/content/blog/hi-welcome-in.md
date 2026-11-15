@@ -2,7 +2,7 @@
 title: "hi, welcome in :)"
 pubDatetime: 2026-11-15T05:50:00+04:00
 description: "trying something new. this is where all my thoughts will live"
-tags: ["intro", "life"]
+tags: ["intro", "life", "blogging"]
 ogImage: ./hi-welcome-in/cover.webp
 ---
 

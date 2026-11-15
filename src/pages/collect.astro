@@ -15,7 +15,7 @@ const resolveSrc = (src: string) =>
   /^(https?:)?\/\//.test(src) ? src : getAssetPath(src);
 
 const pageTitle = "goodies";
-const pageDesc = "little things i've collected from around the web, free to grab.";
+const pageDesc = "buttons and gifs i've collected. right click and save, please don't hotlink.";
 const items = (list: Goodie[]) => list.map(g => ({ ...g, src: resolveSrc(g.src) }));
 ---
 
@@ -24,8 +24,8 @@ const items = (list: Goodie[]) => list.map(g => ({ ...g, src: resolveSrc(g.src) 
 
   <Main pageTitle="take some of mine" class="app-prose goodies">
     <p>
-      hey, these are some of the little things i've collected. feel free to
-      grab some for your own corner of the internet :)
+      hey, these are some buttons and gifs i've collected. right click and
+      save them for your own site, please don't hotlink :)
     </p>
     <p class="goodies-note">
       <b>right click and save, please don't hotlink :)</b>
@@ -43,7 +43,7 @@ const items = (list: Goodie[]) => list.map(g => ({ ...g, src: resolveSrc(g.src) 
           alt="jeff jefferson"
           width="88"
           height="31"
-          class="goodie-img"
+          class="goodie-img btn-88"
         />
       </a>
     </p>
