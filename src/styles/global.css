@@ -1121,3 +1121,9 @@ button.win-btn {
   max-width: 75ch;
   margin: 10px 0;
 }
+
+@media (max-width: 700px) {
+  .hello .home-menu {
+    columns: 1;
+  }
+}
