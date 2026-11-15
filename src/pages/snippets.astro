@@ -32,14 +32,16 @@ const empty =
       )
     }
 
-    {
-      blinkies.length > 0 && (
-        <section>
-          <h2>blinkies</h2>
-          <BannerRow items={blinkies} kind="banners" />
-        </section>
-      )
-    }
+    <section>
+      <h2>blinkies</h2>
+      {
+        blinkies.length > 0 ? (
+          <BannerRow items={blinkies} kind="blinkies" />
+        ) : (
+          <p class="muted">(none yet)</p>
+        )
+      }
+    </section>
 
     {
       gifs.length > 0 && (

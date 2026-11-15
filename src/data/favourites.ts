@@ -21,7 +21,7 @@ export const games: Favourite[] = [
   { title: "Gunfire Reborn", src: "/favourites/gunfire-reborn.webp" },
   { title: "League of Legends", src: "/favourites/league-of-legends.webp" },
   { title: "Club Penguin: Elite Penguin Force", src: "/favourites/club-penguin-epf.webp" },
-  { title: "Club Penguin: Elite Penguin Force: Herbert's Revenge" },
+  { title: "Club Penguin: Elite Penguin Force: Herbert's Revenge", src: "/favourites/club-penguin-herberts-revenge.webp" },
   { title: "Skylanders: Spyro's Adventure", src: "/favourites/skylanders-spyros-adventure.webp" },
   { title: "Skylanders: Giants", src: "/favourites/skylanders-giants.webp" },
   { title: "Skylanders: Swap Force", src: "/favourites/skylanders-swap-force.webp" },

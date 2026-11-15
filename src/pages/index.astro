@@ -27,57 +27,44 @@ const homePath = getRelativeLocaleUrl(locale, "");
       want to say hi, and you can{" "}
       <a href={getAssetPath("rss.xml")} title="RSS Feed">follow along with rss</a>.
     </p>
-    <p><span class="construction">*** under construction ***</span></p>
-    <hr />
 
-    <div class="home-cols">
-      <div>
-        {
-          featuredPosts.length > 0 && (
-            <>
-              <h2>featured</h2>
-              <ul class="post-list">
-                {featuredPosts.map(data => (
-                  <Card variant="h3" {...data} />
-                ))}
-              </ul>
-            </>
-          )
-        }
-
-        <h2 id="recent-posts">latest posts</h2>
-        {
-          recentPosts.length > 0 ? (
-            <ul class="post-list">
-              {recentPosts.slice(0, postsConfig.perIndex).map(data => (
-                <Card variant="h3" {...data} />
-              ))}
-            </ul>
-          ) : (
-            featuredPosts.length === 0 && (
-              <p>no posts yet, but i'm working on it. check back soon!</p>
-            )
-          )
-        }
-        <p>
-          <a href={getRelativeLocaleUrl(locale, "posts")}>see all posts &raquo;</a>
-          {" "}&middot;{" "}
-          <a href={getRelativeLocaleUrl(locale, "random")}>surprise me &raquo;</a>
-        </p>
-      </div>
-
-      <div>
-        <h2>around the site</h2>
-        <ul class="home-menu">
-          <li><a href={getRelativeLocaleUrl(locale, "posts")}>posts</a><br /><span class="small">everything i've written</span></li>
-          <li><a href={getRelativeLocaleUrl(locale, "guestbook")}>guestbook</a><br /><span class="small">leave me a note</span></li>
-          <li><a href={getRelativeLocaleUrl(locale, "collect")}>goodies</a><br /><span class="small">buttons and gifs to take</span></li>
-          <li><a href={getRelativeLocaleUrl(locale, "links")}>cool sites</a><br /><span class="small">sites i like</span></li>
-          <li><a href={getRelativeLocaleUrl(locale, "tags")}>tags</a><br /><span class="small">browse by topic</span></li>
-          <li><a href={getRelativeLocaleUrl(locale, "search")}>search</a><br /><span class="small">find something</span></li>
-        </ul>
-      </div>
+    <div class="currently">
+      <b>currently</b>
+      <span>editing photos</span>
     </div>
+
+    {
+      featuredPosts.length > 0 && (
+        <>
+          <h2>featured</h2>
+          <ul class="post-list">
+            {featuredPosts.map(data => (
+              <Card variant="h3" {...data} />
+            ))}
+          </ul>
+        </>
+      )
+    }
+
+    <h2 id="recent-posts">latest posts</h2>
+    {
+      recentPosts.length > 0 ? (
+        <ul class="post-list">
+          {recentPosts.slice(0, postsConfig.perIndex).map(data => (
+            <Card variant="h3" {...data} />
+          ))}
+        </ul>
+      ) : (
+        featuredPosts.length === 0 && (
+          <p>no posts yet, but i'm working on it. check back soon!</p>
+        )
+      )
+    }
+    <p>
+      <a href={getRelativeLocaleUrl(locale, "posts")}>see all posts &raquo;</a>
+      {" "}&middot;{" "}
+      <a href={getRelativeLocaleUrl(locale, "random")}>surprise me &raquo;</a>
+    </p>
   </main>
 </Layout>
 

@@ -13,7 +13,7 @@ i play League of Legends and i love League esports. i love cooking, Minecraft, a
 
 ## card games
 
-i adore card games. my favourites are the Plants vs. Zombies card game (Plants vs. Zombies Heroes), Club Penguin Card-Jitsu (that's my absolute favourite), the Pokémon TCG, and Riftbound. i'm a player first, collector second, always.
+i adore card games. my favourites are the Plants vs. Zombies card game by Kayou, Club Penguin Card-Jitsu (that's my absolute favourite), the Pokémon TCG, and Riftbound. i'm a player first, collector second, always.
 
 ## music
 

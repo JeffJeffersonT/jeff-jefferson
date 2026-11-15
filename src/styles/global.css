@@ -664,6 +664,12 @@ img.btn-88 {
   width: 176px;
   height: 62px;
 }
+.banner-row.blinkies img {
+  image-rendering: pixelated;
+  /* 150x20 typical, shown at 2x on desktop */
+  width: 300px;
+  height: 40px;
+}
 
 .see-more {
   margin: 4px 0 0;
@@ -732,6 +738,10 @@ img.btn-88 {
   img.btn-88 {
     width: 132px;
     height: 47px;
+  }
+  .banner-row.blinkies img {
+    width: 225px;
+    height: 30px;
   }
   .nav-col ul.links {
     display: flex;
@@ -1159,8 +1169,10 @@ img.btn-88 {
   display: block;
   width: 120px;
   height: 120px;
-  object-fit: contain;
-  background: #fff;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: center;
+  background: var(--cell-side);
   border: 1px solid var(--line);
   margin: 0 0 4px;
 }
