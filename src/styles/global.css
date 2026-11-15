@@ -704,3 +704,43 @@ button.win-btn {
     text-align: left;
   }
 }
+
+/* goodies page (/collect/) */
+.goodies .goodies-note {
+  background: var(--warn-bg);
+  border: 1px dashed var(--line);
+  padding: 4px 8px;
+  display: inline-block;
+}
+.goodies .goodie-img {
+  display: inline-block;
+  margin: 0;
+  border: 0;
+  image-rendering: pixelated;
+}
+.goodies .goodie-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 12px;
+  align-items: flex-end;
+}
+.goodies .goodie {
+  margin: 0;
+  text-align: center;
+}
+.goodies .goodie figcaption {
+  font-size: 11px;
+  max-width: 160px;
+}
+.goodies textarea.snippet {
+  display: block;
+  width: 100%;
+  max-width: 600px;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 13px;
+  background: var(--code-bg);
+  color: var(--text);
+  border: 2px inset #e8e8e8;
+  border-radius: 0;
+  padding: 4px 6px;
+}
