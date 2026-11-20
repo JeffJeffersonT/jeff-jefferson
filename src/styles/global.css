@@ -1031,6 +1031,15 @@ img.btn-88 {
   color: var(--muted);
 }
 
+/* comments sit under a post and reuse the guestbook form/entry styles */
+.comments {
+  margin: 16px 0 8px;
+  max-width: 820px;
+}
+.comments h2 {
+  margin-bottom: 8px;
+}
+
 /* ---------- links page ---------- */
 .link-group {
   margin: 0 0 14px;

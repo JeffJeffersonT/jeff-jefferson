@@ -1,8 +1,8 @@
 /**
  * Guestbook settings.
  *
- * The guestbook page (/guestbook/) talks to a tiny JSON API: the Cloudflare
- * Worker in `guestbook-worker/` (deployed as "jeffersons-guestbook" with a KV
+ * The guestbook page (/guestbook/) and the comments on each post talk to a
+ * tiny JSON API: the Cloudflare Worker in `guestbook-worker/` (deployed as "jeffersons-guestbook" with a KV
  * namespace "jeffersons-space-guestbook"). Set `endpoint` to "" to switch
  * signing off again (the form greys out with a "coming soon" note).
  */

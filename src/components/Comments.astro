@@ -1,0 +1,74 @@
+---
+import { guestbook } from "@/data/guestbook";
+
+type Props = { slug: string };
+
+const { slug } = Astro.props;
+const live = guestbook.endpoint !== "";
+---
+
+<section
+  id="comments"
+  class="comments"
+  data-endpoint={guestbook.endpoint}
+  data-slug={slug}
+  data-max-name={guestbook.maxName}
+  data-max-message={guestbook.maxMessage}
+  data-max-website={guestbook.maxWebsite}
+  data-pagefind-ignore
+>
+  <h2>comments</h2>
+  <p id="c-empty" class="gb-empty">loading comments...</p>
+  <ol id="c-entries" class="gb-entries"></ol>
+
+  <div class="gb-form">
+    <div class="win-title">
+      <span>leave a comment</span>
+      <span class="win-ctl" aria-hidden="true"><span>_</span><span>&#9633;</span><span>x</span></span>
+    </div>
+    <form id="c-form" autocomplete="off">
+      <fieldset disabled={!live}>
+        <label for="c-name">your name</label>
+        <input
+          id="c-name"
+          name="name"
+          type="text"
+          maxlength={guestbook.maxName}
+          required
+        />
+        <label for="c-website">
+          your website <span class="opt">(optional)</span>
+        </label>
+        <input
+          id="c-website"
+          name="website"
+          type="url"
+          maxlength={guestbook.maxWebsite}
+          placeholder="https://"
+        />
+        <label for="c-message">your comment</label>
+        <textarea
+          id="c-message"
+          name="message"
+          rows="5"
+          maxlength={guestbook.maxMessage}
+          required></textarea>
+        <!-- honeypot: real people never see or fill this -->
+        <div class="hp" aria-hidden="true">
+          <label for="c-nick">leave this empty</label>
+          <input id="c-nick" name="nickname" type="text" tabindex="-1" autocomplete="off" />
+        </div>
+        <div class="gb-row">
+          <button type="submit" class="win-btn">post comment</button>
+          <span class="gb-count" id="c-count">0/{guestbook.maxMessage}</span>
+        </div>
+      </fieldset>
+      <p id="c-status" class="gb-status" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+  <p class="small">i can remove anything that isn't nice.</p>
+</section>
+
+<script>
+  import "@/scripts/comments";
+</script>

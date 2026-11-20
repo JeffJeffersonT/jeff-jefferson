@@ -22,3 +22,5 @@ some of my favourite artists are Twenty One Pilots, Bring Me The Horizon, Yung G
 ## link to me
 
 if you have your own site, you can put my button on it. the code is on the [goodies page](/goodies/). and if you want to say hi, the [guestbook](/guestbook/) is open :)
+
+if you wanna reach me you can email me at [jeffjefferson@duck.com](mailto:jeffjefferson@duck.com)
