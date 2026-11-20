@@ -38,6 +38,8 @@ and that's something to be proud of. it's a work of art in a sense. instead of s
 
 ![sliced steak in a glossy garlic and spring onion sauce](./cooking-is-a-life-skill/glazed-steak.webp)
 
+---
+
 ## it's so much cheaper
 
 cooking is much, much, much cheaper than ordering food. i can't stress that enough.
@@ -64,6 +66,8 @@ so for the most part, unless someone has a very specific request or i know someo
 
 ![sliced medium rare steak covered in herbs](./cooking-is-a-life-skill/herb-steak.webp)
 
+---
+
 ## it's art you get to eat
 
 that kind of leads me to my next point, which is that cooking feels like you're almost becoming one with the consumption of it all.
@@ -79,6 +83,8 @@ and then there's cooking for other people, which is honestly one of my favourite
 cooking for people is a massive way to show gratitude and effort and care and compassion. whether it's your friends or your family or someone you love or someone you're trying to get closer to, or even just your neighbours, cooking for them is such a big way to show it.
 
 it takes time and effort, and you have to think about what they'd like and how they'd want it, and when you finally put the plate in front of them they can tell you did all of that for them. it's wonderful. and it doesn't need to be anything crazy either, even something simple made for someone means a lot.
+
+---
 
 ## start small
 
@@ -101,6 +107,8 @@ like maple syrup marinated, candied steak. turned out incredible. same thing wit
 ![a tray of beef sliders around a bowl of cheese sauce](./cooking-is-a-life-skill/sliders.webp)
 
 there are so many different ways to try so many different things. the sky, or sometimes your allergies, really is the limit.
+
+---
 
 ## so go cook something
 

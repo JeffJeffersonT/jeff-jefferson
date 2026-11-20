@@ -24,6 +24,8 @@ here's what i'll be posting:
 
 basically just personal ponderings and so on. it's pretty laid back, but this is where you can pick at my mind, if you'd like.
 
+---
+
 so for whoever's reading, i hope you find this even the slightest bit interesting. and if i've made you smile, then i consider that a success <3
 
 until my next post (which should be out soon), i'll see you then :)

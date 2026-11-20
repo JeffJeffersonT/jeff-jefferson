@@ -3,13 +3,13 @@ import Layout from "@/layouts/Layout.astro";
 import Breadcrumb from "@/components/Breadcrumb.astro";
 import Main from "@/components/Main.astro";
 import BannerRow from "@/components/BannerRow.astro";
-import { banners, buttons, blinkies, gifs } from "@/data/banners";
+import { banners, buttons, blinkies, stamps, gifs } from "@/data/banners";
 import config from "@/config";
 
 const pageTitle = "snippets";
-const pageDesc = "buttons, blinkies and gifs i've picked up around the web.";
+const pageDesc = "buttons, blinkies, stamps and gifs i've picked up around the web.";
 const empty =
-  banners.length + buttons.length + blinkies.length + gifs.length === 0;
+  banners.length + buttons.length + blinkies.length + stamps.length + gifs.length === 0;
 ---
 
 <Layout title={`${pageTitle} | ${config.site.title}`} description={pageDesc}>
@@ -17,8 +17,8 @@ const empty =
 
   <Main pageTitle="snippets from other corners of the internet" class="app-prose">
     <p>
-      buttons, blinkies and gifs i've picked up around the web. click one to
-      go to where it came from.
+      buttons, blinkies, stamps and gifs i've picked up around the web. click
+      one to go to where it came from.
     </p>
 
     {empty && <p class="muted">(nothing here yet, coming soon)</p>}
@@ -42,6 +42,15 @@ const empty =
         )
       }
     </section>
+
+    {
+      stamps.length > 0 && (
+        <section>
+          <h2>stamps</h2>
+          <BannerRow items={stamps} kind="stamps" />
+        </section>
+      )
+    }
 
     {
       gifs.length > 0 && (

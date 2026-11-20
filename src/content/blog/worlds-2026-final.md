@@ -56,6 +56,8 @@ and Gen.G just got outclassed, apart from the one game they won. Kiin, Canyon, C
 
 a lot of it also comes down to Chovy, who i'll get to in the ratings. not that he played badly, but under pressure he wasn't able to be what he needed to be. he had some great games, but for the most part it just wasn't enough.
 
+---
+
 ## player ratings
 
 these are overall, across the four games, and all ratings are out of 10. my scale is that 5 is a baseline average, 6 is a little better than average, and 4 is a little below average. you can figure out the rest from there.
@@ -78,6 +80,8 @@ these are overall, across the four games, and all ratings are out of 10. my scal
 
 ![ON's Camille game stats, 1/8/10](./worlds-2026-final/on-camille-stats.webp)
 
+
+---
 
 ## closing thoughts
 

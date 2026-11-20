@@ -92,6 +92,17 @@ hr {
   margin: 12px 0;
 }
 
+/* post / page thematic breaks, from the pulsing blue divider gif */
+.app-prose hr {
+  border: 0;
+  height: 20px;
+  margin: 18px auto;
+  max-width: 100%;
+  background: url("/dividers/pulsingblue.gif") center / contain no-repeat;
+  image-rendering: pixelated;
+}
+
+
 img {
   max-width: 100%;
   height: auto;
@@ -666,9 +677,15 @@ img.btn-88 {
 }
 .banner-row.blinkies img {
   image-rendering: pixelated;
-  /* 150x20 typical, shown at 2x on desktop */
-  width: 300px;
-  height: 40px;
+  height: 40px; /* 150x20 typical, shown at 2x */
+  width: auto;
+  max-width: 100%;
+}
+.banner-row.stamps img {
+  image-rendering: pixelated;
+  height: 112px; /* 99x56 typical, shown at 2x */
+  width: auto;
+  max-width: 100%;
 }
 
 .see-more {
@@ -740,8 +757,14 @@ img.btn-88 {
     height: 47px;
   }
   .banner-row.blinkies img {
-    width: 225px;
+    width: auto;
     height: 30px;
+    max-width: 100%;
+  }
+  .banner-row.stamps img {
+    height: 84px;
+    width: auto;
+    max-width: 100%;
   }
   .nav-col ul.links {
     display: flex;
@@ -1192,3 +1215,19 @@ img.btn-88 {
   display: block;
 }
 
+
+
+.mini-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  align-items: center;
+  padding: 6px 4px 2px;
+}
+.mini-row img {
+  image-rendering: pixelated;
+  height: 36px; /* 18px at 2x */
+  width: auto;
+  border: 0;
+}

@@ -2,7 +2,7 @@
 import type { HTMLAttributes } from "astro/types";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import BannerRow from "@/components/BannerRow.astro";
-import { banners, buttons, blinkies, gifs } from "@/data/banners";
+import { banners, buttons, blinkies, stamps, gifs } from "@/data/banners";
 import config from "@/config";
 
 type Props = HTMLAttributes<"footer">;
@@ -19,20 +19,23 @@ const lastUpdated = new Intl.DateTimeFormat("en-GB", {
   .format(new Date())
   .toLowerCase();
 
-const PREVIEW = { buttons: 8, blinkies: 6, gifs: 4, banners: 2 };
+const PREVIEW = { buttons: 8, blinkies: 6, stamps: 6, gifs: 4, banners: 2 };
 const previewButtons = buttons.slice(0, PREVIEW.buttons);
 const previewBlinkies = blinkies.slice(0, PREVIEW.blinkies);
+const previewStamps = stamps.slice(0, PREVIEW.stamps);
 const previewGifs = gifs.slice(0, PREVIEW.gifs);
 const previewBanners = banners.slice(0, PREVIEW.banners);
 const hasAny =
   previewButtons.length +
     previewBlinkies.length +
+    previewStamps.length +
     previewGifs.length +
     previewBanners.length >
   0;
 const hasMore =
   buttons.length > PREVIEW.buttons ||
   blinkies.length > PREVIEW.blinkies ||
+  stamps.length > PREVIEW.stamps ||
   gifs.length > PREVIEW.gifs ||
   banners.length > PREVIEW.banners;
 const snippetsHref = getRelativeLocaleUrl(locale, "snippets");
@@ -47,6 +50,9 @@ const snippetsHref = getRelativeLocaleUrl(locale, "snippets");
     )}
     {previewBlinkies.length > 0 && (
       <BannerRow items={previewBlinkies} kind="blinkies" />
+    )}
+    {previewStamps.length > 0 && (
+      <BannerRow items={previewStamps} kind="stamps" />
     )}
     {previewGifs.length > 0 && <BannerRow items={previewGifs} kind="banners" />}
     {previewBanners.length > 0 && (

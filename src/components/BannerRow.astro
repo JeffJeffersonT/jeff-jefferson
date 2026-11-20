@@ -4,7 +4,7 @@ import { getAssetPath } from "@/utils/withBase";
 
 type Props = {
   items: Banner[];
-  kind?: "banners" | "buttons" | "blinkies";
+  kind?: "banners" | "buttons" | "blinkies" | "stamps";
 };
 
 const { items, kind = "banners" } = Astro.props;
@@ -13,7 +13,13 @@ const resolveSrc = (src: string) =>
   /^(https?:)?\/\//.test(src) ? src : getAssetPath(src);
 
 const defaultSize =
-  kind === "buttons" ? { width: 88, height: 31 } : kind === "blinkies" ? { width: 150, height: 20 } : {};
+  kind === "buttons"
+    ? { width: 88, height: 31 }
+    : kind === "blinkies"
+      ? { width: 150, height: 20 }
+      : kind === "stamps"
+        ? { width: 99, height: 56 }
+        : {};
 ---
 
 {

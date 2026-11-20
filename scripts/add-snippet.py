@@ -5,10 +5,10 @@ usage:
   python3 scripts/add-snippet.py <category> <image-url> [<image-url> ...]
          [--alt "text"] [--href URL] [--no-build]
 
-  categories: buttons, blinkies, gifs, banners
+  categories: buttons, blinkies, stamps, gifs, banners
 
 Blinkies are usually 150x20 and render at 2x (pixelated) on desktop.
-Buttons are 88x31. Gifs and banners keep their natural size.
+Buttons are 88x31. Stamps are usually 99x56. Gifs and banners keep their natural size.
 
 The image is downloaded, stripped of all metadata (animated gifs keep
 every frame and their timings), saved under public/<category>/, and a
@@ -25,7 +25,7 @@ import urllib.parse
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "src", "data", "banners.ts")
-CATEGORIES = ("buttons", "blinkies", "gifs", "banners")
+CATEGORIES = ("buttons", "blinkies", "stamps", "gifs", "banners")
 
 spec = importlib.util.spec_from_file_location(
     "add_goodie", os.path.join(os.path.dirname(__file__), "add-goodie.py")
