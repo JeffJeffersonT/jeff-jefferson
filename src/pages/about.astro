@@ -4,6 +4,8 @@ import Layout from "@/layouts/Layout.astro";
 import Breadcrumb from "@/components/Breadcrumb.astro";
 import Main from "@/components/Main.astro";
 import Favourites from "@/components/Favourites.astro";
+import { minibuttons } from "@/data/minibuttons";
+import { getAssetPath } from "@/utils/withBase";
 import config from "@/config";
 
 const about = await getEntry("pages", "about");
@@ -32,6 +34,30 @@ const { Content } = await render(about);
       <span>editing photos</span>
     </div>
     <Content />
+    {
+      minibuttons.length > 0 && (
+        <div class="mini-row">
+          {minibuttons.map(b => {
+            const img = (
+              <img
+                src={getAssetPath(b.src)}
+                alt={b.alt}
+                width={b.width}
+                height={b.height}
+                loading="lazy"
+              />
+            );
+            return b.href ? (
+              <a href={b.href} target="_blank" rel="noopener noreferrer">
+                {img}
+              </a>
+            ) : (
+              img
+            );
+          })}
+        </div>
+      )
+    }
     <Favourites />
   </Main>
 </Layout>

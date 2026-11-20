@@ -1,4 +1,4 @@
-/** Little leftover buttons, shown in the sidebar. */
+/** Little leftover buttons, shown on the about page. */
 export const minibuttons = [
   { src: "/minibuttons/purplelicious.gif", alt: "purplelicious", href: "https://pixelsafari.neocities.org/", width: 88, height: 18 },
   { src: "/minibuttons/courtjester.gif", alt: "courtjester", href: "https://pixelsafari.neocities.org/", width: 102, height: 18 },

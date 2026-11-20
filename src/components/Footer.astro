@@ -1,14 +1,10 @@
 ---
 import type { HTMLAttributes } from "astro/types";
-import { getRelativeLocaleUrl } from "astro:i18n";
-import BannerRow from "@/components/BannerRow.astro";
-import { banners, buttons, blinkies, stamps, gifs } from "@/data/banners";
 import config from "@/config";
 
 type Props = HTMLAttributes<"footer">;
 
 const { class: className, ...attrs } = Astro.props;
-const locale = Astro.currentLocale ?? config.site.lang;
 const currentYear = new Date().getFullYear();
 const lastUpdated = new Intl.DateTimeFormat("en-GB", {
   day: "numeric",
@@ -18,53 +14,9 @@ const lastUpdated = new Intl.DateTimeFormat("en-GB", {
 })
   .format(new Date())
   .toLowerCase();
-
-const PREVIEW = { buttons: 8, blinkies: 6, stamps: 6, gifs: 4, banners: 2 };
-const previewButtons = buttons.slice(0, PREVIEW.buttons);
-const previewBlinkies = blinkies.slice(0, PREVIEW.blinkies);
-const previewStamps = stamps.slice(0, PREVIEW.stamps);
-const previewGifs = gifs.slice(0, PREVIEW.gifs);
-const previewBanners = banners.slice(0, PREVIEW.banners);
-const hasAny =
-  previewButtons.length +
-    previewBlinkies.length +
-    previewStamps.length +
-    previewGifs.length +
-    previewBanners.length >
-  0;
-const hasMore =
-  buttons.length > PREVIEW.buttons ||
-  blinkies.length > PREVIEW.blinkies ||
-  stamps.length > PREVIEW.stamps ||
-  gifs.length > PREVIEW.gifs ||
-  banners.length > PREVIEW.banners;
-const snippetsHref = getRelativeLocaleUrl(locale, "snippets");
 ---
 
 <footer class:list={["site-footer", className]} {...attrs}>
-  <section aria-label="snippets from other corners of the internet">
-    <h2>snippets from other corners of the internet</h2>
-    {!hasAny && <p class="soon">(more coming soon)</p>}
-    {previewButtons.length > 0 && (
-      <BannerRow items={previewButtons} kind="buttons" />
-    )}
-    {previewBlinkies.length > 0 && (
-      <BannerRow items={previewBlinkies} kind="blinkies" />
-    )}
-    {previewStamps.length > 0 && (
-      <BannerRow items={previewStamps} kind="stamps" />
-    )}
-    {previewGifs.length > 0 && <BannerRow items={previewGifs} kind="banners" />}
-    {previewBanners.length > 0 && (
-      <BannerRow items={previewBanners} kind="banners" />
-    )}
-    {hasMore && (
-      <p class="see-more">
-        <a href={snippetsHref}>see more &raquo;</a>
-      </p>
-    )}
-  </section>
-  <hr />
   <p>
     last updated: {lastUpdated} &middot; &copy; {currentYear}{" "}
     {config.site.author} &middot; made by hand &middot;{" "}

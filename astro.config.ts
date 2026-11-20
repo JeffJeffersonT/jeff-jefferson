@@ -25,6 +25,10 @@ import { SITE_URL, SITE_BASE } from "./site.constants";
 export default defineConfig({
   site: SITE_URL,
   base: SITE_BASE,
+  redirects: {
+    "/collect": "/goodies/",
+    "/snippets": "/goodies/",
+  },
   integrations: [
     mdx(),
     sitemap({

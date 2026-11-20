@@ -4,9 +4,15 @@ import Breadcrumb from "@/components/Breadcrumb.astro";
 import Main from "@/components/Main.astro";
 import BannerRow from "@/components/BannerRow.astro";
 import { banners, buttons, blinkies, stamps, gifs } from "@/data/banners";
+import { getAssetPath } from "@/utils/withBase";
 import config from "@/config";
 
-const pageTitle = "snippets";
+const siteUrl = new URL(getAssetPath(""), Astro.site).href.replace(/\/?$/, "/");
+const buttonUrl = new URL(getAssetPath("buttons/jeff-jefferson.gif"), Astro.site).href;
+
+const snippet = `<a href="${siteUrl}" target="_blank"><img src="${buttonUrl}" alt="jeff jefferson" width="88" height="31" border="0"></a>`;
+
+const pageTitle = "goodies";
 const pageDesc = "buttons, blinkies, stamps and gifs i've picked up around the web.";
 const empty =
   banners.length + buttons.length + blinkies.length + stamps.length + gifs.length === 0;
@@ -15,10 +21,37 @@ const empty =
 <Layout title={`${pageTitle} | ${config.site.title}`} description={pageDesc}>
   <Breadcrumb />
 
-  <Main pageTitle="snippets from other corners of the internet" class="app-prose">
+  <Main pageTitle="take some of mine" class="app-prose goodies">
     <p>
       buttons, blinkies, stamps and gifs i've picked up around the web. click
-      one to go to where it came from.
+      one to go to where it came from. if you want any for your own site, right
+      click and save them, please don't hotlink :)
+    </p>
+
+    <h2>link to me!</h2>
+    <p>
+      if you like it here, you can put my button on your site. it'd make me
+      really happy :)
+    </p>
+    <p class="center">
+      <a href={siteUrl}>
+        <img
+          src={buttonUrl}
+          alt="jeff jefferson"
+          width="88"
+          height="31"
+          class="goodie-img btn-88"
+        />
+      </a>
+    </p>
+    <p>copy this into your page (or just save the button and use your own link):</p>
+    <p>
+      <textarea
+        class="snippet"
+        rows="4"
+        readonly
+        onclick="this.select()"
+        aria-label="html for my 88x31 button">{snippet}</textarea>
     </p>
 
     {empty && <p class="muted">(nothing here yet, coming soon)</p>}
@@ -32,16 +65,14 @@ const empty =
       )
     }
 
-    <section>
-      <h2>blinkies</h2>
-      {
-        blinkies.length > 0 ? (
+    {
+      blinkies.length > 0 && (
+        <section>
+          <h2>blinkies</h2>
           <BannerRow items={blinkies} kind="blinkies" />
-        ) : (
-          <p class="muted">(none yet)</p>
-        )
-      }
-    </section>
+        </section>
+      )
+    }
 
     {
       stamps.length > 0 && (
@@ -69,5 +100,11 @@ const empty =
         </section>
       )
     }
+
+    <hr />
+    <p class="small">
+      want to trade buttons? link to me with the code above and tell me, i'll
+      add yours :)
+    </p>
   </Main>
 </Layout>

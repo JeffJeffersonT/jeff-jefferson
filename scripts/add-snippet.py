@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""add-snippet: collect images for the footer snippets and /snippets/.
+"""add-snippet: collect images for the goodies page (/goodies/).
 
 usage:
   python3 scripts/add-snippet.py <category> <image-url> [<image-url> ...]
@@ -12,8 +12,7 @@ Buttons are 88x31. Stamps are usually 99x56. Gifs and banners keep their natural
 
 The image is downloaded, stripped of all metadata (animated gifs keep
 every frame and their timings), saved under public/<category>/, and a
-line is added to src/data/banners.ts. Use add-goodie.py for the /collect/
-goodies page instead.
+line is added to src/data/banners.ts. add-goodie.py does the same thing.
 """
 import argparse
 import hashlib
@@ -51,7 +50,7 @@ def append_entry(category, entry):
 
 
 def main():
-    ap = argparse.ArgumentParser(description="add images to footer snippets")
+    ap = argparse.ArgumentParser(description="add images to the goodies page")
     ap.add_argument("category", choices=CATEGORIES)
     ap.add_argument("urls", nargs="+", metavar="url")
     ap.add_argument("--alt")

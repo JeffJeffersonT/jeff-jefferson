@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""add-goodie: collect images for the /collect/ ("goodies") page.
+"""add-goodie: collect images for the goodies page (/goodies/).
+
+Same as add-snippet.py: files go in public/<category>/ and a line is
+added to src/data/banners.ts.
 
 usage:
   python3 scripts/add-goodie.py <category> <image-url> [<image-url> ...]
@@ -13,7 +16,7 @@ For every URL it:
      (exif, gps, icc, xmp, text chunks, gif comments + application extensions).
      Animated gifs / webps keep every frame, the frame timings and the loop count,
   3. verifies the result (frame count unchanged, no comment/xmp/extra blocks),
-  4. saves it to public/goodies/<category>/ and adds a line to src/data/goodies.ts,
+  4. saves it to public/<category>/ and adds a line to src/data/banners.ts,
 then runs `npm run build` (unless --no-build). Commit + push afterwards (or use ./post.sh style).
 
 --alt / --href / --credit apply to every URL given in that run. Run it once per image
@@ -33,7 +36,7 @@ import urllib.request
 from PIL import Image, ImageSequence
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATA = os.path.join(ROOT, "src", "data", "goodies.ts")
+DATA = os.path.join(ROOT, "src", "data", "banners.ts")
 CATEGORIES = ("buttons", "blinkies", "stamps", "gifs")
 MAX_BYTES = 10 * 1024 * 1024
 UA = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Safari/537.36"
@@ -191,7 +194,7 @@ def slugify(s):
 
 def append_entry(category, entry):
     src = open(DATA, encoding="utf-8").read()
-    marker = f"// add-goodie:{category}"
+    marker = f"// add-snippet:{category}"
     if marker not in src:
         die(f"marker '{marker}' missing in {DATA}")
     fields = [f"src: {json.dumps(entry['src'])}", f"alt: {json.dumps(entry['alt'])}"]
@@ -216,7 +219,7 @@ def main():
     ap.add_argument("--no-build", action="store_true")
     a = ap.parse_args()
 
-    outdir = os.path.join(ROOT, "public", "goodies", a.category)
+    outdir = os.path.join(ROOT, "public", a.category)
     os.makedirs(outdir, exist_ok=True)
     added = 0
     for url in a.urls:
@@ -239,9 +242,9 @@ def main():
             path = os.path.join(outdir, name)
         open(path, "wb").write(out)
         alt = a.alt or stem.replace("-", " ")
-        append_entry(a.category, dict(src=f"/goodies/{a.category}/{name}", alt=alt,
+        append_entry(a.category, dict(src=f"/{a.category}/{name}", alt=alt,
                                       href=a.href, credit=a.credit, width=w, height=h))
-        print(f"   saved public/goodies/{a.category}/{name}  ({w}x{h}, {n} frame{'s' if n != 1 else ''}, "
+        print(f"   saved public/{a.category}/{name}  ({w}x{h}, {n} frame{'s' if n != 1 else ''}, "
               f"{len(data)} -> {len(out)} bytes, metadata stripped + verified)")
         added += 1
     if added and not a.no_build:

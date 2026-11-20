@@ -802,7 +802,7 @@ img.btn-88 {
   }
 }
 
-/* goodies page (/collect/) */
+/* goodies page (/goodies/) */
 .goodies .goodies-note {
   background: var(--warn-bg);
   border: 1px dashed var(--line);
@@ -1224,6 +1224,10 @@ img.btn-88 {
   justify-content: center;
   align-items: center;
   padding: 6px 4px 2px;
+}
+.app-prose .mini-row {
+  justify-content: flex-start;
+  padding: 8px 0 16px;
 }
 .mini-row img {
   image-rendering: pixelated;

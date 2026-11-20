@@ -10,8 +10,7 @@ built with [Astro](https://astro.build). static site, hosted on GitHub Pages.
 - posts: `src/content/blog/<slug>.md`, images next to the post
 - about page: `src/content/pages/about.md`
 - favourites on the about page: `src/data/favourites.ts`, covers in `public/favourites/`
-- footer snippets (buttons, blinkies, gifs): `src/data/banners.ts`, files in `public/buttons/` (and `public/banners/` if needed)
-- goodies page (`/collect/`): `src/data/goodies.ts`, files in `public/goodies/<category>/`
+- goodies page (`/goodies/`): `src/data/banners.ts`, files in `public/buttons/`, `public/blinkies/`, `public/stamps/`, `public/gifs/`
 - cool sites: `src/data/links.ts`
 - updates.txt box: `src/data/updates.ts`
 
@@ -25,6 +24,6 @@ use `./post.sh draft.md images...` (or `--dry-run` first). it strips metadata fr
 python3 scripts/add-goodie.py <buttons|blinkies|stamps|gifs> <image-url>
 ```
 
-that downloads the image, strips all metadata (keeps gif animation), and appends it to `goodies.ts`. for footer buttons, drop the stripped file in `public/buttons/` and add a line to `buttons` in `src/data/banners.ts`.
+that downloads the image, strips all metadata (keeps gif animation), and appends it to `src/data/banners.ts`. `scripts/add-snippet.py` does the same thing.
 
 always strip metadata from photos and anything that goes on the site.

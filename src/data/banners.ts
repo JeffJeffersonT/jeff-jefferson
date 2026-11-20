@@ -1,6 +1,5 @@
 /**
- * Banners, buttons, blinkies, stamps and gifs shown in the footer
- * ("snippets from other corners of the internet") and on /snippets/.
+ * Banners, buttons, blinkies, stamps and gifs shown on the goodies page (/goodies/).
  *
  * How to add one (or run `python3 scripts/add-snippet.py <category> <url>`):
  *   1. Drop the file into the matching folder and keep it local, don't hotlink:
@@ -13,8 +12,7 @@
  *        { src: "/blinkies/my-blinkie.gif", alt: "what it says", href: "https://example.com" }
  *      `src` is the path inside `public/` (the site's base path is added for you).
  *      `href` is optional; leave it out if it isn't a link.
- *   3. Commit + push. Empty groups stay hidden in the footer.
- *      On /snippets/, an empty blinkies group shows a tiny "none yet".
+ *   3. Commit + push. Empty groups stay hidden on the goodies page.
  */
 export type Banner = {
   /** Path inside `public/`, e.g. "/blinkies/cool.gif" (or a full https:// URL). */
@@ -23,6 +21,8 @@ export type Banner = {
   alt: string;
   /** Optional link. Opens in a new tab. */
   href?: string;
+  /** Optional credit / where it came from. */
+  credit?: string;
   /** Optional width/height in px (defaults: banners auto, buttons 88x31, blinkies 150x20). */
   width?: number;
   height?: number;
@@ -120,7 +120,7 @@ export const stamps: Banner[] = [
   // add-snippet:stamps
 ];
 
-/** Other gifs collected for the snippets page. */
+/** Other gifs collected for the goodies page. */
 export const gifs: Banner[] = [
   // add-snippet:gifs
 ];
