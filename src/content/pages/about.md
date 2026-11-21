@@ -17,7 +17,7 @@ i adore card games. my favourites are the Plants vs. Zombies card game by Kayou,
 
 ## music
 
-some of my favourite artists are Twenty One Pilots, Bring Me The Horizon, Yung Gravy, bbno$, the Steven Universe soundtrack, Ashnikko, and Penelope Scott. if i had to pick a top three, in no particular order: Yung Gravy, Penelope Scott, and Twenty One Pilots.
+some of my favourite artists are Twenty One Pilots, Bring Me The Horizon, Yung Gravy, bbno$, the Steven Universe soundtrack, Ashnikko, and Penelope Scott. if i had to pick a top three, in no particular order, Yung Gravy, Penelope Scott, and Twenty One Pilots.
 
 ## link to me
 

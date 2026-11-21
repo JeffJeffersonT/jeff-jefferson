@@ -29,14 +29,6 @@ const { Content } = await render(about);
   <Breadcrumb />
 
   <Main pageTitle={about.data.title} class="app-prose">
-    <div class="currently">
-      <b>currently</b>
-      <div>editing photos</div>
-      <div>
-        favourite tunes &middot; Yung Gravy, Penelope Scott and Twenty One
-        Pilots
-      </div>
-    </div>
     <Content />
     {
       minibuttons.length > 0 && (

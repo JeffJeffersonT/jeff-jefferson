@@ -36,6 +36,6 @@ const date = datetime.format("D MMM YYYY").toLowerCase();
 ---
 
 <div class:list={["datetime", className]}>
-  {isModified ? `${t.post.updatedAt.toLowerCase()}: ` : "posted: "}
+  {isModified ? `${t.post.updatedAt.toLowerCase()} ` : "posted "}
   <time datetime={datetime.toISOString()}>{date}</time>
 </div>
