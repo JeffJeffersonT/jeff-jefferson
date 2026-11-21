@@ -1,5 +1,6 @@
 {
   "name": "jeff-jefferson",
+  "description": "jeff's corner of the internet",
   "type": "module",
   "version": "1.0.0",
   "engines": {

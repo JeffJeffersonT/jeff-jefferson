@@ -1,9 +1,4 @@
-@import "rehype-callouts/theme/obsidian";
-
-/* =====================================================================
-   jeff's corner: hand-coded, baby's-first-html style.
-   flat colors, 1px borders, no rounded corners, no shadows, no gradients.
-   ===================================================================== */
+/* jeff's corner. handmade, flat, early 2000s. */
 
 :root,
 [data-theme="light"] {
