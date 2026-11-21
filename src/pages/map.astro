@@ -1,0 +1,58 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { sitePages, pageGroups } from "@/data/site-pages";
+import { shrines } from "@/data/shrines";
+import config from "@/config";
+
+const locale = Astro.currentLocale ?? config.site.lang;
+const pageDesc = "a list of every page on this site.";
+---
+
+<Layout title={`site map | ${config.site.title}`} description={pageDesc}>
+  <Breadcrumb />
+
+  <Main pageTitle="site map" class="app-prose">
+    <p>every page that's here right now, in case you get lost.</p>
+
+    {
+      pageGroups.map(group => (
+        <section>
+          <h2>{group.title}</h2>
+          <ul class="name-list">
+            {sitePages
+              .filter(p => p.group === group.key)
+              .map(p => (
+                <li>
+                  <a href={getRelativeLocaleUrl(locale, p.path)}>{p.label}</a>
+                  {" "}
+                  <span class="muted">({p.blurb})</span>
+                </li>
+              ))}
+          </ul>
+        </section>
+      ))
+    }
+
+    {
+      shrines.length > 0 && (
+        <section>
+          <h2>shrines</h2>
+          <ul class="name-list">
+            {shrines.map(s => (
+              <li>
+                <a href={getRelativeLocaleUrl(locale, `shrines/${s.slug}`)}>{s.title}</a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+
+    <p class="small">
+      there's also an <a href="/rss.xml">rss feed</a> if you'd rather follow along that way.
+    </p>
+  </Main>
+</Layout>

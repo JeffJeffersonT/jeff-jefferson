@@ -1,0 +1,36 @@
+---
+import type { GetStaticPaths } from "astro";
+import Layout from "@/layouts/Layout.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { shrines } from "@/data/shrines";
+import config from "@/config";
+
+export const getStaticPaths = (async () => {
+  return shrines.map(shrine => ({
+    params: { slug: shrine.slug },
+    props: { shrine },
+  }));
+}) satisfies GetStaticPaths;
+
+const { shrine } = Astro.props;
+const locale = Astro.currentLocale ?? config.site.lang;
+---
+
+<Layout title={`${shrine.title} | ${config.site.title}`} description={shrine.blurb ?? shrine.title}>
+  <Breadcrumb />
+
+  <Main pageTitle={shrine.title} class="app-prose">
+    {
+      shrine.status === "coming-soon" || !shrine.blurb ? (
+        <p class="muted">this shrine is still being put together. come back later.</p>
+      ) : (
+        <p>{shrine.blurb}</p>
+      )
+    }
+    <p>
+      <a href={getRelativeLocaleUrl(locale, "shrines")}>&laquo; all shrines</a>
+    </p>
+  </Main>
+</Layout>

@@ -1,0 +1,48 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
+import WinBox from "@/components/WinBox.astro";
+import { collections } from "@/data/collections";
+import config from "@/config";
+
+const pageDesc = "shows, games, music and card games i like.";
+---
+
+<Layout title={`stuff i like | ${config.site.title}`} description={pageDesc}>
+  <Breadcrumb />
+
+  <Main pageTitle="stuff i like" class="app-prose">
+    <p>
+      a running list of things i like. more detail lives on the{" "}
+      <a href="/about/">about</a> page.
+    </p>
+
+    {
+      collections.length === 0 ? (
+        <p class="muted">nothing here yet.</p>
+      ) : (
+        collections.map(col => (
+          <WinBox title={col.title} class="stack-win">
+            {col.items.length === 0 ? (
+              <p class="muted">nothing in this list yet.</p>
+            ) : (
+              <ul class="name-list">
+                {col.items.map(item => (
+                  <li>
+                    {item.href ? (
+                      <a href={item.href}>{item.name}</a>
+                    ) : (
+                      item.name
+                    )}
+                    {item.note ? <span class="muted"> ({item.note})</span> : null}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </WinBox>
+        ))
+      )
+    }
+  </Main>
+</Layout>

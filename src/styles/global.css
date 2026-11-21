@@ -1273,3 +1273,50 @@ img.btn-88 {
   font-size: 13px;
   color: var(--muted);
 }
+
+
+/* lists and windows used by the newer pages (shrines, likes, scrapbook, map) */
+.name-list {
+  list-style: square;
+  margin: 4px 0 12px;
+  padding-left: 22px;
+  max-width: 75ch;
+}
+.name-list li {
+  margin: 3px 0;
+}
+.stack-win {
+  margin: 0 0 14px;
+  max-width: 620px;
+}
+.stack-win .win-body {
+  padding: 8px 10px;
+}
+.stack-win .name-list {
+  margin: 0;
+}
+.photo-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  list-style: none;
+  margin: 8px 0;
+  padding: 0;
+}
+.photo-grid li {
+  margin: 0;
+  width: 220px;
+  max-width: 100%;
+}
+.photo-grid img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  background: var(--cell-side);
+}
+.photo-grid figcaption {
+  font-family: Verdana, Tahoma, Geneva, sans-serif;
+  font-size: 12px;
+  margin-top: 4px;
+}

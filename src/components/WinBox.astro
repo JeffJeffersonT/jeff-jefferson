@@ -1,0 +1,18 @@
+---
+type Props = {
+  title: string;
+  class?: string;
+};
+
+const { title, class: className } = Astro.props;
+---
+
+<div class:list={["win", className]} role="region" aria-label={title}>
+  <div class="win-title">
+    <span>{title}</span>
+    <span class="win-ctl" aria-hidden="true"><span>_</span><span>&#9633;</span><span>x</span></span>
+  </div>
+  <div class="win-body">
+    <slot />
+  </div>
+</div>

@@ -1,0 +1,40 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { shrines } from "@/data/shrines";
+import config from "@/config";
+
+const locale = Astro.currentLocale ?? config.site.lang;
+const pageDesc = "little pages about things i love.";
+---
+
+<Layout title={`shrines | ${config.site.title}`} description={pageDesc}>
+  <Breadcrumb />
+
+  <Main pageTitle="shrines" class="app-prose">
+    <p>
+      little corners of the site for one thing i love at a time. i'll add
+      them as i go.
+    </p>
+
+    {
+      shrines.length === 0 ? (
+        <p class="muted">no shrines yet. this page is ready when i am.</p>
+      ) : (
+        <ul class="name-list">
+          {shrines.map(s => (
+            <li>
+              <a href={getRelativeLocaleUrl(locale, `shrines/${s.slug}`)}>{s.title}</a>
+              {s.status === "coming-soon" && (
+                <span class="muted"> (coming soon)</span>
+              )}
+              {s.blurb && <span class="muted"> {s.blurb}</span>}
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </Main>
+</Layout>

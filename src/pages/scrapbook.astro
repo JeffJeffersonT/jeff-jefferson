@@ -1,0 +1,39 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
+import { photos } from "@/data/gallery";
+import { getAssetPath } from "@/utils/withBase";
+import config from "@/config";
+
+const pageDesc = "photos i've taken.";
+---
+
+<Layout title={`scrapbook | ${config.site.title}`} description={pageDesc}>
+  <Breadcrumb />
+
+  <Main pageTitle="scrapbook" class="app-prose">
+    <p>photos i've taken, when i have some to put up.</p>
+
+    {
+      photos.length === 0 ? (
+        <p class="muted">no photos here yet. check back later.</p>
+      ) : (
+        <ul class="photo-grid">
+          {photos.map(p => (
+            <li>
+              <figure>
+                <img
+                  src={getAssetPath(p.src)}
+                  alt={p.alt}
+                  loading="lazy"
+                />
+                {p.caption && <figcaption>{p.caption}</figcaption>}
+              </figure>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </Main>
+</Layout>
