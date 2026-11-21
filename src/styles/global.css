@@ -1239,3 +1239,37 @@ img.btn-88 {
   width: auto;
   border: 0;
 }
+
+
+/* prev / next between posts, like a tiny webring */
+.webring {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 14px 0;
+  padding: 6px 8px;
+  border: 1px solid var(--line);
+  background: var(--cell-side);
+  font-family: Verdana, Tahoma, Geneva, sans-serif;
+  font-size: 13px;
+}
+.webring-home {
+  text-align: center;
+}
+.webring-prev,
+.webring-next {
+  flex: 1 1 120px;
+}
+.webring-next {
+  text-align: right;
+}
+.currently div {
+  margin: 2px 0;
+}
+
+.blink-once {
+  font-family: Verdana, Tahoma, Geneva, sans-serif;
+  font-size: 13px;
+  color: var(--muted);
+}

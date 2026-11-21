@@ -21,6 +21,7 @@ const homePath = getRelativeLocaleUrl(locale, "");
 <Layout>
   <main id="main-content" data-home-path={homePath} class="hello">
     <h2>welcome!</h2>
+    <p class="blink-once">this page is always a little under construction.</p>
     <p>
       i write about the things i like. there's a{" "}
       <a href={getRelativeLocaleUrl(locale, "guestbook")}>guestbook</a> if you
@@ -30,7 +31,11 @@ const homePath = getRelativeLocaleUrl(locale, "");
 
     <div class="currently">
       <b>currently</b>
-      <span>editing photos</span>
+      <div>editing photos</div>
+      <div>
+        favourite tunes &middot; Yung Gravy, Penelope Scott and Twenty One
+        Pilots
+      </div>
     </div>
 
     {

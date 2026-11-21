@@ -1,5 +1,6 @@
 ---
 import { getPostUrl } from "@/utils/getPostPaths";
+import { getRelativeLocaleUrl } from "astro:i18n";
 import config from "@/config";
 
 type AdjacentPost = {
@@ -17,23 +18,30 @@ const { prevPost, nextPost } = Astro.props;
 const locale = Astro.currentLocale ?? config.site.lang;
 ---
 
-<div data-pagefind-ignore class="post-nav">
-  <div>
+<nav data-pagefind-ignore class="webring" aria-label="other posts">
+  <span class="webring-prev">
     {
-      prevPost && (
+      prevPost ? (
         <a href={getPostUrl(prevPost.id, prevPost.filePath, locale)}>
-          &laquo; older: {prevPost.title}
+          &laquo; {prevPost.title}
         </a>
+      ) : (
+        <span class="muted">« the end</span>
       )
     }
-  </div>
-  <div>
+  </span>
+  <span class="webring-home">
+    <a href={getRelativeLocaleUrl(locale, "posts")}>all posts</a>
+  </span>
+  <span class="webring-next">
     {
-      nextPost && (
+      nextPost ? (
         <a href={getPostUrl(nextPost.id, nextPost.filePath, locale)}>
-          newer: {nextPost.title} &raquo;
+          {nextPost.title} &raquo;
         </a>
+      ) : (
+        <span class="muted">the start »</span>
       )
     }
-  </div>
-</div>
+  </span>
+</nav>

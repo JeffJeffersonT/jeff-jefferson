@@ -1,36 +1,8 @@
 ---
-import { tplStr, useTranslations } from "@/i18n";
-import config from "@/config";
-
-const { shareLinks } = config;
-const t = useTranslations(Astro.currentLocale);
-const pageUrl = Astro.url;
-
-const items = shareLinks.map(({ name, url, linkTitle }) => ({
-  name,
-  url: `${url}${pageUrl}`,
-  title:
-    linkTitle ??
-    (name === "mail"
-      ? t.post.sharePostViaEmail
-      : tplStr(t.post.sharePostOn, {
-          platform: name.charAt(0).toUpperCase() + name.slice(1),
-        })),
-}));
+const pageUrl = Astro.url.href;
+const mailto = `mailto:?body=${encodeURIComponent(pageUrl)}`;
 ---
 
-{
-  items.length > 0 && (
-    <p class="share">
-      share this post:
-      {items.map(({ name, url, title }, i) => (
-        <>
-          {i > 0 ? " | " : " "}
-          <a href={url} title={title} target="_blank" rel="noopener noreferrer">
-            {name}
-          </a>
-        </>
-      ))}
-    </p>
-  )
-}
+<p class="share" data-pagefind-ignore>
+  <a href={mailto}>email this post to a friend</a>
+</p>
