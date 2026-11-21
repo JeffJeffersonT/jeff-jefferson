@@ -2,16 +2,86 @@
 import Layout from "@/layouts/Layout.astro";
 import Breadcrumb from "@/components/Breadcrumb.astro";
 import Main from "@/components/Main.astro";
+import WinBox from "@/components/WinBox.astro";
 import { linkGroups } from "@/data/links";
+import { exchanges } from "@/data/exchanges";
+import { getAssetPath } from "@/utils/withBase";
 import config from "@/config";
 
 const pageDesc = "some sites i like, plus places to find buttons and gifs.";
+const siteUrl = new URL(getAssetPath(""), Astro.site).href.replace(/\/?$/, "/");
+const buttonUrl = new URL(getAssetPath("buttons/jeff-jefferson.gif"), Astro.site).href;
+const snippet = `<a href="${siteUrl}" target="_blank"><img src="${buttonUrl}" alt="jeff jefferson" width="88" height="31" border="0"></a>`;
+const randomSites = linkGroups.flatMap(g => g.links.map(l => l.href));
 ---
 
 <Layout title={`cool sites | ${config.site.title}`} description={pageDesc}>
   <Breadcrumb />
 
   <Main pageTitle="cool sites" pageDesc={pageDesc} class="app-prose">
+    <WinBox title="a little webring box" class="stack-win">
+      <p>
+        this site isn't in a formal webring yet, but the box is here for when
+        that happens. until then, you can jump to a random site from the list
+        below.
+      </p>
+      <p class="center">
+        <button
+          type="button"
+          class="win-btn"
+          id="random-site"
+          data-sites={JSON.stringify(randomSites)}
+        >
+          random cool site
+        </button>
+      </p>
+    </WinBox>
+
+    <WinBox title="link exchange" class="stack-win">
+      <p>
+        if you have a personal site, you can put my button on it and tell me in
+        the <a href="/guestbook/">guestbook</a>. i'll add you here when i can.
+      </p>
+      <p class="center">
+        <a href={siteUrl}>
+          <img
+            src={getAssetPath("buttons/jeff-jefferson.gif")}
+            alt="jeff jefferson"
+            width="88"
+            height="31"
+          />
+        </a>
+      </p>
+      <p>
+        <textarea
+          class="snippet"
+          rows="3"
+          readonly
+          onclick="this.select()"
+          aria-label="html for my 88 by 31 button">{snippet}</textarea>
+      </p>
+      {
+        exchanges.length === 0 ? (
+          <p class="muted">no exchanges listed yet.</p>
+        ) : (
+          <ul class="exchange-row">
+            {exchanges.map(ex => (
+              <li>
+                <a href={ex.href} target="_blank" rel="noopener noreferrer">
+                  <img
+                    src={getAssetPath(ex.src)}
+                    alt={ex.alt}
+                    width="88"
+                    height="31"
+                  />
+                </a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </WinBox>
+
     {
       linkGroups.map(group => (
         <section class="link-group">
@@ -40,3 +110,7 @@ const pageDesc = "some sites i like, plus places to find buttons and gifs.";
     </p>
   </Main>
 </Layout>
+
+<script>
+  import "@/scripts/random-site";
+</script>

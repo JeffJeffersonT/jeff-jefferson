@@ -1,4 +1,4 @@
-// Guestbook + post comments API for jeffersons.space: one Cloudflare Worker + one KV namespace.
+// Guestbook + post comments + shoutbox API for jeffersons.space: one Cloudflare Worker + one KV namespace.
 //
 // Guestbook:
 //   GET    /entries         -> { entries: [{ id, name, message, website, ts }, ...] }  (newest first)
@@ -9,6 +9,11 @@
 //   GET    /comments/:slug         -> { comments: [...] }  (newest first)
 //   POST   /comments/:slug         -> same body as /sign  -> { ok, entry }
 //   DELETE /comments/:slug/:id     -> remove a comment (needs admin token)
+//
+// Shoutbox (short notes in the sidebar):
+//   GET    /shouts          -> { shouts: [...] }  (newest first)
+//   POST   /shouts          -> same body as /sign, message capped shorter  -> { ok, entry }
+//   DELETE /shouts/:id      -> remove a shout (needs admin token)
 //
 // Comments go up instantly, same as guestbook notes. No approval queue.
 //
@@ -28,6 +33,9 @@ const MAX_SLUG = 80;
 const MIN_ELAPSED_MS = 3000;
 const COOLDOWN_SECONDS = 60; // KV's minimum expirationTtl
 const KEY = "entries";
+const SHOUTS_KEY = "shouts";
+const MAX_SHOUTS = 40;
+const MAX_SHOUT = 160;
 const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
 const clean = (v, max) =>
@@ -200,6 +208,42 @@ export default {
       const ckey = commentsKey(slug);
       const comments = (await load(ckey)).filter(e => e.id !== delComment[2]);
       await env.GUESTBOOK.put(ckey, JSON.stringify(comments));
+      return json({ ok: true });
+    }
+
+
+    if (request.method === "GET" && path === "/shouts") {
+      const shouts = await load(SHOUTS_KEY);
+      return json({ shouts: shouts.slice(0, MAX_SHOUTS) });
+    }
+
+    if (request.method === "POST" && path === "/shouts") {
+      let data;
+      try {
+        data = await parseBody(request);
+      } catch {
+        return json({ error: "bad request" }, 400);
+      }
+      // keep shouts short, same protections as a guestbook note
+      if (data && typeof data.message === "string") data.message = data.message.slice(0, MAX_SHOUT);
+      const result = await acceptEntry(
+        data,
+        "please fill in your name and a shout",
+        "easy there! one shout a minute please",
+      );
+      if (result.error) return result.error;
+      if (result.fake) return result.fake;
+      const shouts = await load(SHOUTS_KEY);
+      shouts.unshift(result.entry);
+      await env.GUESTBOOK.put(SHOUTS_KEY, JSON.stringify(shouts.slice(0, MAX_SHOUTS)));
+      return json({ ok: true, entry: result.entry }, 201);
+    }
+
+    const delShout = path.match(/^\/shouts\/([\w-]+)$/);
+    if (request.method === "DELETE" && delShout) {
+      if (!isAdmin()) return json({ error: "nope" }, 401);
+      const shouts = (await load(SHOUTS_KEY)).filter(e => e.id !== delShout[1]);
+      await env.GUESTBOOK.put(SHOUTS_KEY, JSON.stringify(shouts));
       return json({ ok: true });
     }
 

@@ -33,7 +33,9 @@ always strip metadata from photos and anything that goes on the site.
 the site is set up so you can fill things in later without inventing a new layout each time.
 
 - **site map** (`/map/`): every public page is listed in `src/data/site-pages.ts`. set `inNav: true` to show it in the left-hand menu. the site map page reads the same file, so add a page once and both stay in sync.
-- **stuff i like** (`/likes/`): edit `src/data/collections.ts`. add a name to an existing group, or add a new group. leave notes and links off unless you have something real to say.
+- **stuff i like** (`/likes/`): edit `src/data/collections.ts`. each item should have a `src`. music reuses covers in `public/favourites/`. new covers go in `public/likes/` (small webp, metadata stripped). leave notes and links off unless you have something real to say.
+- **about this site** (`/colophon/`): a short colophon. edit `src/pages/colophon.astro`.
+- **link exchange** (on `/links/`): add a partner to `src/data/exchanges.ts` when someone puts the button on their site.
 - **shrines** (`/shrines/`): edit `src/data/shrines.ts`. each entry needs a `slug`, a `title`, and a `status` (`open` or `coming-soon`). images can go in `public/shrines/<slug>/`. the index and the individual shrine page are generated from that file. if the list is empty, the index just says it's not ready yet.
 - **scrapbook** (`/scrapbook/`): photos live in `src/data/gallery.ts` and `public/scrapbook/`. run
 

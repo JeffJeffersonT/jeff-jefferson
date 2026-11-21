@@ -29,6 +29,7 @@ export const sitePages: SitePage[] = [
   { path: "search", label: "search", group: "meta", blurb: "look through the posts", inNav: true },
   { path: "random", label: "random post", group: "meta", blurb: "surprise me", inNav: true },
   { path: "map", label: "site map", group: "meta", blurb: "a list of every page", inNav: true },
+  { path: "colophon", label: "about this site", group: "meta", blurb: "how this site is put together", inNav: false },
   { path: "updates", label: "updates", group: "meta", blurb: "what's changed on the site", inNav: false },
 ];
 

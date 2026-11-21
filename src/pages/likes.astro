@@ -13,10 +13,10 @@ const pageDesc = "shows, games, music and card games i like.";
 <Layout title={`stuff i like | ${config.site.title}`} description={pageDesc}>
   <Breadcrumb />
 
-  <Main pageTitle="stuff i like" class="app-prose">
+  <Main pageTitle="stuff i like" class="app-prose" accent="/gifs/tiny-star.gif">
     <p>
-      a running list of things i like, with pictures this time. more of the
-      same covers also live on the <a href="/about/">about</a> page.
+      a running list of things i like, with pictures. some of the same
+      covers also live on the <a href="/about/">about</a> page.
     </p>
 
     {
@@ -24,7 +24,7 @@ const pageDesc = "shows, games, music and card games i like.";
         <p class="muted">nothing here yet.</p>
       ) : (
         collections.map(col => (
-          <WinBox title={col.title} class="stack-win">
+          <WinBox title={col.title} class="stack-win wide-win">
             {col.items.length === 0 ? (
               <p class="muted">nothing in this list yet.</p>
             ) : (

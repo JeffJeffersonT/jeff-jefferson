@@ -28,6 +28,19 @@ python3 scripts/comments.py list <slug>
 python3 scripts/comments.py delete <slug> <id>
 ```
 
+
+Shoutbox (short notes in the sidebar):
+
+- `GET /shouts` returns `{ shouts: [...] }`, newest first, cap of 40
+- `POST /shouts` with the same body as `/sign` (message capped at 160 characters)
+- `DELETE /shouts/:id` removes a shout, needs the admin token
+
+```
+python3 scripts/shouts.py list
+python3 scripts/shouts.py delete <id>
+```
+
+
 The admin token is a worker secret (not in the repo). The script reads it from
 `/workspace/.guestbook-admin-token` (or `$ADMIN_TOKEN`) and never prints it.
 

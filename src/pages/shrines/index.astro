@@ -4,6 +4,7 @@ import Breadcrumb from "@/components/Breadcrumb.astro";
 import Main from "@/components/Main.astro";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import { shrines } from "@/data/shrines";
+import { getAssetPath } from "@/utils/withBase";
 import config from "@/config";
 
 const locale = Astro.currentLocale ?? config.site.lang;
@@ -13,7 +14,7 @@ const pageDesc = "little pages about things i love.";
 <Layout title={`shrines | ${config.site.title}`} description={pageDesc}>
   <Breadcrumb />
 
-  <Main pageTitle="shrines" class="app-prose">
+  <Main pageTitle="shrines" class="app-prose" accent="/gifs/tiny-star.gif">
     <p>
       little corners of the site for one thing i love at a time. i'll add
       them as i go.
@@ -21,7 +22,16 @@ const pageDesc = "little pages about things i love.";
 
     {
       shrines.length === 0 ? (
-        <p class="muted">no shrines yet. this page is ready when i am.</p>
+        <div class="uc-empty">
+          <img
+            class="uc-sign"
+            src={getAssetPath("gifs/under-construction-graphic.gif")}
+            alt="under construction"
+            width="200"
+            height="150"
+          />
+          <p class="muted">no shrines yet. this page is ready when i am.</p>
+        </div>
       ) : (
         <ul class="name-list">
           {shrines.map(s => (

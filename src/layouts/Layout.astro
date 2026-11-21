@@ -26,6 +26,16 @@ const {
 
 const socialImageURL = new URL(ogImage, Astro.site ?? Astro.url);
 const rssHref = getAssetPath("rss.xml");
+
+const first = Astro.url.pathname.replace(/\/+/g, "/").split("/").filter(Boolean)[0] ?? "";
+const section =
+  first === ""
+    ? "home"
+    : ["posts", "tags", "archives"].includes(first)
+      ? "writing"
+      : ["likes", "shrines", "scrapbook", "goodies", "links", "collect", "snippets"].includes(first)
+        ? "fun"
+        : "meta";
 ---
 
 <!doctype html>
@@ -106,7 +116,7 @@ const rssHref = getAssetPath("rss.xml");
     </script>
 
   </head>
-  <body>
+  <body data-section={section}>
     <a id="skip-to-content" href="#main-content">skip to content</a>
     <div id="wrap">
       <a id="top"></a>
@@ -121,6 +131,8 @@ const rssHref = getAssetPath("rss.xml");
     <script>
       import "@/scripts/theme";
       import "@/scripts/extras";
+      import "@/scripts/sparkle";
+      import "@/scripts/shouts";
     </script>
   </body>
 </html>

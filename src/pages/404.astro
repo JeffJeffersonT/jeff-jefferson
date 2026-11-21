@@ -2,6 +2,7 @@
 import Layout from "@/layouts/Layout.astro";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import { useTranslations } from "@/i18n";
+import { getAssetPath } from "@/utils/withBase";
 import config from "@/config";
 
 const locale = Astro.currentLocale ?? config.site.lang;
@@ -17,15 +18,43 @@ const art = String.raw`   ( \_/ )
   <main id="main-content" class="lost">
     <p class="big-404">404</p>
     <h1>whoops, page not found!</h1>
+    <p>
+      <img
+        class="uc-sign"
+        src={getAssetPath("gifs/under-construction-graphic.gif")}
+        alt="under construction"
+        width="200"
+        height="150"
+      />
+    </p>
     <pre aria-hidden="true">{art}</pre>
-    <p>that page isn't here. maybe a typo, maybe it never existed.</p>
-    <p>try one of these:</p>
+    <p>that page isn't here. maybe a typo, maybe it never existed, maybe it's still being built somewhere else.</p>
+    <p>try one of these</p>
     <ul>
       <li><a href={home}>go back home</a></li>
       <li><a href={getRelativeLocaleUrl(locale, "posts")}>read the posts</a></li>
       <li><a href={getRelativeLocaleUrl(locale, "random")}>surprise me with a random post</a></li>
       <li><a href={getRelativeLocaleUrl(locale, "guestbook")}>sign the guestbook</a></li>
       <li><a href={getRelativeLocaleUrl(locale, "search")}>search the site</a></li>
+      <li><a href={getRelativeLocaleUrl(locale, "map")}>look at the site map</a></li>
     </ul>
+    <p class="say-hi">
+      <a href={getRelativeLocaleUrl(locale, "guestbook")}>
+        <img
+          src={getAssetPath("buttons/sign-guestbook.gif")}
+          alt="sign my guestbook"
+          width="88"
+          height="31"
+        />
+      </a>
+      <a href="mailto:jeffjefferson@duck.com">
+        <img
+          src={getAssetPath("buttons/email-me.gif")}
+          alt="email me"
+          width="88"
+          height="31"
+        />
+      </a>
+    </p>
   </main>
 </Layout>

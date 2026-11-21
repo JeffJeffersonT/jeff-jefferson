@@ -22,6 +22,15 @@ const homePath = getRelativeLocaleUrl(locale, "");
   <main id="main-content" data-home-path={homePath} class="hello">
     <h2>welcome!</h2>
     <p class="blink-once">this page is always a little under construction.</p>
+    <p class="center">
+      <img
+        class="uc-banner"
+        src={getAssetPath("gifs/construction-bulldozer.gif")}
+        alt="under construction"
+        width="410"
+        height="49"
+      />
+    </p>
     <p>
       i write about the things i like. there's a{" "}
       <a href={getRelativeLocaleUrl(locale, "guestbook")}>guestbook</a> if you
