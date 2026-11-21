@@ -689,16 +689,6 @@ img.btn-88 {
   height: 56px;
   width: auto;
 }
-.banner-row .stamp-pair {
-  display: inline-flex;
-  flex-wrap: nowrap;
-  align-items: center;
-  gap: 0;
-}
-/* the two portal halves share empty space and need to overlap to read as one stamp */
-.banner-row .stamp-pair a + a {
-  margin-left: -77px;
-}
 .mini-row img {
   height: 18px;
   width: auto;

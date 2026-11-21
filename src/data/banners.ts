@@ -26,8 +26,6 @@ export type Banner = {
   /** Optional width/height in px (defaults: banners auto, buttons 88x31, blinkies 150x20). */
   width?: number;
   height?: number;
-  /** Keep items with the same group on one line, like the two halves of a stamp. */
-  group?: string;
 };
 /** Wide banners (usually 468x60 or similar). */
 export const banners: Banner[] = [
@@ -104,9 +102,9 @@ export const blinkies: Banner[] = [
 
 /** Stamps (usually around 99x56). */
 export const stamps: Banner[] = [
-  { src: "/stamps/portal1.png", alt: "portal", href: "https://pixelsafari.neocities.org/", width: 99, height: 56, group: "portal" },
-  { src: "/stamps/portal2.png", alt: "", href: "https://pixelsafari.neocities.org/", width: 99, height: 56, group: "portal" },
+  { src: "/stamps/portal1.png", alt: "portal1", href: "https://pixelsafari.neocities.org/", width: 99, height: 56 },
   { src: "/stamps/ilovestamps.gif", alt: "ilovestamps", href: "https://pixelsafari.neocities.org/", width: 99, height: 56 },
+  { src: "/stamps/load.gif", alt: "load", href: "https://pixelsafari.neocities.org/", width: 99, height: 56 },
   { src: "/stamps/meta.png", alt: "meta", href: "https://pixelsafari.neocities.org/", width: 99, height: 56 },
   { src: "/stamps/wiggly.png", alt: "wiggly", href: "https://pixelsafari.neocities.org/", width: 98, height: 59 },
   { src: "/stamps/textsize.png", alt: "textsize", href: "https://pixelsafari.neocities.org/", width: 97, height: 57 },
@@ -118,6 +116,7 @@ export const stamps: Banner[] = [
   { src: "/stamps/fnaf.gif", alt: "fnaf", href: "https://pixelsafari.neocities.org/", width: 99, height: 56 },
   { src: "/stamps/clubpenguin.png", alt: "clubpenguin", href: "https://pixelsafari.neocities.org/", width: 99, height: 56 },
   { src: "/stamps/starlights.png", alt: "starlights", href: "https://pixelsafari.neocities.org/", width: 99, height: 56 },
+  { src: "/stamps/portal2.png", alt: "portal2", href: "https://pixelsafari.neocities.org/", width: 99, height: 56 },
   // add-snippet:stamps
 ];
 

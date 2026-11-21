@@ -20,75 +20,31 @@ const defaultSize =
       : kind === "stamps"
         ? { width: 99, height: 56 }
         : {};
-
-type Cluster =
-  | { kind: "single"; item: Banner }
-  | { kind: "group"; items: Banner[] };
-
-const clusters: Cluster[] = [];
-for (const item of items) {
-  const last = clusters[clusters.length - 1];
-  if (item.group && last && last.kind === "group" && last.items[0].group === item.group) {
-    last.items.push(item);
-  } else if (item.group) {
-    clusters.push({ kind: "group", items: [item] });
-  } else {
-    clusters.push({ kind: "single", item });
-  }
-}
 ---
 
 {
   items.length > 0 && (
     <div class:list={["banner-row", kind !== "banners" && kind]}>
-      {clusters.map(c =>
-        c.kind === "group" ? (
-          <span class="stamp-pair">
-            {c.items.map(b => {
-              const width = b.width ?? defaultSize.width;
-              const height = b.height ?? defaultSize.height;
-              const img = (
-                <img
-                  src={resolveSrc(b.src)}
-                  alt={b.alt}
-                  width={width}
-                  height={height}
-                  loading="lazy"
-                />
-              );
-              return b.href ? (
-                <a href={b.href} target="_blank" rel="noopener noreferrer">
-                  {img}
-                </a>
-              ) : (
-                img
-              );
-            })}
-          </span>
+      {items.map(b => {
+        const width = b.width ?? defaultSize.width;
+        const height = b.height ?? defaultSize.height;
+        const img = (
+          <img
+            src={resolveSrc(b.src)}
+            alt={b.alt}
+            width={width}
+            height={height}
+            loading="lazy"
+          />
+        );
+        return b.href ? (
+          <a href={b.href} target="_blank" rel="noopener noreferrer">
+            {img}
+          </a>
         ) : (
-          (() => {
-            const b = c.item;
-            const width = b.width ?? defaultSize.width;
-            const height = b.height ?? defaultSize.height;
-            const img = (
-              <img
-                src={resolveSrc(b.src)}
-                alt={b.alt}
-                width={width}
-                height={height}
-                loading="lazy"
-              />
-            );
-            return b.href ? (
-              <a href={b.href} target="_blank" rel="noopener noreferrer">
-                {img}
-              </a>
-            ) : (
-              img
-            );
-          })()
-        )
-      )}
+          img
+        );
+      })}
     </div>
   )
 }
