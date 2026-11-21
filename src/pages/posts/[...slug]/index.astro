@@ -9,6 +9,7 @@ import { slugifyStr } from "@/utils/slugify";
 import ShareLinks from "./_components/ShareLinks.astro";
 import Comments from "@/components/Comments.astro";
 import BackButton from "./_components/BackButton.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
 import AdjacentPostNav from "./_components/AdjacentPostNav.astro";
 import { buildTocTree, hasToc } from "@/utils/buildTocTree";
 import TocList from "./_components/TocList.astro";
@@ -109,6 +110,7 @@ const read = readingTime(post.body ?? "");
   pubDatetime={pubDatetime}
   modDatetime={modDatetime}
 >
+  <Breadcrumb current={title} />
   <BackButton />
 
   <main id="main-content" data-pagefind-body>

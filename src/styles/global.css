@@ -1375,14 +1375,19 @@ img.btn-88 {
 }
 
 /* ---------- heading gifs and under-construction art ---------- */
-.heading-gif {
+.heading-gif,
+.app-prose img.heading-gif,
+h1 .heading-gif {
+  display: inline;
   height: 16px;
   width: auto;
   vertical-align: middle;
-  margin-left: 6px;
+  margin: 0 0 0 6px;
+  border: 0;
   image-rendering: pixelated;
 }
-h1 .heading-gif {
+h1 .heading-gif,
+.app-prose h1 .heading-gif {
   height: 18px;
 }
 .uc-banner {
