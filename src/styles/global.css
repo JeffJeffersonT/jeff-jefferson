@@ -1400,8 +1400,11 @@ h1 .heading-gif {
   height: auto;
 }
 .uc-empty {
-  text-align: center;
+  text-align: left;
   margin: 8px 0 16px;
+}
+.uc-empty .uc-sign {
+  margin: 8px 0;
 }
 .uc-empty .muted {
   margin-top: 8px;
