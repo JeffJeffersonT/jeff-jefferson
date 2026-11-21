@@ -1295,6 +1295,54 @@ img.btn-88 {
 .stack-win .name-list {
   margin: 0;
 }
+
+.like-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 12px;
+  margin: 0;
+  padding: 2px 0 0;
+  list-style: none;
+}
+.like-grid li {
+  width: 160px;
+  margin: 0;
+  text-align: center;
+  font-family: Verdana, Tahoma, Geneva, sans-serif;
+  font-size: 11px;
+  line-height: 1.3;
+}
+.like-grid img,
+.like-grid .like-tile {
+  display: block;
+  width: 160px;
+  height: 160px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: center;
+  background: var(--cell-side);
+  border: 1px solid var(--line);
+  margin: 0 0 4px;
+}
+.like-grid .like-tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  background: var(--cell-side);
+  color: var(--head);
+  font-weight: bold;
+  word-break: break-word;
+}
+.like-grid .title {
+  display: block;
+}
+.like-grid .note {
+  color: var(--muted);
+  display: block;
+}
+
+
 .photo-grid {
   display: flex;
   flex-wrap: wrap;

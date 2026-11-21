@@ -4,6 +4,7 @@ import Breadcrumb from "@/components/Breadcrumb.astro";
 import Main from "@/components/Main.astro";
 import WinBox from "@/components/WinBox.astro";
 import { collections } from "@/data/collections";
+import { getAssetPath } from "@/utils/withBase";
 import config from "@/config";
 
 const pageDesc = "shows, games, music and card games i like.";
@@ -14,8 +15,8 @@ const pageDesc = "shows, games, music and card games i like.";
 
   <Main pageTitle="stuff i like" class="app-prose">
     <p>
-      a running list of things i like. more detail lives on the{" "}
-      <a href="/about/">about</a> page.
+      a running list of things i like, with pictures this time. more of the
+      same covers also live on the <a href="/about/">about</a> page.
     </p>
 
     {
@@ -27,15 +28,28 @@ const pageDesc = "shows, games, music and card games i like.";
             {col.items.length === 0 ? (
               <p class="muted">nothing in this list yet.</p>
             ) : (
-              <ul class="name-list">
+              <ul class="like-grid">
                 {col.items.map(item => (
                   <li>
-                    {item.href ? (
-                      <a href={item.href}>{item.name}</a>
+                    {item.src ? (
+                      <img
+                        src={getAssetPath(item.src)}
+                        alt={item.note ? `${item.name} by ${item.note}` : item.name}
+                        width="160"
+                        height="160"
+                        loading="lazy"
+                      />
                     ) : (
-                      item.name
+                      <span class="like-tile">{item.name}</span>
                     )}
-                    {item.note ? <span class="muted"> ({item.note})</span> : null}
+                    {item.href ? (
+                      <a class="title" href={item.href}>
+                        {item.name}
+                      </a>
+                    ) : (
+                      <span class="title">{item.name}</span>
+                    )}
+                    {item.note ? <span class="note">{item.note}</span> : null}
                   </li>
                 ))}
               </ul>
