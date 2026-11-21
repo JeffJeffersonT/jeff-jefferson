@@ -19,6 +19,7 @@ export const sitePages: SitePage[] = [
   { path: "posts", label: "posts", group: "main", blurb: "everything i've written so far", inNav: true },
   { path: "tags", label: "tags", group: "main", blurb: "posts grouped by topic", inNav: true },
   { path: "archives", label: "archives", group: "main", blurb: "posts sorted by month", inNav: true },
+  { path: "stuff", label: "my stuff", group: "fun", blurb: "photography, videography, design, art, voice work and game dev", inNav: true },
   { path: "likes", label: "stuff i like", group: "fun", blurb: "shows, games, music and card games", inNav: true },
   { path: "shrines", label: "shrines", group: "fun", blurb: "little pages about things i love", inNav: true },
   { path: "scrapbook", label: "scrapbook", group: "fun", blurb: "photos i've taken", inNav: true },

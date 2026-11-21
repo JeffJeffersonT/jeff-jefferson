@@ -1,5 +1,6 @@
 ---
 import { guestbook } from "@/data/guestbook";
+import SmileyPicker from "@/components/SmileyPicker.astro";
 
 type Props = { slug: string };
 
@@ -53,6 +54,7 @@ const live = guestbook.endpoint !== "";
           rows="5"
           maxlength={guestbook.maxMessage}
           required></textarea>
+        <SmileyPicker forId="c-message" />
         <!-- honeypot: real people never see or fill this -->
         <div class="hp" aria-hidden="true">
           <label for="c-nick">leave this empty</label>

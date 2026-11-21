@@ -1569,3 +1569,263 @@ h1 .heading-gif {
 [data-theme="dark"] body[data-section="meta"] {
   --tile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' shape-rendering='crispEdges'%3E%3Crect width='10' height='10' fill='%230e0016'/%3E%3Crect x='4' y='2' width='2' height='6' fill='%23240a3c'/%3E%3Crect x='2' y='4' width='6' height='2' fill='%23240a3c'/%3E%3C/svg%3E");
 }
+
+/* ---------- you are here ---------- */
+.crumbs .here {
+  color: var(--muted);
+  font-family: Verdana, Tahoma, Geneva, sans-serif;
+  font-size: 12px;
+  margin-right: 4px;
+}
+
+/* ---------- header badges ---------- */
+.header-bits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  margin: 6px 0 2px;
+  padding: 0 8px 4px;
+}
+.header-bits img {
+  image-rendering: pixelated;
+  display: block;
+  border: 0;
+}
+.bookmark-btn {
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  line-height: 0;
+}
+#bookmark-note {
+  width: 100%;
+  text-align: center;
+  margin: 0 0 4px;
+}
+
+/* ---------- smileys ---------- */
+.smileys {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  align-items: center;
+  margin: 4px 0 6px;
+  font-family: Verdana, Tahoma, Geneva, sans-serif;
+  font-size: 11px;
+}
+.smileys-label {
+  color: var(--muted);
+  margin-right: 4px;
+}
+.smileys button {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 12px;
+  padding: 1px 5px;
+  border: 1px solid var(--line);
+  background: var(--win-body);
+  color: var(--win-text);
+  border-radius: 0;
+  line-height: 1.3;
+}
+.smileys button:hover {
+  background: var(--cell-side);
+}
+
+/* ---------- classic guestbook rows ---------- */
+.gb-entry:nth-child(odd) {
+  background: var(--cell);
+}
+.gb-entry:nth-child(even) {
+  background: var(--cell-side);
+}
+.gb-entry .gb-head {
+  align-items: center;
+}
+.gb-icon {
+  image-rendering: pixelated;
+  flex: 0 0 12px;
+  margin-right: 2px;
+}
+[data-theme="dark"] .comments {
+  background: #2a2200;
+  color: var(--text);
+}
+
+/* ---------- archives table ---------- */
+.archive-table {
+  width: 100%;
+  max-width: 820px;
+  border-collapse: collapse;
+  font-family: Verdana, Tahoma, Geneva, sans-serif;
+  font-size: 13px;
+  margin: 8px 0 16px;
+}
+.archive-table th,
+.archive-table td {
+  border: 1px solid var(--line);
+  padding: 4px 8px;
+  text-align: left;
+  vertical-align: top;
+}
+.archive-table th {
+  background: var(--strip);
+  color: var(--strip-text);
+  font-weight: bold;
+}
+.archive-table .yr,
+.archive-table .mo {
+  background: var(--cell-side);
+  font-weight: bold;
+  white-space: nowrap;
+}
+.archive-table .when {
+  white-space: nowrap;
+  color: var(--muted);
+}
+.archive-table tr:nth-child(even) td:not(.yr):not(.mo) {
+  background: var(--cell-side);
+}
+
+/* ---------- tag cloud + stamps ---------- */
+.tag-cloud {
+  align-items: center;
+  gap: 8px 16px;
+  font-family: Verdana, Tahoma, Geneva, sans-serif;
+}
+.tag-cloud li {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  line-height: 1.2;
+}
+.tag-stamp {
+  image-rendering: pixelated;
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+  border: 0 !important;
+  margin: 0 2px 0 0;
+  display: inline-block;
+}
+.taglist {
+  display: inline;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.taglist li {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  margin: 0 8px 0 0;
+}
+
+/* ---------- post header, share, to top ---------- */
+.post-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 4px;
+  margin: 0 0 8px;
+  font-family: Verdana, Tahoma, Geneva, sans-serif;
+  font-size: 13px;
+  color: var(--muted);
+}
+.post-head .datetime {
+  display: inline;
+  margin: 0;
+}
+.post-tags {
+  align-items: center;
+  color: var(--text);
+}
+.share-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.share-stamp {
+  image-rendering: pixelated;
+  border: 0 !important;
+  display: inline-block;
+  margin: 0;
+}
+.to-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.to-top img {
+  image-rendering: pixelated;
+  border: 0 !important;
+  margin: 0;
+  display: inline-block;
+}
+.to-top-wrap {
+  margin: 12px 0 4px;
+  font-family: Verdana, Tahoma, Geneva, sans-serif;
+  font-size: 13px;
+}
+
+/* ---------- print stylesheet ---------- */
+@media print {
+  .nav-col,
+  .side-col,
+  .marq,
+  .header-bits,
+  .gb-form,
+  .smileys,
+  .shout-box,
+  .sparkle-box,
+  .say-hi,
+  .pet-box,
+  .comments .gb-form,
+  #sparkle-layer,
+  #theme-btn,
+  #sparkle-btn,
+  .to-top,
+  .to-top-wrap,
+  .bookmark-btn,
+  #skip-to-content,
+  .uc-banner,
+  .uc-sign,
+  .heading-gif {
+    display: none !important;
+  }
+  html,
+  body {
+    background: #fff !important;
+    color: #000 !important;
+    padding: 0;
+    font-size: 12pt;
+  }
+  #wrap {
+    display: block;
+    width: 100%;
+    max-width: none;
+    border: 0;
+    background: #fff;
+  }
+  #wrap > * {
+    background: #fff;
+    color: #000;
+  }
+  a {
+    color: #000;
+    text-decoration: underline;
+  }
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 9pt;
+    color: #333;
+  }
+  .site-header {
+    border-bottom: 1px solid #000;
+    margin-bottom: 12px;
+  }
+}

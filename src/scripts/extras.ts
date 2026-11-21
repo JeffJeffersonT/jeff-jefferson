@@ -53,3 +53,19 @@ if (counterEl) {
     .catch(fail)
     .finally(() => clearTimeout(timer));
 }
+
+// a little reminder, since browsers don't let a page add a bookmark by itself
+const bookmarkBtn = document.querySelector<HTMLButtonElement>("#bookmark-hint");
+bookmarkBtn?.addEventListener("click", ev => {
+  ev.preventDefault();
+  const note = document.querySelector<HTMLElement>("#bookmark-note");
+  if (note) {
+    note.hidden = false;
+    return;
+  }
+  const p = document.createElement("p");
+  p.id = "bookmark-note";
+  p.className = "small";
+  p.textContent = "press ctrl+d (or cmd+d) to bookmark this site.";
+  bookmarkBtn.insertAdjacentElement("afterend", p);
+});

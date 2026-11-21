@@ -1,0 +1,17 @@
+---
+type Props = { forId: string };
+
+const { forId } = Astro.props;
+const faces = [":)", ":D", ":P", ";)", ":(", ":o", ":3", "<3", "^_^", "xD"];
+---
+
+<div class="smileys" data-for={forId} role="group" aria-label="emoticons">
+  <span class="smileys-label">smileys</span>
+  {
+    faces.map(face => (
+      <button type="button" data-emoticon={face} title={`insert ${face}`}>
+        {face}
+      </button>
+    ))
+  }
+</div>

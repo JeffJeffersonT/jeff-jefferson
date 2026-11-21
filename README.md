@@ -45,4 +45,13 @@ python3 scripts/add-photo.py path/to/photo.jpg --alt "what's in the photo"
 
 that strips all metadata (and keeps gif animation) before saving. you can also pass a url.
 
+
+- **my stuff** (`/stuff/`): photography, videography, graphic design, art, voice work and game dev. edit `src/data/creations.ts`, or run
+
+```sh
+python3 scripts/add-creation.py photography path/to.jpg --title "a title" --alt "what's in the picture"
+```
+
+that strips metadata (and keeps gif animation) and saves under `public/stuff/<section>/`. sections start empty on purpose.
+
 - **windows / boxes**: reuse `src/components/WinBox.astro` for the little window chrome (title bar, body). it uses the existing `.win` styles in `src/styles/global.css`, so new pages can look like the rest of the site without copying markup.

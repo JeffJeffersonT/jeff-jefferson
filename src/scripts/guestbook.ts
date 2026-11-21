@@ -36,6 +36,12 @@ if (root) {
     li.className = "gb-entry";
     const head = document.createElement("div");
     head.className = "gb-head";
+    const icon = document.createElement("img");
+    icon.src = "/gifs/note-icon.png";
+    icon.width = 12;
+    icon.height = 12;
+    icon.alt = "";
+    icon.className = "gb-icon";
     const who = document.createElement("span");
     const name = document.createElement("b");
     name.textContent = String(e.name).slice(0, maxName);
@@ -52,7 +58,7 @@ if (root) {
     }
     const when = document.createElement("span");
     when.textContent = fmt(e.ts);
-    head.append(who, when);
+    head.append(icon, who, when);
     const p = document.createElement("p");
     p.className = "gb-msg";
     p.textContent = String(e.message).slice(0, maxMessage);

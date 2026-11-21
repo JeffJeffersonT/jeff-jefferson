@@ -1,5 +1,6 @@
 ---
 import type { HTMLAttributes } from "astro/types";
+import { getAssetPath } from "@/utils/withBase";
 import config from "@/config";
 
 type Props = HTMLAttributes<"footer">;
@@ -15,6 +16,14 @@ const currentYear = new Date().getFullYear();
     browser &middot;{" "}
     <a href="/map/">site map</a> &middot;{" "}
     <a href="/colophon/">about this site</a> &middot;{" "}
-    <a href="#top">back to top</a>
+    <a href="#top" class="to-top">
+      <img
+        src={getAssetPath("gifs/to-top.png")}
+        alt=""
+        width="16"
+        height="16"
+      />
+      back to top
+    </a>
   </p>
 </footer>

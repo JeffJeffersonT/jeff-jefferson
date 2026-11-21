@@ -1,0 +1,73 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
+import { creationSections, creationByKey } from "@/data/creations";
+import { getAssetPath } from "@/utils/withBase";
+import config from "@/config";
+
+export function getStaticPaths() {
+  return creationSections.map(s => ({ params: { section: s.key } }));
+}
+
+const { section } = Astro.params;
+const sec = creationByKey(section ?? "");
+if (!sec) {
+  return Astro.rewrite("/404");
+}
+
+const pageDesc = sec.blurb;
+---
+
+<Layout title={`${sec.title} | ${config.site.title}`} description={pageDesc}>
+  <Breadcrumb />
+
+  <Main pageTitle={sec.title} class="app-prose" accent="/gifs/tiny-star.gif">
+    <p>{sec.blurb}</p>
+    <p class="small">
+      <a href="/stuff/">&laquo; all of my stuff</a>
+    </p>
+
+    {
+      sec.items.length === 0 ? (
+        <div class="uc-empty">
+          <img
+            class="uc-sign"
+            src={getAssetPath("gifs/under-construction-graphic.gif")}
+            alt="under construction"
+            width="200"
+            height="150"
+          />
+          <p class="muted">nothing here yet. this page is ready when i am.</p>
+        </div>
+      ) : (
+        <ul class="like-grid">
+          {sec.items.map(item => (
+            <li>
+              {item.src ? (
+                <img
+                  src={getAssetPath(item.src)}
+                  alt={item.alt || item.title}
+                  width="160"
+                  height="160"
+                  loading="lazy"
+                />
+              ) : (
+                <span class="like-tile">{item.title}</span>
+              )}
+              {item.href ? (
+                <a class="title" href={item.href}>
+                  {item.title}
+                </a>
+              ) : (
+                <span class="title">{item.title}</span>
+              )}
+              {item.caption ? <span class="note">{item.caption}</span> : null}
+              {item.note ? <span class="note">{item.note}</span> : null}
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </Main>
+</Layout>

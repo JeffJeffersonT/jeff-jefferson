@@ -7,10 +7,10 @@ import timezone from "dayjs/plugin/timezone";
 import Layout from "@/layouts/Layout.astro";
 import Breadcrumb from "@/components/Breadcrumb.astro";
 import Main from "@/components/Main.astro";
-import Card from "@/components/Card.astro";
 import { postFilter } from "@/utils/postFilter";
 import { resolveTimezone } from "@/utils/resolveTimezone";
 import { getPostsByGroupCondition } from "./_utils/getPostsByGroupCondition";
+import { getPostUrl } from "@/utils/getPostPaths";
 import { useTranslations } from "@/i18n";
 import config from "@/config";
 
@@ -19,7 +19,6 @@ dayjs.extend(timezone);
 
 const locale = Astro.currentLocale ?? config.site.lang;
 
-// Redirect to 404 page if `showArchives` config is false
 const notFoundUrl = getRelativeLocaleUrl(locale, "404");
 if (!config.features.showArchives && notFoundUrl) {
   return Astro.rewrite(notFoundUrl);
@@ -31,67 +30,79 @@ const posts = await getCollection("posts");
 const filteredPosts = posts.filter(postFilter);
 const monthFormatter = new Intl.DateTimeFormat(locale, { month: "long" });
 
-// Group by the calendar day the post's byline shows (see Datetime.astro),
-// not by the build machine's local zone.
 const publishDate = (post: CollectionEntry<"posts">) =>
   dayjs(post.data.pubDatetime).tz(
     resolveTimezone(post.data.timezone ?? config.site.timezone)
   );
+
+const years = Object.entries(
+  getPostsByGroupCondition(filteredPosts, post => publishDate(post).year())
+).sort(([yearA], [yearB]) => Number(yearB) - Number(yearA));
 ---
 
 <Layout title={`${t.pages.archivesTitle} | ${config.site.title}`}>
 
   <Breadcrumb />
 
-  <Main pageTitle={t.pages.archivesTitle} pageDesc={t.pages.archivesDesc}>
+  <Main pageTitle={t.pages.archivesTitle} pageDesc="all my posts, sorted by year and month.">
     {
-      Object.entries(
-        getPostsByGroupCondition(filteredPosts, post =>
-          publishDate(post).year()
-        )
+      years.length > 0 ? (
+        <table class="archive-table">
+          <thead>
+            <tr>
+              <th>year</th>
+              <th>month</th>
+              <th>post</th>
+              <th>posted</th>
+            </tr>
+          </thead>
+          <tbody>
+            {years.map(([year, yearGroup]) => {
+              const months = Object.entries(
+                getPostsByGroupCondition(
+                  yearGroup,
+                  post => publishDate(post).month() + 1
+                )
+              ).sort(([a], [b]) => Number(b) - Number(a));
+              return months.flatMap(([month, monthGroup], monthIdx) => {
+                const monthName = monthFormatter
+                  .format(new Date(2000, Number(month) - 1, 1))
+                  .toLowerCase();
+                const sorted = [...monthGroup].sort(
+                  (a, b) =>
+                    new Date(b.data.pubDatetime).getTime() -
+                    new Date(a.data.pubDatetime).getTime()
+                );
+                return sorted.map((post, postIdx) => {
+                  const when = publishDate(post);
+                  return (
+                    <tr>
+                      {monthIdx === 0 && postIdx === 0 && (
+                        <td rowspan={yearGroup.length} class="yr">
+                          {year}
+                        </td>
+                      )}
+                      {postIdx === 0 && (
+                        <td rowspan={sorted.length} class="mo">
+                          {monthName}
+                        </td>
+                      )}
+                      <td>
+                        <a href={getPostUrl(post.id, post.filePath, locale)}>
+                          {post.data.title}
+                        </a>
+                      </td>
+                      <td class="when">{when.format("D MMM YYYY").toLowerCase()}</td>
+                    </tr>
+                  );
+                });
+              });
+            })}
+          </tbody>
+        </table>
+      ) : (
+        <p>nothing here yet. check back soon!</p>
       )
-        .sort(([yearA], [yearB]) => Number(yearB) - Number(yearA))
-        .map(([year, yearGroup]) => (
-          <section>
-            <h2>
-              {year} <span class="count">({yearGroup.length})</span>
-            </h2>
-            {Object.entries(
-              getPostsByGroupCondition(
-                yearGroup,
-                post => publishDate(post).month() + 1
-              )
-            )
-              .sort(([monthA], [monthB]) => Number(monthB) - Number(monthA))
-              .map(([month, monthGroup]) => (
-                <div
-                  class="archive-month"
-                  id={`m-${year}-${String(month).padStart(2, "0")}`}
-                >
-                  <h3>
-                    {monthFormatter.format(new Date(2000, Number(month) - 1, 1)).toLowerCase()}{" "}
-                    <span class="count">({monthGroup.length})</span>
-                  </h3>
-                  <ul class="post-list">
-                    {monthGroup
-                      .sort(
-                        (a, b) =>
-                          Math.floor(
-                            new Date(b.data.pubDatetime).getTime() / 1000
-                          ) -
-                          Math.floor(
-                            new Date(a.data.pubDatetime).getTime() / 1000
-                          )
-                      )
-                      .map(data => (
-                        <Card {...data} />
-                      ))}
-                  </ul>
-                </div>
-              ))}
-          </section>
-        ))
     }
-    {filteredPosts.length === 0 && <p>nothing here yet. check back soon!</p>}
   </Main>
 </Layout>

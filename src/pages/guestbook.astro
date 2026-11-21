@@ -3,6 +3,7 @@ import Layout from "@/layouts/Layout.astro";
 import Breadcrumb from "@/components/Breadcrumb.astro";
 import Main from "@/components/Main.astro";
 import { guestbook } from "@/data/guestbook";
+import SmileyPicker from "@/components/SmileyPicker.astro";
 import config from "@/config";
 
 const live = guestbook.endpoint !== "";
@@ -66,6 +67,7 @@ const pageDesc = "sign my guestbook and say hi!";
               rows="5"
               maxlength={guestbook.maxMessage}
               required></textarea>
+            <SmileyPicker forId="gb-message" />
             <!-- honeypot: real people never see or fill this -->
             <div class="hp" aria-hidden="true">
               <label for="gb-nick">leave this empty</label>

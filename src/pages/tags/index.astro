@@ -6,6 +6,8 @@ import Main from "@/components/Main.astro";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import { slugifyStr } from "@/utils/slugify";
 import { getUniqueTags } from "@/utils/getUniqueTags";
+import { stampFor } from "@/data/tag-stamps";
+import { getAssetPath } from "@/utils/withBase";
 import { useTranslations } from "@/i18n";
 import config from "@/config";
 
@@ -19,19 +21,30 @@ const counts = tags.map(({ tag, tagName }) => ({
   tagName,
   count: posts.filter(p => p.data.tags.some(x => slugifyStr(x) === tag)).length,
 }));
+const min = counts.length ? Math.min(...counts.map(c => c.count)) : 1;
+const max = counts.length ? Math.max(...counts.map(c => c.count)) : 1;
+const sizeFor = (count: number) =>
+  max === min ? 16 : 12 + Math.round((10 * (count - min)) / (max - min));
 ---
 
 <Layout title={`${t.pages.tagsTitle} | ${config.site.title}`}>
 
   <Breadcrumb />
 
-  <Main pageTitle={t.pages.tagsTitle} pageDesc={t.pages.tagsDesc}>
+  <Main pageTitle={t.pages.tagsTitle} pageDesc="a cloud of the tags on my posts. bigger type means more posts.">
     {
       counts.length > 0 ? (
         <ul class="tag-cloud">
           {counts.map(({ tag, tagName, count }) => (
-            <li>
-              <a href={getRelativeLocaleUrl(locale, `tags/${tag}/`)}>#{tagName}</a>{" "}
+            <li style={`font-size: ${sizeFor(count)}px`}>
+              <img
+                class="tag-stamp"
+                src={getAssetPath(stampFor(tag))}
+                alt=""
+                width="16"
+                height="16"
+              />
+              <a href={getRelativeLocaleUrl(locale, `tags/${tag}/`)}>#{tagName}</a>
               <span class="count">({count})</span>
             </li>
           ))}

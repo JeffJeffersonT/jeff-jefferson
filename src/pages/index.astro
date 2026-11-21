@@ -13,8 +13,7 @@ const locale = Astro.currentLocale ?? config.site.lang;
 
 const posts = await getCollection("posts");
 const sortedPosts = getSortedPosts(posts);
-const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
-const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
+const recentPosts = sortedPosts;
 const homePath = getRelativeLocaleUrl(locale, "");
 ---
 
@@ -38,19 +37,6 @@ const homePath = getRelativeLocaleUrl(locale, "");
       <a href={getAssetPath("rss.xml")} title="RSS Feed">follow along with rss</a>.
     </p>
 
-    {
-      featuredPosts.length > 0 && (
-        <>
-          <h2>featured</h2>
-          <ul class="post-list">
-            {featuredPosts.map(data => (
-              <Card variant="h3" {...data} />
-            ))}
-          </ul>
-        </>
-      )
-    }
-
     <h2 id="recent-posts">latest posts</h2>
     {
       recentPosts.length > 0 ? (
@@ -60,9 +46,7 @@ const homePath = getRelativeLocaleUrl(locale, "");
           ))}
         </ul>
       ) : (
-        featuredPosts.length === 0 && (
-          <p>no posts yet, but i'm working on it. check back soon!</p>
-        )
+        <p>no posts yet, but i'm working on it. check back soon!</p>
       )
     }
     <p>

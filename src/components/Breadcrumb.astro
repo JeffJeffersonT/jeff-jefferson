@@ -38,6 +38,13 @@ const navLabels: Record<string, string> = {
   archives: t.nav.archives,
   search: t.nav.search,
   likes: "stuff i like",
+  stuff: "my stuff",
+  photography: "photography",
+  videography: "videography",
+  "graphic-design": "graphic design",
+  art: "art",
+  "voice-work": "voice work",
+  "game-dev": "game dev",
   shrines: "shrines",
   scrapbook: "scrapbook",
   map: "site map",
@@ -69,7 +76,8 @@ if (breadcrumbList[0] === "tags" && !isNaN(Number(breadcrumbList[2]))) {
 }
 ---
 
-<nav class="crumbs" aria-label="breadcrumb">
+<nav class="crumbs" aria-label="you are here">
+  <span class="here">you are here</span>{" "}
   <a href={getRelativeLocaleUrl(locale, "")}>home</a>
   {
     breadcrumbList.map((breadcrumb, index) => (
