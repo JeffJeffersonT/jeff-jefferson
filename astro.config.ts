@@ -19,7 +19,7 @@ import {
   inlineTocDeprecation,
   rehypeInlineToc,
 } from "./src/utils/rehypeInlineToc";
-import config from "./astro-paper.config";
+import config from "./site.config";
 import { SITE_URL, SITE_BASE } from "./site.constants";
 
 export default defineConfig({

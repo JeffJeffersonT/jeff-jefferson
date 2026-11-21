@@ -6,7 +6,7 @@ built with [Astro](https://astro.build). static site, hosted on GitHub Pages.
 
 ## useful files
 
-- site title and description: `astro-paper.config.ts` (url and repo name are in `site.constants.ts`)
+- site title and description: `site.config.ts` (url and repo name are in `site.constants.ts`)
 - posts: `src/content/blog/<slug>.md`, images next to the post
 - about page: `src/content/pages/about.md`
 - favourites on the about page: `src/data/favourites.ts`, covers in `public/favourites/`

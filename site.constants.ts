@@ -1,6 +1,6 @@
 /**
  * Single place to change the GitHub Pages URL and base path.
- * astro.config.ts and astro-paper.config.ts both read from here.
+ * astro.config.ts and site.config.ts both read from here.
  */
 export const GITHUB_USERNAME = "JeffJeffersonT";
 export const REPO_NAME = "jeff-jefferson";

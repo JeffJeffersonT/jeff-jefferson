@@ -126,7 +126,7 @@ const usesTocHeading = source => {
  * doesn't depend on which posts get rendered.
  */
 export const inlineTocDeprecation = () => ({
-  name: "astro-paper:inline-toc",
+  name: "jeff-jefferson:inline-toc",
   hooks: {
     "astro:config:setup": ({ config, command, isRestart, logger }) => {
       if (isRestart || (command !== "dev" && command !== "build")) return;
