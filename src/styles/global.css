@@ -1608,3 +1608,59 @@ img.btn-88 {
     margin-bottom: 12px;
   }
 }
+
+/* ---------- top nav bar (21 nov) ---------- */
+#wrap {
+  grid-template-areas:
+    "head head"
+    "nav  nav"
+    "side main"
+    "foot foot";
+}
+.nav-col {
+  padding: 0;
+}
+.nav-col > .strip {
+  display: none;
+}
+.nav-col ul.links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style: none;
+  margin: 0;
+  padding: 6px 8px;
+  gap: 2px 0;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.nav-col ul.links li {
+  margin: 0;
+}
+.nav-col ul.links li + li::before {
+  content: "|";
+  color: var(--muted);
+  padding: 0 8px;
+}
+@media (max-width: 720px) {
+  #wrap {
+    grid-template-areas:
+      "head"
+      "nav"
+      "main"
+      "side"
+      "foot";
+  }
+  .nav-col ul.links {
+    font-size: 14px;
+  }
+  .nav-col ul.links li::before {
+    content: none;
+  }
+  .nav-col ul.links {
+    gap: 4px 16px;
+  }
+  .nav-col ul.links li + li::before {
+    content: none;
+  }
+}
