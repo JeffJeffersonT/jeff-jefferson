@@ -6,8 +6,6 @@ import Main from "@/components/Main.astro";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import { slugifyStr } from "@/utils/slugify";
 import { getUniqueTags } from "@/utils/getUniqueTags";
-import { stampFor } from "@/data/tag-stamps";
-import { getAssetPath } from "@/utils/withBase";
 import { useTranslations } from "@/i18n";
 import config from "@/config";
 
@@ -37,13 +35,6 @@ const sizeFor = (count: number) =>
         <ul class="tag-cloud">
           {counts.map(({ tag, tagName, count }) => (
             <li style={`font-size: ${sizeFor(count)}px`}>
-              <img
-                class="tag-stamp"
-                src={getAssetPath(stampFor(tag))}
-                alt=""
-                width="16"
-                height="16"
-              />
               <a href={getRelativeLocaleUrl(locale, `tags/${tag}/`)}>#{tagName}</a>
               <span class="count">({count})</span>
             </li>

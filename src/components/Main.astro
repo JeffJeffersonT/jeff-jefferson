@@ -1,16 +1,14 @@
 ---
 import { getRelativeLocaleUrl } from "astro:i18n";
-import { getAssetPath } from "@/utils/withBase";
 import config from "@/config";
 
 type Props = {
   pageTitle: string | [string, string];
   pageDesc?: string;
   class?: string;
-  accent?: string;
 };
 
-const { pageTitle, pageDesc, class: className, accent } = Astro.props;
+const { pageTitle, pageDesc, class: className } = Astro.props;
 
 const locale = Astro.currentLocale ?? config.site.lang;
 const backUrl = config.features.showBackButton
@@ -19,20 +17,7 @@ const backUrl = config.features.showBackButton
 ---
 
 <main data-backUrl={backUrl} id="main-content" class:list={[className]}>
-  <h1>
-    {pageTitle}
-    {
-      accent && (
-        <img
-          class="heading-gif"
-          src={getAssetPath(accent)}
-          alt=""
-          width="13"
-          height="13"
-        />
-      )
-    }
-  </h1>
+  <h1>{pageTitle}</h1>
   {pageDesc && <p class="page-desc">{pageDesc}</p>}
   <slot />
 </main>

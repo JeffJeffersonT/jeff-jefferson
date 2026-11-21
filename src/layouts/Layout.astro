@@ -33,7 +33,7 @@ const section =
     ? "home"
     : ["posts", "tags", "archives"].includes(first)
       ? "writing"
-      : ["likes", "shrines", "scrapbook", "goodies", "links", "collect", "snippets"].includes(first)
+      : ["likes", "stuff", "shrines", "scrapbook", "goodies", "links", "collect", "snippets"].includes(first)
         ? "fun"
         : "meta";
 ---
@@ -131,8 +131,6 @@ const section =
     <script>
       import "@/scripts/theme";
       import "@/scripts/extras";
-      import "@/scripts/sparkle";
-      import "@/scripts/shouts";
       import "@/scripts/smileys";
     </script>
   </body>

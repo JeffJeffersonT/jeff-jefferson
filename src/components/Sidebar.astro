@@ -2,14 +2,11 @@
 import { getRelativeLocaleUrl } from "astro:i18n";
 import { updates } from "@/data/updates";
 import { counter } from "@/data/services";
-import { guestbook } from "@/data/guestbook";
-import { getAssetPath } from "@/utils/withBase";
 import config from "@/config";
 
 const locale = Astro.currentLocale ?? config.site.lang;
 const placeholder = "-".repeat(counter.digits);
 const { features } = config;
-const endpoint = guestbook.endpoint;
 ---
 
 <aside class="side-col" aria-label="sidebar" data-pagefind-ignore>
@@ -41,58 +38,14 @@ const endpoint = guestbook.endpoint;
 
   <div class="box">
     <h2 class="strip">say hi</h2>
-    <p class="say-hi">
-      <a href={getRelativeLocaleUrl(locale, "guestbook")}>
-        <img
-          src={getAssetPath("/buttons/sign-guestbook.gif")}
-          alt="sign my guestbook"
-          width="88"
-          height="31"
-        />
-      </a>
-      <a href="mailto:jeffjefferson@duck.com">
-        <img
-          src={getAssetPath("/buttons/email-me.gif")}
-          alt="email me"
-          width="88"
-          height="31"
-        />
-      </a>
-    </p>
-  </div>
-
-  <div class="box pet-box">
-    <h2 class="strip">a little friend</h2>
-    <p class="center">
-      <img
-        src={getAssetPath("/pets/pixel-friend.gif")}
-        alt="a little purple pixel creature"
-        width="48"
-        height="48"
-      />
-    </p>
-  </div>
-
-  <div class="box shout-box" id="shoutbox" data-endpoint={endpoint} data-max-name="40" data-max-message="160">
-    <h2 class="strip">shoutbox</h2>
-    <ol id="shout-list" class="shout-list"></ol>
-    <p id="shout-empty" class="muted small">no shouts yet. say hi!</p>
-    <form id="shout-form" class="shout-form">
-      <label>
-        name
-        <input type="text" name="name" maxlength="40" required autocomplete="nickname" />
-      </label>
-      <label>
-        shout
-        <input type="text" name="message" maxlength="160" required />
-      </label>
-      <label class="hp" aria-hidden="true">
-        nickname
-        <input type="text" name="nickname" tabindex="-1" autocomplete="off" />
-      </label>
-      <button type="submit" class="win-btn">shout</button>
-      <p id="shout-status" class="shout-status" role="status"></p>
-    </form>
+    <ul class="links">
+      <li>
+        <a href={getRelativeLocaleUrl(locale, "guestbook")}>sign the guestbook</a>
+      </li>
+      <li>
+        <a href="mailto:jeffjefferson@duck.com">email me</a>
+      </li>
+    </ul>
   </div>
 
   <div class="box">
@@ -131,21 +84,5 @@ const endpoint = guestbook.endpoint;
       </div>
     )
   }
-
-  <div class="box sparkle-box">
-    <h2 class="strip">sparkles</h2>
-    <div class="btn-wrap">
-      <button
-        id="sparkle-btn"
-        class="win-btn"
-        type="button"
-        aria-pressed="true"
-        title="turn the cursor sparkles on or off"
-      >
-        <span class="spark-off">turn sparkles off</span>
-        <span class="spark-on" hidden>turn sparkles on</span>
-      </button>
-    </div>
-  </div>
 
 </aside>

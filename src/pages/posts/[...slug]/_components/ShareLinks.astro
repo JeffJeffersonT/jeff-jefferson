@@ -1,18 +1,9 @@
 ---
-import { getAssetPath } from "@/utils/withBase";
-
 const pageUrl = Astro.url.href;
 const mailto = `mailto:?body=${encodeURIComponent(pageUrl)}`;
 ---
 
-<p class="share share-row" data-pagefind-ignore>
-  <img
-    class="share-stamp"
-    src={getAssetPath("gifs/share-this.png")}
-    alt=""
-    width="72"
-    height="22"
-  />
+<p class="share" data-pagefind-ignore>
   <a href={mailto}>email this post to a friend</a>
   {" "}&middot;{" "}
   <a href={pageUrl}>permalink</a>

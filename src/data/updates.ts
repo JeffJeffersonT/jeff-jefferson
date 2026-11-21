@@ -6,6 +6,7 @@
 export type Update = { date: string; text: string };
 
 export const updates: Update[] = [
+  { date: "21 nov 2026", text: "tidied the site and took out some extra bits" },
   { date: "21 nov 2026", text: "started a my stuff page, and dressed up the guestbook, archives, tags and posts" },
   { date: "21 nov 2026", text: "added a bunch of old-web bits, a colophon, and a shoutbox" },
   { date: "21 nov 2026", text: "put the pictures back on stuff i like" },

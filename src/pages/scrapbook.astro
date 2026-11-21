@@ -12,21 +12,12 @@ const pageDesc = "photos i've taken.";
 <Layout title={`scrapbook | ${config.site.title}`} description={pageDesc}>
   <Breadcrumb />
 
-  <Main pageTitle="scrapbook" class="app-prose" accent="/gifs/tiny-star.gif">
+  <Main pageTitle="scrapbook" class="app-prose">
     <p>photos i've taken, when i have some to put up.</p>
 
     {
       photos.length === 0 ? (
-        <div class="uc-empty">
-          <img
-            class="uc-sign"
-            src={getAssetPath("gifs/under-construction.gif")}
-            alt="under construction"
-            width="200"
-            height="180"
-          />
-          <p class="muted">no photos here yet. check back later.</p>
-        </div>
+        <p class="muted">no photos here yet. check back later.</p>
       ) : (
         <ul class="photo-grid">
           {photos.map(p => (
