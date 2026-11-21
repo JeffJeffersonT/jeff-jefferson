@@ -3,7 +3,6 @@ import { getEntry, render } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Breadcrumb from "@/components/Breadcrumb.astro";
 import Main from "@/components/Main.astro";
-import Favourites from "@/components/Favourites.astro";
 import { minibuttons } from "@/data/minibuttons";
 import { getAssetPath } from "@/utils/withBase";
 import config from "@/config";
@@ -54,6 +53,5 @@ const { Content } = await render(about);
         </div>
       )
     }
-    <Favourites />
   </Main>
 </Layout>

@@ -1,6 +1,6 @@
 /**
  * Every public page on the site, in one place.
- * The nav, the site map, and any future "what's here" list should
+ * The nav and any future "what's here" list should
  * read from this file so new pages only have to be added once.
  *
  * `path` is the url without a leading slash ("" is home).
@@ -25,11 +25,9 @@ export const sitePages: SitePage[] = [
   { path: "goodies", label: "goodies", group: "fun", blurb: "buttons, blinkies, stamps and gifs", inNav: true },
   { path: "links", label: "cool sites", group: "fun", blurb: "other places on the web i like", inNav: true },
   { path: "guestbook", label: "guestbook", group: "meta", blurb: "leave a note", inNav: true },
-  { path: "about", label: "about me", group: "meta", blurb: "a little about jeff", inNav: true },
+  { path: "about", label: "about me", group: "meta", blurb: "a little about me", inNav: true },
   { path: "search", label: "search", group: "meta", blurb: "look through the posts", inNav: true },
   { path: "random", label: "random post", group: "meta", blurb: "surprise me", inNav: true },
-  { path: "map", label: "site map", group: "meta", blurb: "a list of every page", inNav: true },
-  { path: "colophon", label: "about this site", group: "meta", blurb: "how this site is put together", inNav: false },
   { path: "updates", label: "updates", group: "meta", blurb: "what's changed on the site", inNav: false },
 ];
 

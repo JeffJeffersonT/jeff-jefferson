@@ -1,6 +1,6 @@
 ---
 title: "about"
-description: "about jeff and some of the things he likes."
+description: "a little about me and the things i like."
 ---
 
 hi, i'm jeff.
