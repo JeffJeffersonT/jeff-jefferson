@@ -6,12 +6,7 @@
 export type Update = { date: string; text: string };
 
 export const updates: Update[] = [
-  { date: "21 nov 2026", text: "tidied the site and took out some extra bits" },
-  { date: "21 nov 2026", text: "started a my stuff page, and dressed up the guestbook, archives, tags and posts" },
-  { date: "21 nov 2026", text: "added a bunch of old-web bits, a colophon, and a shoutbox" },
-  { date: "21 nov 2026", text: "put the pictures back on stuff i like" },
-  { date: "21 nov 2026", text: "started a site map, shrines, a scrapbook and a stuff i like page" },
-  { date: "21 nov 2026", text: "tidied the site up a little and added a couple of extras" },
+  { date: "21 nov 2026", text: "added a my stuff page, a stuff i like page, a site map and smileys in the guestbook, and tidied things up" },
   { date: "20 nov 2026", text: "you can leave comments on posts now, and email me at jeffjefferson@duck.com" },
   { date: "20 nov 2026", text: "moved the buttons, blinkies and stamps onto the goodies page" },
   { date: "20 nov 2026", text: "added a bunch of blinkies, stamps and buttons" },
